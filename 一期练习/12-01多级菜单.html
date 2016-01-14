@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            color: #333
+        }
+
+        .box {
+            width: 300px;
+            padding: 10px;
+            background: -webkit-linear-gradient(top left, #08BECE, #c5dbf2, #CDE074)
+        }
+
+        ul, li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            position: relative;
+            line-height: 30px;
+        }
+
+        .box li em {
+            display: block;
+            position: absolute;
+            top: 7px;
+            width: 16px;
+            height: 16px;
+            background: url(img/icon.png) no-repeat -59px -28px;
+            cursor: pointer
+        }
+        .box li em.open{
+            background-position: -42px -28px;
+        }
+        .box li span {
+            padding-left: 20px;
+        }
+
+        .box li ul {
+            display: none;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <ul>
+        <li>
+            <em></em><span>一级菜单第一个</span>
+            <ul>
+                <li>
+                    <em></em><span>二级菜单第一个</span>
+                    <ul>
+                        <li>
+                            <span>三级菜单第一个</span>
+                        </li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li>
+                                    <span>四级菜单第一个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第二个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第三个</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <em></em><span>三级菜单第三个</span>
+                            <ul>
+                                <li>
+                                    <span>四级菜单第一个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第二个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第三个</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span>二级菜单第二个</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <em></em><span>一级菜单第二个</span>
+            <ul>
+                <li>
+                    <em></em><span>二级菜单第一个</span>
+                    <ul>
+                        <li>
+                            <span>三级菜单第一个</span>
+                        </li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li>
+                                    <span>四级菜单第一个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第二个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第三个</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <em></em><span>三级菜单第三个</span>
+                            <ul>
+                                <li>
+                                    <span>四级菜单第一个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第二个</span>
+                                </li>
+                                <li>
+                                    <span>四级菜单第三个</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="js/utils-1.0.min.js"></script>
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+    var spanList = oBox.getElementsByTagName("span");
+
+    for (var i = 0; i < spanList.length; i++) {
+        var curSpan = spanList[i];
+        var nex = utils.next(curSpan);
+        if (nex && nex.tagName.toLowerCase() == "ul") {
+            curSpan.style.cursor = "pointer";
+        }
+    }
+    var showHide = function (curEle) {
+         var nex=utils.next(curEle);
+         var pre=utils.prev(curEle);
+        if(pre && pre.tagName.toLowerCase()==="em"){
+            var isBlock=utils.css(nex,"display");
+            if(isBlock==="block"){
+                nex.style.display="none";
+                utils.removeClass(pre,"open");
+
+                //不仅自己要收起，自己的子孙ul也要收起
+                var allUl=nex.getElementsByTagName("ul");
+                var allEm=nex.getElementsByTagName("em");
+                for(var i=0;i<allUl.length;i++){
+                    allUl[i].style.display="none";
+                    utils.removeClass(allEm[i],"open");
+                }
+            }else{
+                nex.style.display="block";
+                utils.addClass(pre,"open");
+            }
+        }
+
+    }
+
+    document.body.onclick = function (e) {
+        e = e || window.event;
+        e.target = e.target || e.srcElement;
+        //不管点击的是span还是em，传给showHide这个方法的都是span
+        if (e.target.tagName.toLowerCase() == "span") {
+            showHide(e.target);
+        } else if (e.target.tagName.toLowerCase() == "em") {
+            var nex = utils.next(e.target);
+            showHide(nex);
+        }
+    }
+</script>
+</body>
+</html>

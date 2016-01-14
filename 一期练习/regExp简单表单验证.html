@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="text" name="name" id="name" value="请输入姓名"/>
+<input type="text" name="age" id="age" value="请输入年龄"/>
+<script type="text/javascript">
+    var oName=document.getElementById("name");
+    oName.onfocus=function(){
+        if(this.value===this.defaultValue){
+            this.value="";
+        }
+    };
+    oName.onblur=function(){
+        var regName=/^[\u4e00-\u9fa5a-z]+$/i;
+        var
+        if(this.value===)
+    }
+</script>
+<!--<script type="text/javascript">-->
+    <!--document.getElementById("name").onfocus=function(){-->
+        <!--if(this.value===this.defaultValue){-->
+            <!--this.nextSibling.tagName==="SPAN"?this.parentNode.removeChild(this.nextSibling):null;-->
+            <!--this.value="";-->
+        <!--}-->
+    <!--};-->
+    <!--document.getElementById("name").onblur=function(){-->
+        <!--var reg=/^\s*$/;-->
+        <!--if(reg.test(this.value)){-->
+            <!--this.nextSibling.tagName==="SPAN"?this.parentNode.removeChild(this.nextSibling):null;-->
+            <!--this.value=this.defaultValue;-->
+        <!--}else{-->
+            <!--this.value=this.value.replace(/\s+/g,"");-->
+            <!--var regName=/^[\u4e00-\u9fa5a-z]+$/i;-->
+            <!--if(this.nextSibling.tagName!=="SPAN"){-->
+                <!--var oSpan=document.createElement("span");-->
+                <!--this.parentNode.insertBefore(oSpan,this.nextSibling);-->
+            <!--}else{-->
+                <!--var oSpan=this.nextSibling;-->
+            <!--}-->
+            <!--if(regName.test(this.value)){-->
+                <!--oSpan.innerHTML="√输入正确";-->
+                <!--oSpan.style.color="#f0f";-->
+            <!--}else{-->
+                <!--oSpan.innerHTML="×输入错误";-->
+                <!--oSpan.style.color="#f00";-->
+            <!--}-->
+        <!--}-->
+    <!--};-->
+<!--</script>-->
+</body>
+</html>

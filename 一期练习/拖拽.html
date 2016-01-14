@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百度拖拽</title>
+    <style type="text/css">
+        body, html, div, h2 {
+            padding: 0;
+            margin: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -150px 0 0 -150px;
+            width: 300px;
+            height: 300px;
+            background: #E0F2BE;
+        }
+
+        .box h2 {
+            padding: 0px 10px;
+            height: 30px;
+            line-height: 30px;
+            background: #08BECE;
+            color: #fff;
+            cursor: move;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="box" id="box">
+    <h2>珠峰培训拖拽案例</h2>
+</div>
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var boxTop = box.getElementsByTagName("h2")[0];
+
+    var winW = document.documentElement.clientWidth || document.body.clientWidth;
+    var winH = document.documentElement.clientHeight || document.body.clientHeight;
+console.log(winW+" "+winH);
+    var minL = 0, maxL = winW - box.offsetWidth, minT = 0, maxT = winH - box.offsetHeight;
+
+    utils.setGroupCss(box, {
+        left: (winW - box.offsetWidth) / 2,
+        top: (winH - box.offsetHeight) / 2,
+        margin: 0
+    });
+
+    var down = function (e) {
+        e = e || window.event;
+
+        this.startX = e.clientX;
+        this.startY = e.clientY;
+        this.startL = utils.getCss(box, "left");
+        this.startT = utils.getCss(box, "top");
+
+        var _this = this;
+        if (this.setCapture) {
+            this.setCapture();
+            this.onmousemove = move;
+            this.onmouseup = up;
+        } else {
+            document.onmousemove = function (e) {
+                move.call(_this, e);
+            };
+            document.onmouseup = function (e) {
+                up.call(_this, e);
+            }
+        }
+    };
+
+    var move = function (e) {
+        e = e || window.event;
+        var l = this.startL + (e.clientX-this.startX);
+        var t = this.startT + (e.clientY-this.startY);
+
+        if (l <= minL) {
+            l = minL;
+        } else if (l >= maxL) {
+            l = maxL;
+        }
+
+        if (t <= minT) {
+            t = minT;
+        } else if (t >= maxT) {
+            t = maxT;
+        }
+
+        utils.setGroupCss(box, {
+            left: l,
+            top: t
+        })
+
+    };
+
+    var up = function () {
+        if (this.releaseCapture) {
+            this.releaseCapture();
+            this.onmousemove = null;
+            this.onmouseup = null;
+        } else {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    };
+
+    boxTop.onmousedown = down;
+</script>
+<!--<script type="text/javascript">-->
+<!--var box = document.getElementById("box");-->
+<!--var boxTop = box.getElementsByTagName("h2")[0];-->
+
+
+<!--var winW = document.documentElement.clientWidth || document.body.clientWidth, winH = document.documentElement.clientHeight || document.body.clientHeight;-->
+<!--var boxL = (winW - box.offsetWidth) / 2, boxT = (winH - box.offsetHeight) / 2;-->
+
+<!--var minL = 0, minT = 0, maxL = winW - box.offsetWidth, maxT = winH - box.offsetHeight;-->
+
+<!--utils.setGroupCss(box, {-->
+<!--left: boxL,-->
+<!--top: boxT,-->
+<!--margin: 0-->
+<!--});-->
+
+<!--var down = function (e) {-->
+<!--e = e || window.event;-->
+<!--this.startX = e.clientX;-->
+<!--this.startY = e.clientY;-->
+<!--this.starT = utils.getCss(box, "top");-->
+<!--this.starL = utils.getCss(box, "left");-->
+
+<!--var _this = this;-->
+<!--if (this.setCapture) {-->
+<!--this.setCapture();-->
+<!--this.onmousemove = move;-->
+<!--this.onmouseup = up;-->
+<!--} else {-->
+<!--document.onmousemove = function (e) {-->
+<!--move.call(_this, e);-->
+<!--}-->
+<!--document.onmouseup = function (e) {-->
+<!--up.call(_this, e);-->
+<!--}-->
+<!--}-->
+
+
+<!--};-->
+<!--var move = function (e) {-->
+<!--e = e || window.event;-->
+
+<!--var l = this.starL + (e.clientX - this.startX);-->
+<!--var t = this.starT + (e.clientY - this.startY);-->
+
+<!--if(l<=minL){-->
+<!--l=minL;-->
+<!--}else if(l>=maxL){-->
+<!--l=maxL;-->
+<!--}-->
+
+<!--if(t<=minT){-->
+<!--t=minT;;-->
+<!--}else if(t>=maxT){-->
+<!--t=maxT;-->
+<!--}-->
+
+<!--utils.setGroupCss(box, {-->
+<!--top: t,-->
+<!--left: l-->
+<!--})-->
+<!--};-->
+<!--var up = function (e) {-->
+<!--if (this.releaseCapture) {-->
+<!--this.releaseCapture();-->
+<!--this.onmousemove = null;-->
+<!--this.onmouseup = null;-->
+<!--} else {-->
+<!--document.onmousemove = null;-->
+<!--document.onmouseup = null;-->
+<!--}-->
+
+<!--};-->
+<!--boxTop.onmousedown = down;-->
+
+<!--</script>-->
+</body>
+</html>

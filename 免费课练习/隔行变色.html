@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>隔行变色</title>
+    <style type="text/css">
+        html,body{margin:0px;padding:0;font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;font-size:14px;color:#333;}
+        ul,li{list-style: none;}
+        #ul1{width:400px;border:1px solid #c5dbf2;padding:10px;margin:20px auto;}
+        #ul1 li{line-height:28px;cursor:pointer;}
+        .bg0{background: #c5dbf2}
+        .bg1{background: #f2dede}
+        .bg3{background:#fcc7a5}
+        .bgOn{background: #007ba4;color:#fff}
+    </style>
+</head>
+<body>
+<ul id="ul1">
+    <li>习近平出席田径世锦赛开幕式 会见奥委会主席</li>
+    <li>天安门广场今日举行“全要素”阅兵预演(组图)</li>
+    <li>婚外恋网站被黑引恐慌 我们在网上“裸奔”？</li>
+    <li>缺水之城郑州洒水降尘治霾 日耗水量达3.5万吨</li>
+    <li>人民币主动贬值影响大，中国经济数据进一步恶化</li>
+    <li>天津官员：已有开发企业拟回购受损严重房屋</li>
+    <li>习近平出席田径世锦赛开幕式 会见奥委会主席</li>
+    <li>天安门广场今日举行“全要素”阅兵预演(组图)</li>
+    <li>婚外恋网站被黑引恐慌 我们在网上“裸奔”？</li>
+    <li>缺水之城郑州洒水降尘治霾 日耗水量达3.5万吨</li>
+    <li>人民币主动贬值影响大，中国经济数据进一步恶化</li>
+    <li>天津官员：已有开发企业拟回购受损严重房屋</li>
+    <li>习近平出席田径世锦赛开幕式 会见奥委会主席</li>
+    <li>天安门广场今日举行“全要素”阅兵预演(组图)</li>
+    <li>婚外恋网站被黑引恐慌 我们在网上“裸奔”？</li>
+    <li>缺水之城郑州洒水降尘治霾 日耗水量达3.5万吨</li>
+    <li>人民币主动贬值影响大，中国经济数据进一步恶化</li>
+    <li>天津官员：已有开发企业拟回购受损严重房屋</li>
+</ul>
+<script type="text/javascript">
+    var oUl=document.getElementById("ul1");
+    var liList=oUl.getElementsByTagName("li");
+    for(var i=0;i<liList.length;i++){
+        var curLi=liList[i];
+        var line=i%3;
+        switch (line){
+            case 0:
+                curLi.className=curLi.bg="bg0";
+                break;
+            case 1:
+                curLi.className=curLi.bg="bg1";
+                break;
+            case 2:
+                curLi.className=curLi.bg="bg3";
+                break;
+        }
+//        i%2===0?curLi.className=curLi.bg="bg0":curLi.className=curLi.bg="bg1";
+        curLi.onmouseover=function(){
+            this.className="bgOn";
+        };
+        curLi.onmouseout=function(){
+            this.className=this.bg;
+        }
+    }
+</script>
+</body>
+</html>

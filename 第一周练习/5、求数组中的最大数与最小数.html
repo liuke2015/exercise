@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary = [25, 58, 68, 47, 5, 2, 48];
+    //方法1、数组先排序，第一个是最小数，第二个是最大数
+    var newAry = ary.slice(0);
+    newAry.sort(function (a, b) {
+        return a - b;
+    });
+    var minNum1 = newAry[0];
+    var maxNum1 = newAry[newAry.length - 1];
+    console.log(minNum1 + " " + maxNum1);
+    //方法2、假设法
+    var minNum2 = maxNum2 = ary[0];
+    for (var i = 0; i < ary.length; i++) {
+        ary[i] < minNum2 ? minNum2 = ary[i] : null;
+        ary[i] > maxNum2 ? maxNum2 = ary[i] : null;
+    }
+    console.log(minNum2 + " " + maxNum2);
+    //方法3、利用apply传参的方法
+    var minNum3=Math.min.apply(null,ary);
+    var maxNum3=Math.max.apply(null,ary);
+    console.log(minNum3 + " " + maxNum3);
+</script>
+</body>
+</html>

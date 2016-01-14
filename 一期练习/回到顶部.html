@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 1000%;
+            background: #ffeedd;
+            background: -webkit-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: -moz-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: -ms-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: -o-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+        }
+
+        #div1 {
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            width: 80%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #008000;
+            color: #fff;
+        }
+
+        #goTo {
+            display: none;
+            position: fixed;
+            right: 5px;
+            bottom: 15px;
+            width: 52px;
+            height: 52px;
+            background: #fff;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px 0 #ccc;
+        }
+
+        #goTo em {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -17px 0 0 -17px;
+            width: 34px;
+            height: 34px;
+            background: url("images/bg.png") no-repeat;
+            background-position: 0 -34px;
+            background:#008000;
+        }
+        #line{position:absolute;height:5px;width:100%;background:#08BECE}
+    </style>
+</head>
+<body>
+<div id="goTo"><em></em></div>
+<div id="line"></div>
+<script type="text/javascript">
+    var goTo = document.getElementById("goTo");
+    var oLine=document.getElementById("line");
+    var curH = document.documentElement.clientHeight || document.body.clientHeight;
+    oLine.style.top=curH+"px";
+    console.log("curH="+curH);
+    window.onscroll = function () {
+        var curT = document.documentElement.scrollTop || document.body.scrollTop;
+        goTo.style.display = curT >= curH ? "block" : "none";
+        console.log("curT="+curT);
+    };
+    goTo.onclick = function () {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }
+</script>
+</body>
+</html>

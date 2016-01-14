@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡排序</title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary = [58, 9, 46, 2, 7, 6, 87, 68, 56];
+    function sortAry(ary, type) {
+        //i循环次数
+        for (var i = 0; i < ary.length - 1; i++) {
+            for (var j = 0; j < ary.length - 1 - i; j++) {
+                var cur = ary[j], next = ary[j + 1];
+                if (cur > next) {
+                    var temp = ary[j];
+                    ary[j] = next;
+                    ary[j + 1] = temp;
+                }
+            }
+        }
+        if (type == 1) {
+            ary.reverse();
+        }
+    }
+    sortAry(ary);
+    console.log(ary);
+    sortAry(ary,1);
+    console.log(ary);
+</script>
+</body>
+</html>

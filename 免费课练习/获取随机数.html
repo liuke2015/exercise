@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function getRandom(n,m){
+        var n=Number(n);
+        var m=Number(m);
+        if(isNaN(n) || isNaN(m)){
+            return Math.random();
+        }
+        if(n>m){
+            var temp=n;
+            n=m;
+            m=temp;
+        }
+        return Math.round(Math.random()*(m-n)+n);
+    }
+    //获取4位0-61之间的随机整数
+    var ary=[],num=null;
+    for(var i=0;i<4;i++){
+        num=getRandom(0,61);
+        ary.push(num);
+    }
+    num=null;
+    console.log(ary);
+
+    //获取4位不重复的如何处理？
+    var ary2=[],obj={};
+    for(var i=0;i<4;i++){
+        num=getRandom(0,5);
+        if(obj[num]===num){
+            i--;
+            continue;
+        }
+        obj[num]=num;
+        ary2.push(num);
+    }
+    obj=null;
+    console.log(ary2);
+</script>
+</body>
+</html>

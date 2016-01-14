@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重</title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary=[1,5,7,4,5,1,2,7,89,45,56,67,89,67,67];
+    /*//方法一
+    for(var i=0;i<ary.length-1;i++){
+        var cur=ary[i];
+        for(var j=i+1;j<ary.length;j++){
+            if(cur===ary[j]){
+                ary.splice(j,1);
+                j--;
+            }
+        }
+    }*/
+    //方法二
+    console.log(ary);
+    var obj={};
+    for(var i=0;i<ary.length;i++){
+        var cur=ary[i];
+        if(obj[cur]==cur){
+            ary.splice(i,1);
+            i--;
+            continue;
+        }
+        obj[cur]=cur;
+    }
+    obj=null;
+    console.log(ary);
+    console.log(obj);
+</script>
+</body>
+</html>

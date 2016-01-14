@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>slice的重写</title>
+</head>
+<body>
+<script type="text/javascript">
+    //参数的初始化n,m
+    //只传一个参数：n=arguments[0],m=ary.length
+    //一个参数都不传：n=0,m=ary.length
+    //传递两个参数：n=arguments[0],m=arguments[1]
+
+    //n或者m是非有效数字
+    //n是非有效数字：n=0
+    //m是非有效数字：m=0
+
+    //n或者m是小数
+    //向下取整
+
+    //n或者m是负数
+    //n=ary.length+n
+    //m=ary.length+m
+
+    //n或者m大于ary.length
+    //正数：
+    //n=ary.length
+    //m=ary.length
+
+    //负数：
+    //n=0
+    //m=0
+
+    var ary = [0, 12, 26, 35, 46, 5, 67, 77];
+    Array.prototype.mySlice = function mySlice() {
+        //this->要操作的那个数组
+        /*  var n = 0, m = this.length, newAry = [], arg = arguments;
+         arg.length >= 1 ? n = arg[0] : null;
+         arg.length >= 2 ? m = arg[1] : null;
+
+         n = Math.floor(n);
+         m = Math.floor(m);
+
+         isNaN(n) ? n = 0 : null;
+         isNaN(m) ? m = 0 : null;
+
+         Math.abs(n) > this.length ? (n > 0 ? n = this.length : n = 0) : null;
+         Math.abs(m) > this.length ? (m > 0 ? m = this.length : m = 0) : null;
+
+         n < 0 ? n = this.length + n : null;
+         m < 0 ? m = this.length + m : null;
+
+         for (var i = n; i < m; i++) {
+         newAry[newAry.length] = ary[i];
+         }
+         return newAry;*/
+        /*  var n= 0,m=this.length,newAry=[],arg=arguments;
+         arg.length>=1?n=arg[0]:null;
+         arg.length>=2?m=arg[1]:null;
+
+         n=Math.floor(n);
+         m=Math.floor(m);
+
+         isNaN(n)?n=0:null;
+         isNaN(m)?m=0:null;
+
+         Math.abs(n)>this.length?(n>0?n=this.length:n=0):null;
+         Math.abs(m)>this.length?(m>0?m=this.length:m=0):null;
+
+         n<0?n=this.length+n:null;
+         m<0?m=this.length+m:null;
+
+         console.log(n+" "+m);
+         for(var i=n;i<m;i++){
+         newAry[newAry.length]=this[i];
+         }
+         return newAry;*/
+        var n = 0, m = this.length, newAry = [], arg = arguments;
+        arg.length >= 1 ? n = arg[0] : null;
+        arg.length >= 2 ? m = arg[1] : null;
+
+        n = Math.floor(n);
+        m = Math.floor(m);
+
+        isNaN(n) ? n = 0 : null;
+        isNaN(m) ? m = 0 : null;
+
+        Math.abs(n) > this.length ? (n > 0 ? n = this.length : n = 0) : null;
+        Math.abs(m) > this.length ? (m > 0 ? m = this.length : m = 0) : null;
+
+        n < 0 ? n = this.length + n : null;
+        m < 0 ? m = this.length + m : null;
+
+        console.log(n + " " + m);
+        for (var i = n; i < m; i++) {
+            newAry[newAry.length] = this[i];
+        }
+        return newAry;
+    };
+    console.log(ary);
+    console.log(ary.mySlice(-6, -2));
+
+
+    //console.log(ary.slice(-5,-500));
+</script>
+</body>
+</html>

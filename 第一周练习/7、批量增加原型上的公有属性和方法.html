@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function Fn(){
+        this.x=100;
+    }
+    Fn.prototype.getX=function(){
+        console.log(1);
+    };
+    Fn.prototype.b="aa";
+    //取小名接受Fn的原型地址
+    var pro=Fn.prototype;
+    //批量设置新的原型
+    Fn.prototype={
+        constructor:Fn,
+        a:"123",
+        b:"456",
+        recover:function(){
+            for(var key in pro){
+                if(key in this){
+                    this["my"+key]=this[key];
+                }
+                this[key]=pro[key];
+            }
+        }
+    };
+    Fn.prototype.recover();
+    var f=new Fn;
+    console.dir(f);
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+*{margin:0;padding:0}
+ul{list-style: none}
+html,body{width:100%;height:100%;overflow:hidden;}
+#main{
+    width:640px;height:960px;position:absolute;left:50%;top:0;margin-left:-320px;
+    -webkit-transform-origin: top;/*改变缩放点中心或者顶部*/
+}
+.slide li{
+    position:absolute;width:100%;height:100%;top:0;left:0;
+}
+.slide li:nth-child(1){
+    background:url(images/b.png) no-repeat;
+}
+.slide li:nth-child(2){
+    background:url(images/c.png) no-repeat;
+}
+.slide li:nth-child(3){
+    background:url(images/d.png) no-repeat;
+}
+.slide li:nth-child(4){
+    background:url(images/e.png) no-repeat;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>简易表格排序</title>
+    <style type="text/css">
+        html,body,ul,li{margin:0;padding:0;font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;font-size: 14px}
+        ul,li{list-style: none;}
+        #ul1{width:300px;border:1px solid #f08519;border-radius:10px;padding:5px;margin:20px auto;}
+        #ul1 li{height:30px;line-height:30px;border-bottom:1px dashed #d0e9c6;padding-left:10px;}
+    </style>
+</head>
+<body>
+    <ul id="ul1">
+        <li>69</li>
+        <li>98</li>
+        <li>62</li>
+        <li>87</li>
+        <li>97</li>
+        <li>68</li>
+        <li>96</li>
+        <li>63</li>
+    </ul>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var oUl=document.getElementById("ul1");
+    var aLis=oUl.getElementsByTagName("li");
+    var ary=utils.listToArray(aLis);
+    ary.sort(function(a,b){
+        return parseFloat(a.innerHTML)- parseFloat(b.innerHTML);
+    });
+
+    for(var i=0;i<ary.length;i++){
+        oUl.appendChild(ary[i]);
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、原型继承
+    /* function A(){
+     this.x=100;
+     }
+     A.prototype={
+     constructor:A,
+     getX:function(){
+     console.log(this.x);
+     }
+     };
+     function B(){
+     this.y=100;
+     }
+     B.prototype=new A;
+     B.prototype.constructor=B;
+     var b=new B;
+     console.log(b.constructor);*/
+    //2、call继承 call继承只能将父类的私有属性继承为子类的私有属性，父类的公有属性无法继承
+    /*function A() {
+     this.x = 100;
+     }
+     A.prototype = {
+     constructor: A,
+     getX: function () {
+     console.log(this.x);
+     }
+     };
+     function B() {
+     this.y = 200;
+     A.call(this);
+     }
+     var b1 = new B;
+     console.log(b1);*/
+    //3、冒充对象继承 将父类公有属性和私有属性都继承为子类的私有属性
+    /* function A() {
+     this.x = 100;
+     this.y = 300;
+
+     }
+     A.prototype = {
+     constructor: A,
+     getX: function () {
+     console.log(this.x);
+     }
+     };
+     function B() {
+     this.y = 200;
+     var temp = new A;
+     for (var key in temp) {
+     if (key !== "constructor") {
+     if(key in this){
+     this["my"+key]=this[key];
+     this[key]=null;
+     }
+     this[key] = temp[key];
+     }
+     }
+     }
+     var b=new B;
+     console.log(b);*/
+    //4、混合模式继承  原型继承+call继承
+   /* function A() {
+        this.x = 100;
+    }
+    A.prototype = {
+        constructor: A,
+        getX: function () {
+            console.log(this.x);
+        }
+    };
+    function B() {
+        this.y = 200;
+        A.call(this);
+    }
+    B.prototype = new A;
+    B.prototype.constructor = B;
+    B.prototype.delPrivate = (function () {
+        var a = new A;
+        for (var key in a) {
+            if (a.hasOwnProperty(key)) {
+                delete this[key];
+            }
+        }
+        return null;
+    }).call(B.prototype);
+    var b = new B;
+    console.log(b);*/
+    function A(){
+        this.x=100;
+    }
+    A.prototype={
+        constructor:A,
+        getX:function(){
+            console.log(this.x);
+        }
+    };
+    function B(){
+        this.y=200;
+        A.call(this);
+    }
+    B.prototype=new A;
+    B.prototype.constructor=B;
+    B.prototype.delPrivate=(function(){
+        var a=new A;
+        for(var key in a){
+            if(a.hasOwnProperty(key)){
+                delete this[key]
+            }
+        }
+        return null;
+    }).call(B.prototype);
+    var b=new B;
+    console.log(b);
+    b.getX();
+    //5、中间类继承，IE不兼容，一般只处理内置类
+    function mySort(){
+        arguments.__proto__=Array.prototype;
+        arguments.sort(function(a,b){
+            return a-b;
+        })
+        console.log(arguments);
+    }
+    mySort(20,15,3,87,90,45);
+
+
+
+</script>
+</body>
+</html>

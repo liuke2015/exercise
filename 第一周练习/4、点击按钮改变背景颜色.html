@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        input{width:50px;height:26px;cursor:pointer;}
+    </style>
+</head>
+<body>
+<input type="button" name="color" value="红色"/>
+<input type="button" name="color" value="绿色"/>
+<input type="button" name="color" value="蓝色"/>
+<input type="button" name="color" value="橙色"/>
+<input type="button" name="color" value="黑色"/>
+<script type="text/javascript">
+    var color=["red","green","blue","orange","black"];
+    var oBtn=document.getElementsByName("color");
+    //方法1、自变量方式
+   /* for(var i=0;i<oBtn.length;i++){
+        oBtn[i].index=i;
+        oBtn[i].onclick=function(){
+
+        }
+    }*/
+    //方法2、闭包方式
+    /*for(var i=0;i<oBtn.length;i++){
+        oBtn[i].onclick=(function(i){
+            return function(){
+                document.body.style.background=color[i];
+            }
+        })(i);
+    }*/
+    //方法3、闭包方式2
+    for(var i=0;i<oBtn.length;i++){
+        ~function(i){
+            oBtn[i].onclick=function(){
+                document.body.style.background=color[i];
+            }
+        }(i);
+    }
+
+</script>
+</body>
+</html>

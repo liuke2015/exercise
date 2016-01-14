@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>字符串长度英文为一个字节，中文为2个字节</title>
+</head>
+<body>
+<script type="text/javascript">
+    var str="my name is 刘珂";
+    function strL(str){
+        var n= 0,reg=/^[\u4e00-\u9fa5]$/;
+      for(var i=0;i<str.length;i++){
+            if(reg.test(str.charAt(i))){
+                n+=2;
+                continue;
+            }
+            n++;
+        }
+        return n
+    }
+    var num=strL(str);
+    console.log(str.length);
+    console.log(num);
+</script>
+</body>
+</html>

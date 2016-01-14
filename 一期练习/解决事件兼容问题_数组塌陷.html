@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            width: 100%;
+            height: 100%
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: #31b0d5;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    var n = 0;
+    function fn1() {
+        alert(1);
+        this.innerHTML = "只要是文字出现在div里，this问题就解决了";
+    }
+    function fn2() {
+        alert(2);
+    }
+    function fn3(e) {
+        e = e || window.event;
+        e.returnValue = false;
+        n++;
+        alert(3 + e.type + " " + n);
+        if (n == 2) {
+          //  unbind(this, "click", fn3);//n==2的时候解除绑定fn3
+            off(this,"click",fn1);
+            off(this,"click",fn2);
+            off(this,"click",fn3);
+        }
+    }
+    function fn4() {
+        alert(4);
+    }
+    function fn5() {
+        alert(5);
+    }
+    function fn6() {
+        alert(6);
+    }
+    function fn7() {
+        alert(7);
+    }
+
+    /*    function bind(ele, type, fn) {
+     if (ele.addEventListener) {
+     ele.addEventListener(type, fn, false);
+     } else {
+     if (!ele["tempEv" + type]) {
+     ele["tempEv" + type] = [];
+     }
+     var tempFn = function () {
+     fn.call(ele);
+     };
+
+     tempFn.photo = fn;
+     var ary = ele["tempEv" + type];
+     for (var i = 0; i < ary.length; i++) {
+     if (ary[i].photo== fn) return;
+     }
+     ary.push(tempFn);
+     ele.attachEvent("on" + type, tempFn);
+
+     }
+     }
+     function unbind(ele,type,fn){
+     if(ele.removeEventListener){
+     ele.removeEventListener(type,fn,flase);
+     }else{
+     var ary=ele["tempEv"+type];
+     for(var i=0;i<ary.length;i++){
+     if(ary[i].photo==fn){
+     ele.detachEvent("on"+type,ary[i]);
+     ary.splice(i,1);
+     break;
+     }
+     }
+     }
+     }
+
+     function on(ele,type,fn){
+     if(!ele["temp"+type]){
+     ele["temp"+type]=[];
+     }
+     var ary=ele["temp"+type];
+     for(var i=0;i<ary.length;i++){
+     if(ary[i]==fn)return;
+     }
+     ary.push(fn);
+     bind(ele,type,run);
+     }
+     function run(e){
+     e=e||window.event;
+     var type= e.type;
+     var ary=this["temp"+type];
+     for(var i=0;i<ary.length;i++){
+     if(!ary[i]){
+     ary.splice(i,1);
+     }else{
+     ary[i].call(this);
+     }
+
+     }
+     }
+     function off(ele,type,fn){
+     var ary=ele["temp"+type];
+     for(var i=0;i<ary.length;i++){
+     if(ary[i]==fn){
+     //ary.splice(i,1);
+     ary[i]=null;
+     }
+     }
+     }*/
+    function bind(ele, type, fn) {
+        if (ele.addEventListener) {
+            ele.addEventListener(type, fn, false);
+        } else {
+            if (!ele["aEvent" + type]) {
+                ele["aEvent" + type] = []
+            }
+            var tempFn = function () {
+                fn.call(ele);
+            };
+            tempFn.photo = fn;
+            var ary = ele["aEvent" + type];
+            for (var i = 0; i < ary.length; i++) {
+                if (ary[i].photo == fn)return;
+            }
+            ary.push(tempFn);
+            ele.attachEvent("on" + type, tempFn);
+        }
+    }
+    function unbind(ele, type, fn) {
+        if (ele.removeEventListener) {
+            ele.removeEventListener(type, fn, false);
+        } else {
+            var ary = ele["aEvent" + type];
+            if (ary) {
+                for (var i = 0; i < ary.length; i++) {
+                    if (ary[i].photo == fn) {
+                        ele.detachEvent("on" + type, ary[i]);//此处容易错
+                        ary.splice(i,1);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    function on(ele,type,fn){
+        if(!ele["eventAry" + type]){
+            ele["eventAry" + type]=[];
+        }
+        var ary=ele["eventAry" + type];
+        for(var i=0;i<ary.length;i++){
+            if(ary[i]==fn)return;
+        }
+        ary.push(fn);
+        bind(ele,type,run);
+    }
+    function run(){
+        var type= window.event.type;
+        var ary=this["eventAry"+type];
+        for(var i=0;i<ary.length;i++){
+            if(!ary[i]){
+                ary.splice(i,1);
+            }else{
+                ary[i].call(this);
+            }
+        }
+    }
+    function off(ele,type,fn){
+        var ary=ele["eventAry"+type];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(ary[i]==fn){
+                    ary[i]=null;
+                    break;
+                }
+            }
+        }
+    }
+
+
+  /*  bind(oDiv, "click", fn1);
+    bind(oDiv, "click", fn2);
+    bind(oDiv, "click", fn3);
+    bind(oDiv, "click", fn4);
+    bind(oDiv, "click", fn3);*/
+        on(div1,"click",fn1);
+        on(oDiv,"click",fn2);
+        on(oDiv,"click",fn3);
+        on(oDiv,"click",fn4);
+        on(oDiv,"click",fn3);
+        on(oDiv,"click",fn5);
+        on(oDiv,"click",fn6);
+        on(oDiv,"click",fn7);
+
+</script>
+
+</body>
+</html>

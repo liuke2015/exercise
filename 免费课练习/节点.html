@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="tab">
+    <ul id="ul">
+        <li class="fi-l"></li>
+        <li></li>
+        <li class="la-l"></li>
+    </ul>
+    <!--以下是三部分展示内容-->
+    <div id="box"></div>
+    <div></div>
+    <div id="last"></div>
+</div>
+<script type="text/javascript">
+    //需求1：实现类似于children这样的属性，获取所有的元素子节点
+    //思路：首先获取所有的子节点，然后循环这些节点，把nodeType=1的都过滤出来
+    var oTab = document.getElementById("tab");
+    var oUl=document.getElementById("ul");
+    var oDiv = document.getElementById("box");
+    var oLast = document.getElementById("last");
+    //console.log(oTab.childNodes);
+    function getChildren(curEle) {
+        var nodes = curEle.childNodes, ary = [];
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            if (node.nodeType === 1) {
+                ary.push(node);
+            }
+        }
+        return ary;
+    }
+    //console.log(getChildren(oTab));
+    //需求2：获取上一个哥哥元素节点，要求兼容所有的浏览器
+    //思想：首先找上一级哥哥节点，如果不是元素节点，则基于当前的这个节点继续往上找，一直找到是元素节点才结束(具体的找几次不知道，我们采用while循环)
+    function prev(curEle) {
+        if (curEle.previousElementSibling) {
+            return curEle.previousElementSibling;
+        }
+        var pre = curEle.previousSibling;
+        while (pre && pre.nodeType !== 1) {
+            pre = pre.previousSibling;
+        }
+        return pre;
+    }
+    // console.log(prev(oDiv));
+    //需求3：next获取下一个弟弟元素节点
+    function nextEle(curEle) {
+        if (curEle.nextElementSibling) {
+            return curEle.nextElementSibling;
+        }
+        var next = curEle.nextSibling;
+        while (next && next.nodeType !== 1) {
+            next = next.nextSibling;
+        }
+        return next;
+    }
+    // console.log(nextEle(oDiv));
+    //需求4：prevAll获取所有的哥哥元素节点
+    function prevAll(curEle) {
+        var ary = [];
+        if (curEle.previousElementSibling) {
+            var preEle = curEle.previousElementSibling;
+            while (preEle) {
+                ary.unshift(preEle);
+                preEle = preEle.previousElementSibling;
+            }
+            return ary;
+        }
+        var preEle = curEle.previousSibling;
+        while (preEle) {
+            while (preEle.nodeType !== 1) {
+                preEle = preEle.previousSibling;
+            }
+            if (preEle.nodeType === 1) {
+                ary.unshift(preEle);
+                preEle = preEle.previousSibling;
+            }
+        }
+        return ary;
+    }
+   // console.log(prevAll(oLast));
+    //需求5:nextAll获取所有的弟弟元素节点
+    function nextAll(curEle){
+        var ary=[];
+        if(curEle.nextElementSibling){
+            var next=curEle.nextElementSibling;
+            while(next){
+                ary.push(next);
+                next=next.nextElementSibling;
+            }
+            return ary;
+        }
+        var nextE=curEle.nextSibling;
+        while(nextE){
+            while(nextE.nodeType!==1){
+                nextE=nextE.nextSibling;
+            }
+            if(nextE.nodeType===1){
+                ary.push(nextE);
+                nextE=nextE.nextSibling;
+            }
+        }
+        return ary;
+    }
+    //console.log(nextAll(oUl));
+    //需求6:sibling获取相邻的两个元素节点(哥哥+弟弟)
+    function sibling(curEle){
+        var ary=[];
+        if(curEle.previousElementSibling ||curEle.nextElementSibling){
+            var prev=curEle.previousElementSibling;
+            var next=curEle.nextElementSibling;
+            if(prev){
+                ary.push(prev);
+            }
+            if(next){
+                ary.push(next);
+            }
+            return ary;
+        }
+        var pre=curEle.previousSibling;
+        var next=curEle.nextSibling;
+        while(pre &&pre.nodeType!==1){
+            pre=pre.previousSibling;
+        }
+        while(next && next.nodeType!==1){
+            next=next.nextSibling;
+        }
+        if(pre && pre.nodeType===1){
+            ary.push(pre);
+        }
+        if(next && next.nodeType===1){
+            ary.push(next);
+        }
+        return ary;
+    }
+   /* console.log(sibling(oUl));
+    console.log(sibling(oDiv));
+    console.log(sibling(oLast));*/
+    //需求7:siblings获取所有的兄弟元素节点(所有的哥哥+所有的弟弟)
+    function siblings(curEle){
+        var ary=[];
+        if(curEle.previousElementSibling){
+            var pre=curEle.previousElementSibling;
+            var next=curEle.nextElementSibling;
+            while(pre){
+                ary.unshift(pre);
+                pre=pre.previousElementSibling;
+            }
+            while(next){
+               // console.log(next+"_");
+                ary.push(next);
+                next=next.nextElementSibling;
+            }
+            return ary;
+        }
+        var pre=curEle.previousSibling;
+        var next=curEle.nextSibling;
+        while(pre){
+            while(pre.nodeType!==1){
+                pre=pre.previousSibling;
+            }
+            if(pre.nodeType==1){
+                ary.unshift(pre);
+            }
+            pre=pre.previousSibling;
+        }
+        while(next){
+            while(next.nodeType!==1){
+                next=next.nextsibling;
+            }
+            if(next.nodeType===1){
+                ary.push(next);
+            }
+            next=next.nextSibling;
+        }
+        return ary;
+    }
+    //console.log(siblings(oDiv));
+    //需求8:first获取第一个元素子节点
+    function first(curEle){
+        if(curEle.firstElementChild){
+            return curEle.firstElementChild;
+        }
+        var children=curEle.childNodes;
+       for(var i=0;i<children.length;i++){
+           var cur=children[i];
+           if(cur.nodeType===1){
+               return cur;
+           }
+       }
+    }
+   // console.log(first(oUl));
+    //需求9:last获取最后一个元素子节点
+    function last(curEle){
+        var children=curEle.childNodes;
+        for(var i=children.length-1;i>0;i--){
+             var cur=children[i];
+            if(cur.nodeType===1){
+                return cur;
+            }
+        }
+    }
+    console.log(last(oUl));
+</script>
+</body>
+</html>

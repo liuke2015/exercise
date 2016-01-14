@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        function avgn(){
+            var ary=arguments;
+            [].sort.call(ary,function(a,b){
+                return a-b;
+            });
+            [].pop.call(ary);
+            [].shift.call(ary);
+            var str=[].join.call(ary,"+");
+            return eval(str)/ary.length;
+        }
+
+        var avg=avgn(80,99,54,60,78).toFixed(2);
+        console.log(avg);
+    </script>
+</body>
+</html>

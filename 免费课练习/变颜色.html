@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>变色</title>
+    <style type="text/css">
+        #div1{position:absolute;left:50%;top:50%;width:200px;height:200px;margin:-100px 0px 0px -100px;border:1px solid #c5dbf2;border-radius:10px;}
+    </style>
+</head>
+<body>
+<div id="div1" style="background-color: red"></div>
+<script type="text/javascript">
+    var oDiv1=document.getElementById("div1");
+    oDiv1.onclick=function(){
+        var bgColor=oDiv1.style.backgroundColor;
+        switch(bgColor){
+            case "red":
+                oDiv1.style.backgroundColor="yellow";
+                break;
+            case "yellow":
+                oDiv1.style.backgroundColor="blue";
+                break;
+            case "blue":
+                oDiv1.style.backgroundColor="white";
+                break;
+            case "white":
+                oDiv1.style.backgroundColor="red";
+                break;
+        }
+    }
+</script>
+</body>
+</html>

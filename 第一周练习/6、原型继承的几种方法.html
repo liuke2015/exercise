@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //方法1、原型继承，将父类的私有公有都继承过来了,变为子类的公有属性
+  /*  function A() {
+        this.x = 100;
+    }
+    A.prototype = {
+        constructor: A,
+        getX: function () {
+            console.log(this.x);
+        }
+    };
+    function B() {
+        this.y = 200;
+    }
+    B.prototype = new A;
+    B.prototype.constructor = B;
+    var b=new B;
+    console.dir(b);*/
+    //方法2、call继承，将父类的私有属性继承为子类的私有熟悉
+   /* function A() {
+        this.x = 100;
+    }
+    A.prototype = {
+        constructor: A,
+        getX: function () {
+            console.log(this.x);
+        }
+    };
+    function B() {
+        this.y = 200;
+        A.call(this);
+    }
+    B.prototype.constructor=B;
+    var b=new B;
+    console.dir(b);*/
+    //3、冒充对象继承，将父类公有和私有的都继承为子类私有的
+    /*function A() {
+        this.x = 100;
+    }
+    A.prototype = {
+        constructor: A,
+        getX: function () {
+            console.log(this.x);
+        }
+    };
+    function B() {
+        this.y = 200;
+        var temp=new A;
+        for(var key in temp){
+            if(key!=="constructor"){
+                this[key]=temp[key];
+            }
+        }
+    }
+    var b=new B;
+    console.dir(b);*/
+    //方法4、混合模式 原型继承+call方法
+   /* function A(){
+        this.x=100;
+    }
+    A.prototype={
+        construction:A,
+        getX:function(){
+            console.log(this);
+        }
+    }
+    function B(){
+        this.y=200;
+        A.call(this);
+    }
+    B.prototype=new A;
+    B.prototype.constructor=B;
+    B.prototype.delprivate=(function(){
+       var a=new A;
+        for(var key in this){
+            if(a.hasOwnProperty(key)){
+                delete this[key];
+            }
+        }
+    }).call(B.prototype);
+    var b=new B;
+    console.dir(b);*/
+    //方法5、中间类继承,IE下不兼容我们用来处理内置类
+    function sum(){
+        arguments.__proto__=Array.prototype;
+        arguments.sort(function(a,b){
+            return a-b;
+        })
+        return arguments;
+    }
+    console.log(sum(5,24,45,67,21));
+</script>
+</body>
+</html>

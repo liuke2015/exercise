@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百度搜索</title>
+    <style type="text/css">
+        body, html, div, ul, li, input {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        ul, li {
+            list-style: none
+        }
+
+        input {
+            display: block;
+            outline: none;
+        }
+
+        .box {
+            width: 500px;
+            margin: 50px auto;
+        }
+
+        .box .search {
+            width: 478px;
+            height: 35px;
+            padding: 0px 10px;
+            border: 1px solid #08BECE;
+        }
+
+        #searchList {
+            display: none;
+            border: 1px solid #ddd;
+            border-top: 0px;
+        }
+
+        .box li {
+            padding: 0px 10px;
+            line-height: 38px;
+            cursor: pointer
+        }
+
+        .box li.hover {
+            background: #eee
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text" id="search" class="search"/>
+    <ul id="searchList">
+        <li class="hover">珠峰培训是全国知名的JS培训机构</li>
+        <li>周老师是珠峰培训的最帅的老师</li>
+        <li>刘松松是珠峰培训最丑的学员</li>
+        <li>耿大大是珠峰培训最老的老师</li>
+        <li>张仁阳老师是珠峰培训的大拿老师</li>
+    </ul>
+</div>
+<!--<script type="text/javascript">-->
+<!--var search = document.getElementById("search");-->
+<!--var searchList = document.getElementById("searchList");-->
+<!--var li=searchList.getElementsByTagName("li");-->
+
+<!--for(var i=0;i<li.length;i++){-->
+<!--li[i].onmouseenter=function(){-->
+<!--this.className="hover";-->
+<!--};-->
+<!--li[i].onmouseleave=function(){-->
+<!--this.className=null;-->
+<!--};-->
+<!--}-->
+
+<!--search.onkeyup=function(){-->
+<!--var value=this.value;-->
+<!--value=value.replace(/^ +| +$/g,"");-->
+<!--searchList.style.display=value===""?"none":"block";-->
+<!--}-->
+
+<!--document.body.onclick=function(e){-->
+<!--e=e||window.event;-->
+<!--var curEle= e.target|| e.srcElement;-->
+
+<!--if(curEle.id==="search"){-->
+<!--search.onkeyup.call(curEle);-->
+<!--}else if((curEle.nodeName.toLowerCase()==="li")&&(curEle.parentNode===searchList)){-->
+<!--search.value=curEle.innerHTML;-->
+<!--searchList.style.display="none";-->
+<!--}else if(curEle.id==="searchList"){-->
+
+<!--}else{-->
+<!--searchList.style.display="none";-->
+<!--}-->
+<!--}-->
+
+<!--</script>-->
+<script type="text/javascript">
+    var search = document.getElementById("search");
+    var searchList = document.getElementById("searchList");
+    var lis = searchList.getElementsByTagName("li");
+
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].onmouseenter = function () {
+            this.className = "hover";
+        };
+        lis[i].onmouseleave = function () {
+            this.className = null;
+        }
+    }
+
+    search.onkeyup = function () {
+        var val = this.value;
+        val = val.replace(/(^ +| +$)/g, "");
+
+        searchList.style.display = val === "" ? "none" : "block";
+    }
+
+    document.body.onclick=function(e){
+        e=e||window.event;
+        var curEle= e.target|| e.srcElement;
+
+        if(curEle.id==="search"){
+            search.onkeyup.call(curEle);
+        }else if((curEle.tagName.toLowerCase()==="li")&&curEle.parentNode===searchList){
+            search.value=curEle.innerHTML;
+            searchList.style.display="none";
+        }else if(curEle.id==="searchList"){
+
+        }else{
+            searchList.style.display="none";
+        }
+    }
+</script>
+</body>
+</html>

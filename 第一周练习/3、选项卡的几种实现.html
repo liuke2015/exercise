@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style type="text/css">
+        body,html,ul,li{padding:0;margin:0;font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;font-size:14px;}
+        #tab{width:500px;margin:50px auto;}
+        #tab ul{overflow:hidden;}
+        ul li{list-style:none;padding:0px 30px;height:50px;line-height: 50px;float:left;margin-right:20px;border:1px solid #f08519;border-bottom:0px;cursor: pointer;-webkit-user-select: none;}
+        ul li.sel{background: #d0e9c6}
+        #tab div{display:none;width:498px;height:350px;border:1px solid #f08519;text-align:center;line-height:350px;}
+        #tab div.sel{display:block;}
+    </style>
+</head>
+<body>
+<div id="tab">
+    <ul>
+        <li class="sel">电影频道</li>
+        <li>娱乐频道</li>
+        <li>新闻频道</li>
+    </ul>
+    <div class="sel">
+        电影频道~
+    </div>
+    <div>娱乐频道~</div>
+    <div>新闻频道~</div>
+</div>
+<script type="text/javascript">
+    var oTab=document.getElementById("tab");
+    var oLis=oTab.getElementsByTagName("li");
+    var oDivs=oTab.getElementsByTagName("div");
+
+    //方法1、自变量的方式
+   /* for(var i=0;i<oLis.length;i++){
+        oLis[i].index=i;
+        oLis[i].onclick=function(){
+            for(var k=0;k<oLis.length;k++){
+                oLis[k].className=null;
+                oDivs[k].className=null;
+            }
+            oLis[this.index].className=oDivs[this.index].className="sel";
+        }
+    }*/
+    //方法2、闭包方式
+   /* for(var i=0;i<oLis.length;i++){
+        ~function(i){
+            oLis[i].onclick=function(){
+                for(var k=0;k<oLis.length;k++){
+                    oLis[k].className=null;
+                    oDivs[k].className=null;
+                }
+    oLis[i].className=oDivs[i].className="sel";
+            }
+
+        }(i);
+    }*/
+    //方法3、闭包方式2
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].onclick=(function(i){
+           return function(){
+               for(var k=0;k<oLis.length;k++){
+                   oLis[k].className=null;
+                   oDivs[k].className=null;
+               }
+               oLis[i].className=oDivs[i].className="sel";
+           }
+        })(i);
+    }
+</script>
+</body>
+</html>

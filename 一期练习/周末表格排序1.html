@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        table, tr, td, th {
+            border: 1px solid #08BECE;
+            border-collapse: collapse;
+        }
+
+        th {
+            cursor: pointer;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body>
+<table width="100%">
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>语文</th>
+        <th>数学</th>
+        <th>英语</th>
+    </tr>
+    </thead>
+    <tr>
+        <td>唐僧</td>
+        <td>50</td>
+        <td>60</td>
+        <td>120</td>
+    </tr>
+    <tr>
+        <td>悟空</td>
+        <td>100</td>
+        <td>78</td>
+        <td>60</td>
+    </tr>
+    <tr>
+        <td>八jie</td>
+        <td>40</td>
+        <td>89</td>
+        <td>88</td>
+    </tr>
+    <tr>
+        <td>沙和尚</td>
+        <td>76</td>
+        <td>77</td>
+        <td>79</td>
+    </tr>
+    <tr>
+        <td>白骨精</td>
+        <td>80</td>
+        <td>93</td>
+        <td>82</td>
+    </tr>
+    <tr>
+        <td>女儿国王</td>
+        <td>91</td>
+        <td>100</td>
+        <td>99</td>
+    </tr>
+    <tr>
+        <td>牛魔王</td>
+        <td>70</td>
+        <td>66</td>
+        <td>73</td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var oBody=document.getElementsByTagName("table")[0];
+    var tBody=oBody.tBodies.item(0);
+    var rows=tBody.rows;
+    var ths=oBody.getElementsByTagName("th");
+
+    function listToAry(likeAry){
+      //  try{
+            return Array.prototype.slice.call(likeAry,0);
+//        }catch(e){
+//            var ary=[];
+//            for(var i=0;i<likeAry.length;i++){
+//                ary[ary.length]=likeAry[i];
+//            }
+//            return ary;
+//        }
+    }
+
+    for(var i=0;i<ths.length;i++){
+        ths[i].index=i;
+        ths[i].flag=true;
+
+        ths[i].onclick=function(){
+            var index=this.index;
+            var rowAry=listToAry(rows);
+
+            rowAry.sort(function(a,b){
+                if(index===0){
+                    return a.cells[index].innerHTML.localeCompare(b.cells[index].innerHTML);
+                }else{
+                    return a.cells[index].innerHTML- b.cells[index].innerHTML;
+                }
+            });
+
+            if(this.flag){
+                this.flag=false;
+            }else{
+                rowAry.reverse();
+                this.flag=true;
+            }
+            for(var j=0;j<rowAry.length;j++){
+                tBody.appendChild(rowAry[j]);
+            }
+        }
+    }
+</script>
+<!--<script type="text/javascript">-->
+    <!--var table=document.getElementsByTagName("table")[0];-->
+    <!--var tBody=table.tBodies[0];-->
+    <!--var rows=tBody.rows;-->
+    <!--var ths=table.tHead.rows[0].cells;-->
+
+    <!--function listToAry(likeAry){-->
+        <!--try{-->
+            <!--return Array.prototype.slice.call(likeAry,0);-->
+        <!--}catch(e){-->
+            <!--var ary=[];-->
+            <!--for(var i=0;i<likeAry.length;i++){-->
+                <!--ary[ary.length]=likeAry[i];-->
+            <!--}-->
+            <!--return ary;-->
+        <!--}-->
+    <!--}-->
+
+    <!--for(var i=0;i<ths.length;i++){-->
+        <!--ths[i].index=i;-->
+        <!--ths[i].flag=true;-->
+        <!--ths[i].onclick=function(){-->
+            <!--var index=this.index;-->
+            <!--var rowAry=listToAry(rows);-->
+            <!--rowAry.sort(function(a,b){-->
+                <!--if(index===0){-->
+                    <!--return a.cells[index].innerHTML.localeCompare(b.cells[index].innerHTML);-->
+                <!--}else{-->
+                    <!--return a.cells[index].innerHTML- b.cells[index].innerHTML;-->
+                <!--}-->
+            <!--});-->
+            <!--if(this.flag){-->
+                <!--this.flag=false;-->
+            <!--}else{-->
+                <!--rowAry.reverse();-->
+                <!--this.flag=true;-->
+            <!--}-->
+            <!--for(var i=0;i<rowAry.length;i++){-->
+                <!--tBody.appendChild(rowAry[i]);-->
+            <!--}-->
+        <!--}-->
+    <!--}-->
+<!--</script>-->
+<!--<script type="text/javascript">-->
+    <!--var oTable=document.getElementsByTagName("table")[0];-->
+    <!--var tBody=oTable.tBodies.item(0);-->
+    <!--var rows=tBody.rows;-->
+    <!--var ths=oTable.getElementsByTagName("th");-->
+
+    <!--function listToAry(likeAry){-->
+        <!--try{-->
+            <!--return Array.prototype.slice.call(likeAry,0);-->
+        <!--}catch(e){-->
+            <!--var ary=[];-->
+            <!--for(var i=0;i<likeAry.length;i++){-->
+                <!--ary[ary.length]=likeAry[i];-->
+            <!--}-->
+            <!--return ary;-->
+        <!--}-->
+    <!--}-->
+
+    <!--for(var i=0;i<ths.length;i++){-->
+        <!--ths[i].index=i;-->
+        <!--ths[i].flog=true;-->
+        <!--ths[i].onclick=function(){-->
+            <!--var index=this.index;-->
+            <!--var rowAry=listToAry(rows);-->
+            <!--rowAry.sort(function(a,b){-->
+                <!--if(index===0){-->
+                    <!--return a.cells[index].innerHTML.localeCompare(b.cells[index].innerHTML);-->
+                <!--}else{-->
+                    <!--return a.cells[index].innerHTML- b.cells[index].innerHTML;-->
+                <!--}-->
+            <!--});-->
+            <!--if(this.flog){-->
+                <!--this.flog=false;-->
+            <!--}else{-->
+                <!--rowAry.reverse();-->
+                <!--this.flog=true;-->
+            <!--}-->
+            <!--for(var i=0;i<rowAry.length;i++){-->
+                <!--tBody.appendChild(rowAry[i]);-->
+            <!--}-->
+        <!--}-->
+    <!--}-->
+<!--</script>-->
+<!--<script type="text/javascript">-->
+    <!--function listToArray(likeAry) {-->
+        <!--try {-->
+            <!--return Array.prototype.slice.call(likeAry, 0);-->
+        <!--} catch (e) {-->
+            <!--var ary = [];-->
+            <!--for (var i = 0; i < likeAry.length; i++) {-->
+                <!--ary[ary.length] = likeAry[i];-->
+            <!--}-->
+            <!--return ary;-->
+        <!--}-->
+    <!--}-->
+
+    <!--var oTable = document.getElementsByTagName("table").item(0);-->
+    <!--var oTbody = oTable.tBodies.item(0);-->
+    <!--var oRows = oTbody.rows;-->
+    <!--var ths = oTable.getElementsByTagName("th");-->
+    <!--// var ths=oTable.tHead.rows[0].cells;-->
+
+    <!--var rowsAry = listToArray(oRows);-->
+    <!--//    rowsAry.sort(function(a,b){-->
+    <!--//        return a.cells[1].innerHTML- b.cells[1].innerHTML;-->
+    <!--//    })-->
+    <!--//    for(var i=0;i<rowsAry.length;i++){-->
+    <!--//        oTbody.appendChild(rowsAry[i]);-->
+    <!--//    }-->
+
+    <!--for (var i = 0; i < ths.length; i++) {-->
+        <!--ths[i].index = i;-->
+        <!--ths[i].flog=true;-->
+        <!--ths[i].onclick = function () {-->
+            <!--var index = this.index;-->
+            <!--rowsAry.sort(function (a, b) {-->
+                <!--if (index === 0) {-->
+                    <!--return a.cells[index].innerHTML.localeCompare(b.cells[index].innerHTML);-->
+                <!--} else {-->
+                    <!--return a.cells[index].innerHTML - b.cells[index].innerHTML;-->
+                <!--}-->
+            <!--});-->
+            <!--if(this.flog){-->
+                <!--this.flog=false;-->
+            <!--}else{-->
+                <!--rowsAry.reverse();-->
+                <!--this.flog=true;-->
+            <!--}-->
+            <!--for (var i = 0; i < rowsAry.length; i++) {-->
+                <!--oTbody.appendChild(rowsAry[i]);-->
+            <!--}-->
+        <!--}-->
+    <!--}-->
+
+
+<!--</script>-->
+</body>
+</html>

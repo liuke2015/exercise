@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .box{width:200px;height:200px;background: #d0e9c6;border-radius:50%;margin:20px auto;line-height:200px;text-align:center;}
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    //1、新建一个div
+    var oDiv1=document.createElement("div");
+    oDiv1.className="box";
+    oDiv1.innerHTML="不忘初心，方得始终~";
+    document.body.appendChild(oDiv1);
+    //2、克隆一个div,并放到oDiv1前面
+    var oDiv2=oDiv1.cloneNode(true);
+    oDiv2.style.backgroundColor="yellow";
+    oDiv1.parentNode.insertBefore(oDiv2,oDiv1);
+    //3、删除oDiv1
+    //oDiv1.parentNode.removeChild(oDiv1);
+    //4、替换oDiv1
+    var oDiv3=oDiv2.cloneNode(true);
+    oDiv3.style.backgroundColor="#f5555f";
+    oDiv1.parentNode.replaceChild(oDiv3,oDiv1);
+    //5、设置属性
+    oDiv3.setAttribute("index",3);
+    console.log(oDiv3.getAttribute("index"));
+
+
+
+</script>
+</body>
+</html>

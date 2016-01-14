@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>原生拖拽</title>
+    <style type="text/css">
+        #div1{position:absolute;top:50px;left:50px;width:100px;height:100px;background: #EE5757;border-radius:50%;cursor:move;}
+    </style>
+</head>
+<body>
+<div id="div1" draggable="true"></div>
+<script type="text/javascript">
+    var ele=document.getElementById("div1");
+    ele.ondragstart=function(e){
+        this.x=this.offsetLeft;
+        this.y=this.offsetTop;
+        this.px= e.pageX;
+        this.py= e.pageY;
+    };
+    ele.ondrag=function(e){
+        this.style.left=this.x+(e.pageX-this.px)+"px";
+        this.style.top=this.y+(e.pageY-this.py)+"px";
+    };
+    ele.ondragend=function(e){
+        this.style.left=this.x+(e.pageX-this.px)+"px";
+        this.style.top=this.y+(e.pageY-this.py)+"px";
+    }
+</script>
+</body>
+</html>

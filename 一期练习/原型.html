@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function A(){}
+    A.prototype.b=function(){
+        console.log(1);
+    };
+    var pro= A.prototype;
+    A.prototype={
+        constructor:A,
+        b:function(){
+            console.log(2);
+        },
+        getX:function(){
+            console.log(this.x);
+        },
+        setX:function(){
+            this.x=1000;
+        },
+        recover:function(){
+            for(var key in pro){
+                if(key in this){
+                    this["my"+key]=this[key];
+                    this[key]=null;
+                }
+                this[key]=pro[key];
+            }
+        }
+    };
+    A.prototype.recover();
+    A.prototype.myb();
+    A.prototype.b();
+
+
+</script>
+</body>
+</html>

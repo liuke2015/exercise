@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>投票</title>
+    <style type="text/css">
+        body,html{margin:0;padding:0;font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;font-size:14px;}
+        h2{width:50%;height:50px;line-height:50px;text-align: center;border:1px dashed #f08519;margin:20px auto 50px;}
+        #num{padding:0 10px;color:#f04124;}
+        #sub{width:40%;height:30px;line-height:30px;color:#fff;margin:0 auto;text-align: center;cursor:pointer;border:1px solid #318a66;border-radius:10px;background: #006f00;-webkit-user-select:none;}
+        #sub:hover{border:1px solid #0ffd00; background: #0fb200;box-shadow:0px 1px 3px 0px #000;}
+        #sub:active{border:1px solid #0fa000;background: #0f9000}
+    </style>
+</head>
+<body>
+<h2>我获得<span id="num">0</span>票</h2>
+<div id="sub">给我投票</div>
+<script type="text/javascript">
+    var oNum=document.getElementById("num");
+    var oSub=document.getElementById("sub");
+    //方法1；用全局变量的方式,容易全局变量污染，不好
+   /* var num=0;
+    oSub.onclick=function(){
+        oNum.innerHTML=++num;
+    }*/
+    //方法2、闭包的方式
+   /* oSub.onclick=(function(){
+        var num=0;
+        return function(){
+            oNum.innerHTML=++num;
+        };
+    })();*/
+    //方法3、闭包的方式2
+   /* ~function(){
+        var num=0;
+        oSub.onclick=function(){
+            oNum.innerHTML=++num;
+        }
+    }();*/
+    //方法4、每次从页面中获取数值，然后+1，将值返回页面
+   /* oSub.onclick=function(){
+        oNum.innerHTML=++oNum.innerHTML;
+    }*/
+    //方法5、用自变量的方式(性能相对较好的一个)
+    oSub.num=0;
+    oSub.onclick=function(){
+        oNum.innerHTML=++oSub.num;
+    }
+</script>
+</body>
+</html>

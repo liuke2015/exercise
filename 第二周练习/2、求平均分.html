@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    /* function svgFn(){
+     var ary=Array.prototype.slice.call(arguments,0);
+     ary.sort(function(a,b){
+     return a-b;
+     }).shift();
+     return (eval(ary.join("+"))/ary.length).toFixed(2);
+     }*/
+    function svgFn() {
+        /* var aryPro=Array.prototype;
+
+         aryPro.sort.call(arguments,function(a,b){return a-b});
+         aryPro.shift.call(arguments);
+         aryPro.pop.call(arguments);
+         var res=(eval(aryPro.join.call(arguments,"+")))/arguments.length;
+         return res.toFixed(2);*/
+        var aryPro = Array.prototype;
+        aryPro.sort.call(arguments, function (a, b) {
+            return a - b
+        });
+        aryPro.shift.call(arguments);
+        aryPro.pop.call(arguments);
+        return ((eval(aryPro.join.call(arguments, "+"))) / arguments.length).toFixed(2);
+    }
+    var res = svgFn(89, 99, 21, 45, 67, 87);
+    console.log(res);
+</script>
+</body>
+</html>

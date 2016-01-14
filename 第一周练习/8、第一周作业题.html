@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="按钮1"/>
+<input type="button" value="按钮2"/>
+<input type="button" value="按钮3"/>
+<input type="button" value="按钮4"/>
+<input type="button" value="按钮5"/>
+<!--八、以上是页面中的5个按钮，和一个存储五个颜色值的数组，要求实现一个方法bindEvent，循环给5个按钮绑定点击事件，当点击的时候，整个body的背景颜色正好可以和数组中的指定项颜色对应(例如：点击第三个按钮，body的背景颜色”pink”)，请按照你的思路来实现-->
+<script type="text/javascript">
+    var ary = ["red", "yellow", "pink", "green", "blue"];
+    function bindEvent(n){
+        document.body.style.backgroundColor=ary[n];
+    }
+    var oBtn=document.getElementsByTagName("input");
+    for(var i=0;i<oBtn.length;i++){
+        oBtn[i].index=i;
+        oBtn[i].onclick= function(){
+            bindEvent(this.index);
+        }
+    }
+
+</script>
+</body>
+</html>

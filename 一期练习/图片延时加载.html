@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body, html {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #pic {
+            display:block;
+            width: 100px;
+            height: 100px;
+            margin:800px auto;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<img id="pic" src="images/default.jpg" trueImg="images/myimg.jpg"/>
+<script type="text/javascript" src="js/utils-1.0.min.js"></script>
+<script type="text/javascript">
+    var oPic = document.getElementById("pic");
+    var trueSrc = oPic.getAttribute("trueImg");
+    window.onscroll=function(){
+        if(oPic.isLoad) return;
+        var picH=oPic.offsetHeight;
+        var offT=utils.offset(oPic).top;
+        var winH=document.documentElement.clientHeight||document.body.clientHeight;
+        var winT=document.documentElement.scrollTop||document.body.scrollTop;
+        if((picH+offT)<=(winH+winT)){
+            var oImg=new Image;
+            oImg.src=trueSrc;
+            oImg.onload=function(){
+                oPic.src=this.src;
+                oPic.isLoad=true;
+            }
+        }
+    }
+
+//    window.setTimeout(function () {
+//        var oImg = new Image;
+//        oImg.src = trueSrc;
+//        oImg.onload = function () {
+//            oPic.src = this.src;
+//        };
+//    }, 1000);
+</script>
+</body>
+</html>

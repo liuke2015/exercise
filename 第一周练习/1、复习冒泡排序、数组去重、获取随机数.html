@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+    <li></li>
+    <li></li>
+    <li id="test"></li>
+    <li></li>
+</ul>
+<script type="text/javascript">
+    var oLi=document.getElementById("test");
+    //获取当前元素的上一个哥哥元素节点(需要兼容所有的浏览器)
+    function prev(curEle) {
+        if ("previousElementSibling" in curEle) {
+            return curEle.previousElementSibling;
+        }
+        var pre = curEle.previousSibling;
+        while (pre && pre.nodeType !== 1) {
+            pre = pre.previousSibling;
+        }
+        return pre;
+    }
+    console.log(prev(oLi));
+
+    // 数组先去重，再排序
+    var ary = [12, 23, 23, 12, 24, 34, 34, 23, 34, 5, 21, 2];
+    //数组去重
+    var newAry=ary.slice(0),obj={};
+    for(var i=0;i<newAry.length;i++){
+        var item=newAry[i];
+        if(obj[item]===item){
+            newAry.splice(i,1);
+            i--;
+            continue;
+        }
+        obj[item]=item;
+    }
+    obj=null;
+    //数组排序
+    for(var i=0;i<newAry.length-1;i++){
+        for(var j=0;j<newAry.length-1-i;j++){
+            if(newAry[j]>newAry[j+1]){
+                var temp=newAry[j];
+                newAry[j]=newAry[j+1];
+                newAry[j+1]=temp;
+            }
+        }
+    }
+    console.log(ary);
+    console.log(newAry);
+
+    //获取随机数
+    function getRandom(){
+        var n=arguments[0],m=arguments[1];
+        if(isNaN(n)||isNaN(m)){
+            return Math.random();
+        }
+        if(n>m){
+            n=n+m;
+            m=n-m;
+            n=n-m;
+        }
+        return Math.round(Math.random()*(m-n)+n);
+    }
+    console.log(getRandom(20,25));
+</script>
+</body>
+</html>

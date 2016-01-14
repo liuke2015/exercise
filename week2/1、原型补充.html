@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function Fn(){
+     this.x=100;
+    }
+    Fn.prototype.b=function(){
+        console.log(1);
+    };
+    var pro=Fn.prototype;
+    Fn.prototype={
+        constructor:Fn,
+        b:function(){
+            console.log(2);
+        },
+        c:function(){
+            console.log(3);
+        },
+        recover:function(){
+            for(var key in pro){
+                if(key in this){
+                    this["my"+key]=this[key];
+                    this[key]=null;
+                }
+                this[key]=pro[key];
+            }
+        }
+    }
+    Fn.prototype.recover();
+    var f=new Fn;
+    console.log(f);
+    Object.prototype.myHasPubProperty=function(){
+        var attr=arguments[0];
+        if(attr){
+            return (attr in this)&&(!this.hasOwnProperty(attr));
+        }
+        return false;
+    };
+    console.log(f.myHasPubProperty("hasOwnProperty"));
+
+    function sum(){
+        arguments.__proto__=Array.prototype;
+        arguments.sort(function(a,b){
+            return a-b;
+        });
+        console.log(arguments);
+    }
+    sum(12, 13, 12, 23, 13, 14, 23, 12, 13);
+</script>
+</body>
+</html>

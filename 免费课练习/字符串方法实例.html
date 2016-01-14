@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //思考题：
+    //我们有一个字符串 "2015-9-4 18:19:5"，我想把它变为 "2015年09月04日 18时19分05秒"
+    function zero(n) {
+        return n > 10 ? n : "0" + n;
+    }
+    var str = "2015-9-4 18:19:5";
+    var ary = str.split(" ");
+    var str1 = ary[0];
+    var str2 = ary[1];
+    var ary1 = str1.split("-");
+    var ary2 = str2.split(":");
+    var strEnd=ary1[0]+"年"+zero(ary1[1])+"月"+zero(ary1[2])+"日 "+zero(ary2[0])+"时"+zero(ary2[1])+"分"+zero(ary2[2])+"秒";
+    console.log(strEnd);
+
+</script>
+</body>
+</html>
