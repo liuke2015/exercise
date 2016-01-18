@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证小示例</title>
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+        .form-box {
+            width: 500px;
+            height: 200px;
+            margin: 50px auto;
+            border: 1px solid #d0e9c6;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .form-box label {
+            display: block;
+            height: 40px;
+        }
+
+        .form-box label span {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-box">
+    <label>姓名：<input id="name" name="name" type="text" value="请输入您的姓名"/></label>
+    <label>年龄：<input id="age" name="age" type="text" value="请输入您的年龄"/></label>
+</div>
+<script type="text/javascript">
+    var oName = document.getElementById("name");
+    function testFormat(blo) {
+        if (this.nextSibling) {
+            var oSpan = this.nextSibling;
+            oSpan.style.color = blo ? "green" : "red";
+            oSpan.innerHTML = blo ? "填写正确" : "填写错误";
+        } else {
+            var oSpan = document.createElement("span");
+            oSpan.style.color = blo ? "green" : "red";
+            oSpan.innerHTML = blo ? "填写正确" : "填写错误";
+            this.parentNode.appendChild(oSpan);
+        }
+    }
+    oName.onfocus = function () {
+        if (this.value == this.defaultValue) {
+            this.value = "";
+        }
+    }
+    oName.onblur = function () {
+        var reg = /^\s*$/;
+        if (reg.test(this.value)) {
+            this.value = this.defaultValue;
+        } else {
+            this.value = this.value.replace(/\s*/g, "");
+            var regS = /^[\u4e00-\u9fa5a-z]+$/i;
+            if (regS.test(this.value)) {/*填写正确*/
+                testFormat.call(this, true);
+            } else {/*填写不正确*/
+                testFormat.call(this, false);
+            }
+        }
+    }
+</script>
+</body>
+</html>
