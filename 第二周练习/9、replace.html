@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、某给个字符串中的每个字符都标注上它的索引号,"a(0)b(1)c(2)"
+    var str1 = "abcdefg";
+    str1=str1.replace(/\w/g,function(a,b){
+        return a+"("+b+")";
+    });
+    console.log(str1);
+    /*2、
+
+     请使用正则表达式，来将如下的字符串中的占位符都换成数组中下标对应的的内容。
+     字符串为：My name is{0}.I am{1} years old.I am in class{2} grade{3}.
+     给定的数组为：var a=["珠峰培训",38,4,6];
+     */
+    var str = "My name is{0}.I am{1} years old.I am in class{2} grade{3}.";
+    var a = ["珠峰培训", 38, 4, 6];
+    str=str.replace(/\{(\d+)\}/g,function(){
+        return a[arguments[1]];
+    });
+    console.log(str);
+    //3、 数字相加替换原字符串
+    var str2 = "123a778b332c";
+    str2=str2.replace(/(\d)(\d)(\d)/g,function(){
+        return Number(arguments[1])+Number(arguments[2])+Number(arguments[3])
+    });
+    console.log(str2);
+    //4、 数字相加替换原字符串
+    var str3 = "1234a77812b33442c";
+    str3=str3.replace(/\d+/g,function(){
+        return eval(arguments[0].split("").join("+"));
+    })
+    console.log(str3);
+
+    //5、7,895,279,273 给数字加上千分符
+    var str5 = "7895279273";
+    var reg=/^(\d{1,3})((?:\d{3})+)$/;
+    str5=str5.replace(reg,function(){
+        var s=arguments[2];
+        s= s.replace(/\d{3}/g,function(){
+            return ","+arguments[0];
+        });
+        return arguments[1]+s;
+    });
+    console.log(str5);
+    //6、千分符方法二
+//    str6.length-下标=该字符倒数的个数
+//    (该字符倒数的个数-1)%3==0，在该字符后面增加“,”
+    var str6 = "95279273";
+    var str6=str6.replace(/\d(?!$)/g,function(){
+        var len=str6.length;
+        if((len-arguments[1]-1)%3===0){
+            return arguments[0]+",";
+        }else{
+            return arguments[0]
+        }
+    });
+    console.log(str6);
+    //7、千分符方法三
+    //把字符串倒过来，每三的倍数后面增加“,”，然后字符串再倒过来
+    var str7 = "7895279273";
+    str7=str7.split("").reverse().join("");
+    str7=str7.replace(/\d(?!$)/g,function(){
+        if((arguments[1]+1)%3===0){
+            return arguments[0]+","
+        }else{
+            return arguments[0];
+        }
+    });
+    str7=str7.split("").reverse().join("");
+    console.log(str7);
+</script>
+</body>
+</html>

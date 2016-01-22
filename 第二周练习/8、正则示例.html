@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var s2 = "现在的时间是2015-11-08 10:49:33，这个点已经起床啦";
+    var reg2 = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
+
+    var res = s2.match(reg2);
+    var res2 = reg2.exec(s2);
+    console.log(res);
+    console.log(res2);
+    if (reg2.test(s2)) {
+        console.log(RegExp.$1);
+        console.log(RegExp.$2);
+    }
+
+    var reg3=/(?:\d)(?:\d)/g;
+    var str3="12abc45ii879dkdd223";
+    console.log(reg3.exec(str3));
+    console.log(str3.match(reg3));
+
+    var str="777777888888866666666633333333";
+    //去掉这个字符中的重复数字
+    str=str.replace(/(\d)\1+/g,"$1");
+    console.log(str);
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    * isType:检测数据类型
+    * @parameter
+    *     value:要检测的那个值
+    *     type[string]:"string"、"array"、"Date"...
+    * @return[boolean]:返回true、false
+    * */
+    function isType(value,type){
+        var reg=new RegExp("^\\[object "+type+"\\]$","i");
+        return reg.test(Object.prototype.toString.call(value));
+    }
+    var a=new Date();
+    var res=isType(a,"date");
+    console.log(res);
+</script>
+</body>
+</html>

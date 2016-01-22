@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、把小写的数字转换为大写
+    //var str = "2015";
+    //->把字符串变为 "贰零壹伍"
+  /*  var str = "2015", ary = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"], reg = /\d/g;
+    str = str.replace(reg, function () {
+        return ary[arguments[0]];
+    });
+    console.log(str);*/
+
+    //2、获取一个字符串中出现次数最多的字符和对应的次数
+    //var str = "zhufengpeixun2015yangfanqihang";
+    //->哪一个字母出现的次数最多?出现了多少次?
+    var str2 = "zhufengpeixun2015yangfanqihang",reg2=/\w/g,obj2={};
+    str2.replace(reg2,function(){
+        var s=arguments[0];
+        obj2[s]? obj2[s]++:obj2[s]=1;
+    });
+    var max=[0,0];
+    for(var key in obj2){
+        if(obj2[key]>max[1]){
+            max[0]=key;
+            max[1]=obj2[key]
+        }
+    }
+    console.log(obj2);
+    console.log(max[0]+":"+max[1]);
+
+
+    //3、千分符
+   /* var str3 = "54658272", reg3 = /^(\d{1,3})((?:\d{3})+)$/;
+    str3 = str3.replace(reg3, function () {
+        var s1 = arguments[1], s2 = arguments[2], reg = /\d{3}/g;
+
+        s2 = s2.replace(reg, function () {
+            return "," + arguments[0];
+        });
+        return s1 + s2;
+    });
+    console.log(str3);*/
+
+
+    //4、模板引擎绑定数据实现的原理
+    //var ary = ["王亚静", "25", "china", "javascript"];
+    //var str = "my name is {0}，my age is {1}，i com from {2}，i can do {3}~~";
+    //->"my name is 王亚静，my age is 25，i com from china，i can do javascript~~";
+   /* var ary4 = ["王亚静", "25", "china", "javascript"], str4 = "my name is {0}，my age is {1}，i com from {2}，i can do {3}~~", reg4 = /\{(\d)\}/g;
+    str4 = str4.replace(reg4, function () {
+        return ary4[arguments[1]];
+    });
+    console.log(str4);*/
+
+    //5、单词首字母大写
+    //var str="my name is zhou xiao tian,my age is twenty five years old~~";
+    //->把所有单词的首字母大写
+  /*  var str5 = "my name is a zhou xiao tian,my age is twenty five years old~~", reg5 = /(\w)(\w*)/g;
+    str5 = str5.replace(reg5, function () {
+        return arguments[1].toUpperCase() + arguments[2];
+    });
+    console.log(str5);*/
+
+    //6、格式化时间
+    //var str="2015-5-3 12:9:13";
+    //->"2015年05月03日 12时09分13秒"
+  /*  var str6 = "2015-5-3 12:9:13", reg6 = /^(\d{4})-(\d{1,2})-(\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})$/;
+    str6 = str6.replace(reg6, function () {
+        var arg = arguments;
+        return arg[1] + "年" + arg[2] + "月" + arg[3] + "日 " + arg[4] + "时" + arg[5] + "分" + arg[6] + "秒";
+    });
+    console.log(str6);*/
+    //7、queryURLParameter 获取地址栏中的参数
+    //URL问号传参 -> mid=xxxx 就是我们传递过来的内容,我们需要获取mid,并且通过mid区分展示不同的内容
+    //http://kbs.sports.qq.com/kbsweb/game.htm?mid=100000:1467588
+    //http://kbs.sports.qq.com/kbsweb/game.htm?mid=100000:1467586
+   /* var str7 = "http://kbs.sports.qq.com/kbsweb/game.htm?mid=100000&cid=1467086&app=1.0", reg = /([^?&=]+)=([^?&=]+)/g, obj = {};
+    str7.replace(reg, function () {
+        obj[arguments[1]] = arguments[2];
+    });
+    console.log(str7);
+    console.log(obj);*/
+
+    //8、正则捕获全部
+   /* var str8 = "zhufeng2015peixun2016";
+    var reg8 = /\d+/g;
+    RegExp.prototype.myExecAll = function () {
+        var _this=this,str=arguments[0],ary=[],res=null;
+        !_this.global?_this=eval(_this.toString()+"g"):null;
+        res=_this.exec(str);
+        while (res) {
+            ary[ary.length]=res[0];
+            res = _this.exec(str);
+        }
+        return ary;
+    };
+    var ary8 = reg8.myExecAll(str8);
+    console.log(ary8);*/
+    //9、项目中常用的正则
+    //1)判断是有效数字的正则
+    //数学老师告诉我们,有效数字指的是:正数、负数、零、小数
+    //第一部分:可能出现+、-或者没有
+    //第二部分:一位数可以是0,多位数不能以0开头
+    //第三部分:可以有小数也可以没有小数,但是一旦出现.,后面至少跟一位数字
+    reg9_1=/^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+
+    //2)判断手机号码(简单版)
+    reg9_2=/^1[34578]\d{9}$/;
+    //3)判断邮箱(简单版)
+    //第一部分:数组、字母、下划线、- 一到多位
+    //第二部分:@
+    //第三部分:数组、字母、- 出现一到多位
+    //第四部分:(.两到四位){1,2} .com .cn .net..  .com.cn
+    reg9_3=/^[a-zA-Z0-9_-]+@[0-9a-zA-Z-]+(\.[a-zA-Z]{2,4}){1,2}$/;
+
+    //4)年龄在18-65
+    //18、19、20-59、60-65
+    reg9_4=/^((18|19)|([2-5]\d)|(6[0-5]))$/;
+
+    //5)真实有效的中华人民共和国姓名 2-4位汉字
+    reg9_5=/^[\u4e00-\u9fa5]{2,4}$/;
+
+    //6)身份证号码的
+    //前六位是省->市->县(区)
+    //四位的年 两位的月 两位的日
+    //倒数第二位奇数是男,偶数是女
+    //最后一位可能是数字,可能是X
+    //410403 1998 10 16 56 3 1
+    //410728 1993 02 06 72 2 X
+    //130828 1990 12 04 06 1 7
+    var reg9_6 = /^(\d{6})(\d{4})(\d{2})(\d{2})(?:\d{2})(\d)(?:\d|X)$/;
+</script>
+</body>
+</html>
