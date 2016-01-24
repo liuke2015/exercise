@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>回到顶部</title>
+    <style type="text/css">
+        body,html{width:100%;padding:0;margin:0;font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;}
+        body,html{height:1000%;background: -webkit-linear-gradient(top,#d0e9c6, #759094, #ffe1bc)}
+        #goTo{display:none;position:fixed;right:10px;bottom:10px;width:50px;height:50px;box-shadow:3px 3px 5px #ccc;border:1px solid #ccc;border-radius:5px;background: rgba(255,255,255,0.5)}
+        #goTo em{position: absolute;left:50%;top:50%;margin:-17px 0px 0px -17px;width:34px;height:34px;background: url(img/bg.png) no-repeat -0px -35px;cursor:pointer;}
+    </style>
+</head>
+<body>
+<div id="goTo"><em></em></div>
+<script type="text/javascript">
+    var getWin=function(attr){
+        return document.documentElement[attr]||document.body[attr];
+    };
+    var oGoTo=document.getElementById("goTo"),winH=getWin("clientHeight");
+    var scrollMove=function(){
+        var winT=getWin("scrollTop");
+        oGoTo.style.display=winT>winH?"block":"none";
+    };
+    window.onscroll=scrollMove;
+    oGoTo.onclick=function(){
+        this.style.display="none";
+        window.onscroll=null;
+
+        var curT=getWin("scrollTop"),step=(curT/500)*10,timer=null;
+        timer=window.setInterval(function(){
+            document.documentElement.scrollTop-=step;
+            document.body.scrollTop-=step;
+            if(getWin("scrollTop")<=0){
+                clearInterval(timer);
+                window.onscroll=scrollMove;
+            }
+        },10);
+    }
+</script>
+</body>
+</html>

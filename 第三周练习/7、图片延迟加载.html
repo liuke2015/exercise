@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图片延迟加载</title>
+    <style type="text/css">
+        html, body, ul, li, p, h2 {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 12px;
+            color: #999
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #newsList {
+            margin: 10px;
+        }
+
+        #newsList li {
+            position: relative;
+            height: 60px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        #newsList li .logo {
+            position: absolute;
+            width: 70px;
+            height: 60px;
+        }
+
+        #newsList li .logo img {
+            display: block;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        #newsList li .title {
+            margin-left: 85px;
+        }
+
+        #newsList li h2 {
+            height: 20px;
+            font: bold 16px/20px "";
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #333;
+        }
+
+        #newsList li p {
+            line-height: 18px;
+        }
+    </style>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+</head>
+<body>
+<ul id="newsList"></ul>
+<script src="js/utils.js" type="text/javascript"></script>
+<script src="js/json.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var oUl = document.getElementById("newsList");
+    //1、数据加载
+    var initData = function () {
+        if (!dataAry) return;
+        var frg = document.createDocumentFragment();
+        for (var i = 0; i < dataAry.length; i++) {
+            var cur = dataAry[i], oLi = document.createElement("li"), str = "";
+            cur.logo=cur.logo||"img/default.jpg";
+            cur.title=cur.title||"--";
+            cur.desc=cur.desc||"--";
+
+            str += "<div class='logo'><img src='img/default.jpg' trueImg=" + cur.logo + "></div>";
+            str += "<div class='title'>";
+            str += "<h2>" + cur.title + "</h2>";
+            str += "<p>" + cur.desc + "</p>";
+            str += "</div>";
+            oLi.innerHTML = str;
+            frg.appendChild(oLi);
+        }
+        oUl.appendChild(frg);
+    };
+    initData();
+    //2、图片延时加载
+    var getWin = function (attr) {
+        return document.documentElement[attr] || document.body[attr];
+    };
+    var winH=getWin("clientHeight"),oImages=oUl.getElementsByTagName("img");
+    var loadImg=function(){
+        var winT=getWin("scrollTop");
+        for(var i=0;i<oImages.length;i++){
+            ~function(i){
+                var oImg=oImages[i],oImgOffTop=utils.offset(oImg).top,oImgH=oImg.clientHeight;
+                if(!oImg.isLoad){
+                    if((oImgOffTop+oImgH)<(winT+winH)){
+                        var img=new Image;
+                        img.src=oImg.getAttribute("trueImg");
+                        img.onload=function(){
+                            oImg.src=this.src;
+                            oImg.isLoad=true;
+                        }
+                    }
+                }
+            }(i);
+        }
+    };
+    loadImg();
+    window.onscroll=loadImg;
+
+</script>
+</body>
+</html>

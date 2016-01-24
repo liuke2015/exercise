@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>formateTime</title>
+</head>
+<body>
+<script type="text/javascript">
+    //在String原型上实现一个方法：把指定时间格式的字符串转换成我们想要的各种形式
+    String.prototype.myFormatTime=function(){
+        //1、把字符串格式中的年、月、日等转换成数组中的第0、1、2等项
+        var reg=/^(\d{4})(?:-|\/|\.)(\d{1,2})(?:-|\/|\.)(\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})$/g,ary=[];
+        this.replace(reg,function(){
+            ary=(Array.prototype.slice.call(arguments,0)).slice(1,7);
+        });
+        var format=arguments[0]||"{0}年{1}月{2}日 {3}时{4}分{5}秒";
+        var reg2=/\{(\d)\}/g;
+        format=format.replace(reg2,function(){
+            var index=arguments[1],val=ary[index];
+            return  val.length===1?"0"+val:val;
+        });
+        console.log(format);
+    };
+    var str="2016-1-24 11:5:0";
+    str.myFormatTime("{1}-{2} {3}分-{4}秒");
+</script>
+</body>
+</html>
