@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{ width:100px; height:100px; background:red; position:absolute; left:150px; top:0; opacity:0.5;filter:alpha(opacity=50); }
+    </style>
+</head>
+<body>
+<div id="div1" style="filter:alpha(opacity=50)">"alpha(opacity=49.6)"</div>
+<div id="div2" style="left:0;">"alpha(opacity=50)"</div>
+<div id="div3"  style="left:300px;"></div>
+<div id="div4" style="left:450px;"></div>
+<div id="div5"  style="left:600px;"></div>
+<div id="div6"  style="left:750px;"></div>
+<script type="text/javascript">
+    function getCss(ele,attr){
+        if("getComputedStyle" in window){
+            return parseFloat(getComputedStyle(ele,null)[attr]);
+        }else{
+            if(attr=="opacity"){
+                var val=ele.currentStyle.filter,reg=/alpha\(opacity=(\d|[1-9]\d(\.\d+)?)\)/;//该正则修正了老师的IE下不能匹配有小数的正则
+                if(reg.test(val)){
+                    return RegExp.$1/100;
+                }else{
+                    return 1;
+                }
+            }else{
+                return ele.currentStyle[attr];
+            }
+        }
+    }
+    function setCss(ele,attr,val){
+        switch(attr){
+            case "width":
+            case "height":
+            case "left":
+            case "top":
+                ele.style[attr]=val+"px";
+                break;
+            case "opacity":
+                ele.style.opacity=val;
+                ele.style.filter="alpha(opacity="+val*100+")";
+                break;
+            default:
+                ele.style[attr]=val;
+        }
+    }
+    function fadeInOut(ele,target,duration,callBack){
+        var begin=getCss(ele,"opacity");
+        var change=target-begin;
+        var times=0;
+        var interval=15;
+        window.clearInterval(ele.timer);
+        function step(){
+            times+=interval;
+            if(times<duration){
+                var val=times/duration*change+begin;
+                setCss(ele,"opacity",val);
+            }else{
+                setCss(ele,"opacity",target);
+                window.clearInterval(ele.timer);
+                if(typeof callBack=="function"){
+                    callBack.call(ele);
+                }
+            }
+        }
+        ele.timer=window.setInterval(step,interval);
+    }
+    var divList=document.getElementsByTagName("div");
+    for(var i=0;i<divList.length;i++){
+        divList[i].onclick=function(){
+            if(getCss(this,"opacity")<0.5){
+                fadeInOut(this,1,1500,callBackB);
+            }else{
+                fadeInOut(this,0.1,1500,callBackR);
+            }
+
+        }
+    }
+    function callBackR(){
+        this.style.background="green";
+    }
+    function callBackB(){
+        this.style.background="red";
+    }
+  /* alert(getCss(div1,"opacity"));
+   alert(getCss(div2,"opacity"));*/
+</script>
+</body>
+</html>

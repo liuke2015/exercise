@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多方向运动</title>
+    <style type="text/css">
+        body,html,h2,input{margin:0;padding:0;font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;font-size:12px;color:#333;}
+        #box,#boxTop,.input-box,.input-sub{opacity:0;filter:alpha(opacity=0);}
+        #box{display:none;position:absolute;left:50%;top:50%;width:0;height:0;margin:0;background: #eceaff;border-radius:10px;box-shadow:3px 5px 5px 0 rgba(0,0,0,0.3)}
+        #boxTop{display:block;height:38px;font:normal 14px/38px "";background:#6699CC;padding-left:10px;border-radius:10px 10px 0 0;-webkit-user-select:none;letter-spacing:1px;margin-bottom:40px;}
+        #boxTop i{float:left;font-style:normal}
+        #boxTop span{float:right;margin-right:10px;cursor:pointer;color:#666;font-size:12px;}
+        .input-box,.input-sub{display:block;width:80%;outline:none;margin:20px auto;}
+        .input-box{background: #FFFFCC;border:1px solid #ccc;height:38px;padding:5px 10px;line-height:38px;box-sizing:border-box;}
+        .input-sub{padding:10px;background: #76abe2;color:#fff;border:none;font-size:16px;font-weight:bold;letter-spacing:2px;cursor:pointer;}
+    </style>
+</head>
+<body>
+<a id="btn" href="javascript:;">百度登陆</a>
+<div id="box">
+    <div id="boxTop"><i>登陆百度账号</i> <span>关闭</span></div>
+    <div>
+        <input type="text" id="bName" class="input-box"/>
+        <input type="password" id="pass" class="input-box"/>
+        <input type="button" id="sub" class="input-sub" value="登陆"/>
+    </div>
+
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var move=function(duration,interval,callBack){
+        var _this=this;
+        _this.style.display="block";
+        var stepW=(420/duration)*interval,stepH=(500/duration)*interval,stepO=(1/duration)*interval;
+        ~function _move(){
+            window.clearTimeout(_this.timer);
+            var curW=utils.css(_this,"width"),curH=utils.css(_this,"height"),curO=parseFloat(utils.css(_this,"opacity"));
+            if(curW+stepW>=420){
+                utils.setGroupCss(_this,{
+                    "width":420,
+                    "height":500,
+                    "opacity":1,
+                    "marginTop":-250,
+                    "marginLeft":-210
+                });
+                if(typeof callBack==="function"){
+                    callBack();
+                }
+                return;
+            }
+            utils.setGroupCss(_this,{
+                "width":curW+stepW,
+                "height":curH+stepH,
+                "opacity":curO+stepO,
+                "marginTop":-(curH+stepH)/2,
+                "marginLeft":-(curW+stepW)/2
+            });
+            _this.timer=window.setTimeout(_move,12);
+
+        }();
+    };
+    function cBack(){
+        var objList=utils.listToArray(arguments);
+        for(var i=0;i<objList.length-1;i++){
+            objList[i].nex=objList[i+1];
+        }
+        show.call(objList[0]);
+    }
+    var show=function(){
+        _this=this;
+        _this.count= 0;
+        var step=0.05;
+        _this.style.display="block";
+        window.clearTimeout(_this.timer);
+        ~function _show(){
+            window.clearTimeout(_this.timer);
+            if(_this.count+step>=1){
+                utils.css(_this,"opacity",1);
+                _this.nex? show.call(_this.nex):oBtn.onclick=null;
+                /* if(_this.nex){
+                 show.call(_this.nex);
+                 }else{
+                 oBtn.onclick=null;
+                 }*/
+                return;
+            }
+            _this.count+=step;
+            utils.css(_this,"opacity",_this.count);
+            _this.timer=window.setTimeout(_show,13);
+        }();
+    };
+    function showBox(){
+        move.call(oBox,1000,10,function(){
+            cBack(oTop,oName,oPass,oSub);
+        })
+    }
+    var oBtn=document.getElementById("btn"),oBox=document.getElementById("box"),oTop=document.getElementById("boxTop"),oName=document.getElementById("bName"),oPass=document.getElementById("pass"),oSub=document.getElementById("sub"),oClose=oTop.getElementsByTagName("span")[0];
+    oBtn.onclick=showBox;
+    oClose.onclick=function(){
+        utils.setGroupCss(oBox,{
+            "opacity":0,
+            "width":0,
+            "height":0
+        });
+        utils.css(oTop,"opacity",0);
+        utils.css(oName,"opacity",0);
+        utils.css(oPass,"opacity",0);
+        utils.css(oSub,"opacity",0);
+        oBtn.onclick=showBox;
+    }
+</script>
+</body>
+</html>

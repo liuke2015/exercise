@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body, html, ul, li {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .banner {
+            position: relative;
+            width: 1000px;
+            height: 300px;
+            overflow: hidden;
+            margin: 0px auto;
+        }
+
+        .bannerImg {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .bannerImg img {
+            float: left;
+        }
+
+        .bannerTip {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .bannerTip li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+            _display: inline;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            background: #00b3ee;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .bannerTip li.select {
+            background: #f08519
+        }
+
+        .btn {
+            position: absolute;
+            top: 50%;
+            margin-top: -23px;
+            width: 30px;
+            height: 46px;
+            background: url(img/pre.png) no-repeat left top
+        }
+
+        .btn-pre {
+            left: 10px;
+        }
+
+        .btn-next {
+            background-position: -51px top;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="banner">
+    <div class="bannerImg" id="bannerImg">
+        <img src="img/banner1.jpg" alt=""/>
+        <img src="img/banner2.jpg" alt=""/>
+        <img src="img/banner3.jpg" alt=""/>
+        <img src="img/banner4.jpg" alt=""/>
+    </div>
+    <ul class="bannerTip" id="bannerTip">
+        <li class="select">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <a class="btn btn-pre" href="javascript:;"></a>
+    <a class="btn btn-next" href="javascript:;"></a>
+</div>
+<script charset="utf-8" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var imgW = 1000, len = $(".bannerImg img").length, l = len - 1, $bannerImg = $("#bannerImg");
+    var $img1 = $("#bannerImg img:eq(0)").clone();
+    var $img2 = $("#bannerImg img:eq(" + l + ")").clone();
+    $bannerImg.append($img1);
+    $bannerImg.prepend($img2);
+    $bannerImg.css({"left": -imgW + "px"});
+
+    var $li = $("#bannerTip li"), lengthAll = $(".bannerImg img").length;
+    var step = 1;
+    $bannerImg.width(lengthAll * imgW);
+
+    $li.click(function () {
+        step = $(this).index() + 1;
+        window.clearTimeout(timer);
+        $bannerImg.stop().animate({"left": -step * imgW + "px"});
+        showTip(step);
+        timer = window.setTimeout(move, 4000);
+    });
+
+    var showTip = function (index) {
+        index--;
+        $("#bannerTip li:eq(" + index + ")").addClass("select").siblings().removeClass("select");
+    };
+    var move = function () {
+        window.clearTimeout(timer);
+        autoMove(true);
+    };
+    $(".btn-pre").click(function () {
+        autoMove(false);
+    });
+    $(".btn-next").click(function () {
+        autoMove(true);
+    });
+    var timer = window.setTimeout(move, 4000);
+function autoMove(flog){
+    window.clearTimeout(timer);
+    if(!flog){
+        step--;
+        $bannerImg.stop().animate({"left": -step * imgW + "px"}, 500, "swing", function () {
+            if (step < 1) {
+                step = 4;
+                $bannerImg.animate({"left": -step * imgW + "px"});
+                $bannerImg.css({"left": -4000 + "px"});
+            }
+            showTip(step);
+        });
+    }else{
+        step++;
+        $bannerImg.stop().animate({"left": -step * imgW + "px"}, 500, "swing", function () {
+            if (step > 4) {
+                step = 1;
+                $bannerImg.animate({"left": -step * imgW + "px"});
+                $bannerImg.css({"left": -1000 + "px"});
+            }
+            showTip(step);
+        });
+    }
+    timer = window.setTimeout(move, 4000);
+}
+
+</script>
+</body>
+</html>

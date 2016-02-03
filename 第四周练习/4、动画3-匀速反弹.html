@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body,html{margin:0px;padding:0px;}
+        #div1{position:absolute;left:10px;top:20px;width:100px;height:100px;background: #00b3ee;border-radius:50%;}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var oDiv=document.getElementById("div1");
+    var tar=utils.win("clientWidth")-oDiv.offsetWidth;
+    function move(target){
+        var _this=this,curL=null;
+        window.clearTimeout(_this.timer);
+        ~function _move(){
+            window.clearTimeout(_this.timer);
+           curL=utils.css(_this,"left");
+            if(curL<target){
+                if(curL+5>=target){
+                    utils.css(_this,"left",target);
+                    move.call(_this,0);
+                    return;
+                }
+                utils.css(_this,"left",curL+5);
+            }else if(curL>target){
+                if(curL-5<=target){
+                    utils.css(_this,"left",target);
+                    move.call(_this,tar);
+                    return;
+                }
+                utils.css(_this,"left",curL-5);
+            }
+            this.timer=window.setTimeout(_move,13);
+        }();
+    }
+    move.call(oDiv,tar);
+</script>
+</body>
+</html>

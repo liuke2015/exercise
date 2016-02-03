@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #div1{position:absolute;top:100px;left:150px;width:150px;height:150px;background: #f08519;}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script type="text/javascript">
+    function getCss(ele,attr){
+       return "getComputedStyle" in window?parseFloat(window.getComputedStyle(ele,null)[attr]):parseFloat(ele.currentStyle[attr]);
+    }
+    function animate(ele,attr,target,duration){
+        var begin=getCss(ele,attr);
+        var change=target-begin;
+        var timers=0;
+        var interval=15;
+        function step(){
+            timers+=interval;
+            if(timers<duration){
+                ele.style[attr]=timers/duration*change+begin+"px";
+            }else{
+                ele.style[attr]=target+"px";
+                window.clearInterval(timer);
+                ele.style.background="green";
+            }
+        }
+        var timer=window.setInterval(step,interval);
+    }
+    var oDiv=document.getElementById("div1");
+    oDiv.onclick=function(){
+        animate(this,"left",800,1000);
+    }
+</script>
+</body>
+</html>

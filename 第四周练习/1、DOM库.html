@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DOM库</title>
+</head>
+<body>
+<div class="w1  w3 ">
+</div>
+<div class=" w2 w3 ">
+    <ul id="ul1">
+        <li class="tab"></li>
+        <li class="tab"></li>
+        <li class="tab"></li>
+    </ul>
+    <dl id="dl1">
+        <dd>11</dd>
+        <dd>22</dd>
+        <dd>33</dd>
+    </dl>
+    <div id="div1"></div>
+</div>
+<div class="w1 w2 w3 w4 "></div>
+<div class="w1 w2 w5  w3 "></div>
+<div class=" w1 w3 w2 "></div>
+</body>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var oW=utils.getElementsByClassName("w2");
+    var oWs=utils.getElementsByClassName("w1 w2 w3");
+
+   /* console.log(oW);
+    console.log(oWs);*/
+    var tag=oW[0];
+    var oUl=document.getElementById("ul1");
+    var children1=utils.children(tag);
+   // console.log(children1);
+   // var children2=utils.children(oUl,"li");
+    //console.log(children2);
+    var oDiv=document.getElementById("div1");
+    var pre=utils.prevAll(oDiv);
+    var index=utils.getIndex(oDiv);
+    console.log(index);
+</script>
+</html>

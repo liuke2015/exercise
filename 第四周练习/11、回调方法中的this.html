@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{position:absolute;width:100px;height:100px;background: #f04124}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2" style="left:150px;"></div>
+<div id="div3"  style="left:300px;"></div>
+<div id="div4" style="left:450px;"></div>
+<div id="div5"  style="left:600px;"></div>
+<div id="div6"  style="left:750px;"></div>
+<script type="text/javascript">
+    function getCss(ele,attr){
+        return "getComputedStyle" in window?parseFloat(getComputedStyle(ele,null)[attr]):parseFloat(ele.currentStyle[attr]);
+    }
+    function fadeInOut(ele,target,duration,callBack){
+        duration=duration||600;
+        var begin=getCss(ele,"opacity");
+        var change=target-begin;
+        var times=0;
+        var interval=15;
+        window.clearInterval(ele.timer);
+        function step(){
+            times+=interval;
+            if(times<duration){
+                ele.style.opacity=times/duration*change+begin;
+            }else{
+                ele.style.opacity=target;
+                window.clearInterval(ele.timer);
+                if(typeof callBack=="function"){
+                    callBack.call(ele);
+                }
+            }
+        }
+        ele.timer=window.setInterval(step,interval);
+    }
+    var divList=document.getElementsByTagName("div");
+    for(var i=0;i<divList.length;i++){
+        var cur=divList[i];
+        cur.onclick=function(){
+            fadeInOut(this,0.1,1800,callBack);
+        }
+    }
+    function callBack(){
+        this.style.background="green";
+    }
+</script>
+</body>
+</html>
