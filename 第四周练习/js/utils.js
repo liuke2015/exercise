@@ -226,13 +226,13 @@
     };
     //给某元素添加指定类名
     _utils.addClass=function addClass(curEle,strClass){
-        if(!this.hasClass(curEle,strClas)){
+        if(!this.hasClass(curEle,strClass)){
             curEle.className+=" "+strClass;
         }
     };
     //给某元素删除指定类名
     _utils.removeClass=function removeClass(curEle,strClass){
-        if(this.hasClass(curEle,strClas)){
+        if(this.hasClass(curEle,strClass)){
             var reg=new RegExp("(^| )"+strClass+"( |$)","g");
             curEle.className=curEle.className.replace(reg," ");
         }

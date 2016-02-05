@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body, html, ul, li {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .banner {
+            position: relative;
+            width: 1000px;
+            height: 300px;
+            overflow: hidden;
+            margin: 0px auto;
+        }
+
+        .bannerImg {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .bannerImg img {
+            float: left;
+        }
+
+        .bannerTip {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .bannerTip li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+            _display: inline;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            background: #00b3ee;
+            color: #fff;
+            cursor: pointer;
+            -webkit-user-select:none;
+        }
+
+        .bannerTip li.select {
+            background: #f08519
+        }
+
+        .btn {
+            position: absolute;
+            top: 50%;
+            margin-top: -23px;
+            width: 30px;
+            height: 46px;
+            background: url(img/pre.png) no-repeat left top;
+            opacity:0.3;
+            filter:alpha(opacity=30);
+            cursor:pointer
+        }
+
+        .btn-pre {
+            left: 10px;
+        }
+        .btn-next {
+            background-position: -51px top;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="banner">
+    <div class="bannerImg" id="bannerImg">
+        <img src="img/banner1.jpg" alt=""/>
+        <img src="img/banner2.jpg" alt=""/>
+        <img src="img/banner3.jpg" alt=""/>
+        <img src="img/banner4.jpg" alt=""/>
+    </div>
+    <ul class="bannerTip" id="bannerTip">
+        <li class="select">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <span class="btn btn-pre" id="btnP"></span>
+    <a class="btn btn-next" id="btnN"></a>
+</div>
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/tween20160205.js"></script>
+<script type="text/javascript">
+   /* var banner=document.getElementById("bannerImg"),liList=document.getElementById("bannerTip").getElementsByTagName("li"),imgList=banner.getElementsByTagName("img"),fir=imgList[0],len=imgList.length,lenTrue=len,imgW=fir.offsetWidth,btnPre=document.getElementById("btnP"),btnNex=document.getElementById("btnN");
+
+    banner.appendChild(fir.cloneNode(true));
+    len=imgList.length;//此处增加了一个Img,长度也增加了1
+    banner.style.width=imgW*len+"px";
+    var step=0;
+    var autoCurrent=function(index){
+        if(index==lenTrue){index=0;}
+        var curEle=liList[index],siblings=utils.siblings(curEle);
+        utils.addClass(curEle,"select");
+        for(var i=0;i<siblings.length;i++){
+            var cur=siblings[i];
+            utils.removeClass(cur,"select");
+        }
+    };
+    var autoLeft=function(){
+        step++;
+        if(step>lenTrue){//lenTrue为向末尾增加元素前的个数：4
+            step=1;
+            banner.style.left=0;
+        }
+        animate(banner,{left:-step*imgW},600,3);
+        autoCurrent(step);
+    };
+    var autoRight=function(){
+        step--;
+        if(step<0){
+            step=3;
+            banner.style.left=-lenTrue*imgW+"px";
+        }
+        animate(banner,{left:-step*imgW},600,3);
+        autoCurrent(step);
+    };
+    timer=window.setInterval(autoLeft,3000);
+
+    for(var i=0;i<liList.length;i++){
+        liList[i].index=i;
+        liList[i].onclick=function(){
+            window.clearInterval(timer);
+            step=this.index;
+            animate(banner,{left:-step*imgW},600,3);
+            autoCurrent(step);
+            timer=window.setInterval(autoLeft,3000);
+        }
+    }
+   btnNex.onclick=function(){
+       window.clearInterval(timer);
+       autoLeft();
+       timer=window.setInterval(autoLeft,3000);
+   };
+    btnPre.onclick=function(){
+        window.clearInterval(timer);
+        autoRight();
+        timer=window.setInterval(autoLeft,3000);
+    };*/
+    var bannerImg=document.getElementById("bannerImg"),imgList =bannerImg.getElementsByTagName("img"),len=imgList.length,lenTrue=len,fir =imgList[0],imgW=fir.offsetWidth,liList=document.getElementById("bannerTip").getElementsByTagName("li"),btnL=document.getElementById("btnP"),btnR=document.getElementById("btnN");
+    var step=0;
+    //1、向图片列表里自动追加第一张图片的复制图片
+    bannerImg.appendChild(fir.cloneNode(true));
+    //2、重新计算现在图片的个数及bannerImg的宽度
+    len=imgList.length;
+    bannerImg.style.width=imgW*len+"px";
+    //3、图片轮播时，li执行的相应操作
+    var autoCurrent=function(index){
+        if(index==lenTrue){index=0;}
+        var cur=liList[index],siblings=utils.siblings(cur);
+        utils.addClass(cur,"select");
+        for(var i=0;i<siblings.length;i++){
+           utils.removeClass(siblings[i],"select");
+        }
+    };
+    //4、右轮播
+    var autoRight=function(){
+      step++;
+        if(step>lenTrue){
+            bannerImg.style.left=0;
+            step=1;
+        }
+        animate(bannerImg,{left:-step*imgW},900,3);
+        autoCurrent(step);
+    };
+    //5、左轮播
+   var autoLeft=function(){
+       step--;
+       if(step<0){
+           bannerImg.style.left=-lenTrue*imgW+"px";
+           step=3;
+       }
+       animate(bannerImg,{left:-step*imgW},900,3);
+       autoCurrent(step);
+   };
+    //6、li点击绑定
+    for(var i=0;i<liList.length;i++){
+        liList[i].index=i;
+        liList[i].onclick=function(){
+            clearInterval(timer);
+            step=this.index;
+            animate(bannerImg,{left:-step*imgW},900,3);
+            autoCurrent(step);
+            timer=window.setInterval(autoRight,3000);
+        }
+    }
+    //7、左右箭头点击绑定
+   btnL.onclick=function(){
+       clearInterval(timer);
+       autoLeft();
+       autoCurrent(step);
+       timer=window.setInterval(autoLeft,3000);
+   };
+   btnR.onclick=function(){
+       clearInterval(timer);
+       autoRight();
+       autoCurrent(step);
+       timer=window.setInterval(autoRight,3000);
+   };
+   btnL.onmouseenter=btnR.onmouseenter=function(){
+     animate(this,{opacity:1},600);
+   };
+   btnL.onmouseleave=btnR.onmouseleave=function(){
+       animate(this,{opacity:0.3},600);
+   };
+    //8、定时器绑定
+   var timer=window.setInterval(autoRight,3000);
+</script>
+</body>
+</html>

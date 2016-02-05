@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div {
+            width: 100px;
+            height: 100px;
+            background: #fadb4e;
+            position: absolute;
+            left: 150px;
+            top: 0;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2" style="left:0;"></div>
+<div id="div3" style="left:300px;"></div>
+<div id="div4" style="left:450px;"></div>
+<div id="div5" style="left:600px;"></div>
+<div id="div6" style="left:750px;"></div>
+<script type="text/javascript">
+    var getCss = function (ele, attr) {
+        if ("getComputedStyle" in window) {
+            var val=window.getComputedStyle(ele, null)[attr];
+            //IE10下，如果没有写margin值，会默认margin值为空字符串""，如果取到的值是空字符串，设置其值为0；
+            if(val){
+                return parseFloat(val);
+            }else{
+                return 0;
+            }
+
+        } else {
+            if (attr == "opacity") {
+                var val = ele.currentStyle.filter, reg = /alpha\(opacity=((?:\d|[1-9]\d)(?:\.\d+)?)\)/;
+                if (reg.test(val)) {
+                    return RegExp.$1 / 100;
+                } else {
+                    return 1;
+                }
+            } else {
+                var val=ele.currentStyle[attr],reg=/\d+/;
+                //IE7/8下，如果没有写margin值，会默认margin值为"auto",所以匹配其内容是否含有数字，没有的话值设置为0;
+                if(reg.test(val)){
+                    return parseFloat(ele.currentStyle[attr]);
+                }else{
+                    return 0;
+                }
+            }
+        }
+    };
+    var setCss = function (ele, attr, val) {
+        var reg = /^(width|height|left|top|right|bottom|((margin|padding)(Left|Top|Right|Bottom)?))$/;
+        if (attr == "float") {
+            ele.style.cssFloat= val;
+            ele.style.styleFloat= val;
+        } else if (attr == "opacity") {
+            ele.style.opacity=val;
+            ele.style.filter= "alpha(opacity=" + val * 100 + ")";
+        } else if (reg.test(attr)) {
+
+            ele["style"][attr] = isNaN(val) ? val : val + "px";
+
+        } else {
+            ele.style.attr=val;
+        }
+    };
+    var animate = function (ele, oTarget, duration, callBack) {
+        var oBegin={},oChange={};
+        for(var attr in oTarget){
+            var begin = getCss(ele, attr);
+            var change = oTarget[attr] - begin;
+            oBegin[attr]=begin;
+            oChange[attr]=change;
+        }
+        var times = 0;
+        var interval = 15;
+        window.clearInterval(ele.timer);
+        function step() {
+            times += interval;
+            if (times < duration) {
+                for(var attr in oChange){
+                    var val = times / duration * oChange[attr] + oBegin[attr];
+                    setCss(ele, attr, val);
+                }
+            } else {
+                for(var attr in oTarget){
+                    var val = oTarget[attr];
+                    setCss(ele, attr, val);
+                }
+                window.clearInterval(ele.timer);
+                if (typeof callBack == "function") {
+                    callBack.call(ele);
+                }
+            }
+        }
+
+        ele.timer = window.setInterval(step, interval);
+    };
+    var changeRed = function () {
+        this.style.background = "#f00";
+    };
+    var obj={width:300,height:300,top:30,left:50,opacity:0.5,margin:300};
+    var divList = document.getElementsByTagName("div");
+    for (var i = 0; i < divList.length; i++) {
+        divList[i].onclick = function () {
+            animate(this, obj, 600, changeRed);
+        }
+    }
+
+
+
+</script>
+</body>
+</html>
