@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        img {
+            display: block;
+            margin: 0 auto 30px;
+        }
+
+        #banner {
+            position: relative;
+            width: 1000px;
+            height: 300px;
+            background: #00b3ee;
+            margin: 0 auto;
+            overflow:hidden;
+        }
+
+        #banner div {
+            position: absolute;
+            background-image: url(img/banner1.jpg);
+        }
+    </style>
+</head>
+<body>
+<img src="img/banner1.jpg"/>
+<div id="banner"></div>
+<script type="text/javascript" src="js/tween20160206.js"></script>
+<script type="text/javascript">
+   /* var oDiv = document.getElementById("banner");
+    var cols = 10, rows = 3, ary = [];
+    var w = oDiv.offsetWidth / cols, h = oDiv.offsetHeight / rows;
+    for (var i = 0; i < cols * rows; i++) {
+        var ele = document.createElement("div");
+        with (ele.style) {
+            width = w + "px";
+            height = h + "px";
+            t = Math.floor(i / cols) * h;//top:行号*元素高度  行号：Math.floor(i/cols)->i为索引
+            l = i % cols * w;//left:列号*元素宽度  列号：i%cols
+            switch (Math.floor(i/cols)) {
+                case 0:
+                    top = -300+"px";
+                    left = -400+"px";
+                    break;
+                case 1:
+                    top = t+"px";
+                    left = -400+"px";
+                    break;
+                case 2:
+                    top = t+300+"px";
+                    left = -400+"px";
+                    break;
+            }
+            backgroundPosition = -l + "px -" + t + "px";
+            ele.l = l;
+            ele.t = t;
+            console.log(i+":"+top+" "+left);
+        }
+
+        ary[ary.length] = ele;
+        oDiv.appendChild(ele);
+    }
+ document.documentElement.onclick=function(){
+     for (var i = 0; i < ary.length; i++) {
+         var ele = ary[i];
+         ~function (ele) {
+             window.setTimeout(function(){
+                 animate(ele,{left:ele.l,top:ele.t},800,3)
+             },i%cols*200);
+         }(ele);
+     }
+ }*/
+    var oBanner=document.getElementById("banner");
+    var cols=10,rows= 3,w=oBanner.offsetWidth/cols,h=oBanner.offsetHeight/rows,ary=[];
+    for(var i=0;i<cols*rows;i++){
+        var ele=document.createElement("div");
+        with(ele.style){
+            width=w+"px";
+            height=h+"px";
+            var l=i%cols*w;
+            var t=Math.floor(i/cols)*h;
+            switch(Math.floor(i/cols)){
+                case 0:
+                    top=-200+"px";
+                    left=-400+"px";
+                    break;
+                case 1:
+                    top=t+"px";
+                    left=-400+"px";
+                    break;
+                default:
+                    top=t+300+"px";
+                    left=-400+"px";
+            }
+            ele.l=l;
+            ele.t=t;
+            backgroundPosition=-l+"px -"+t+"px";
+            console.log(i+" top:"+top+" left:"+left);
+        }
+
+        ary[ary.length]=ele;
+        oBanner.appendChild(ele);
+    }
+  document.documentElement.onclick=function(){
+       for(var i=0;i<ary.length;i++){
+           var ele=ary[i];
+         ~function(ele){
+             window.setTimeout(function(){
+                 animate(ele,{left:ele.l,top:ele.t},800,2);
+             },i%cols*200);
+         }(ele);
+       }
+   }
+</script>
+</body>
+</html>
