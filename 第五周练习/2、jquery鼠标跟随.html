@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>jquery鼠标跟随</title>
+    <link href="css/mouse.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="img/apple_1.jpg"/></li>
+        <li><img src="img/apple_2.jpg"/></li>
+        <li><img src="img/apple_3.jpg"/></li>
+        <li><img src="img/apple_4.jpg"/></li>
+    </ul>
+    <div id="mark"><img src="img/apple_1_bigger.jpg"/></div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var $liList = $("#box").find("li"), $mark = $("#mark"), offset = $("#box").offset(),$oImg=$mark.find("img").eq(0);
+    $liList.mouseover(function (e) {
+        var l = e.clientX - offset.left + 20, t = e.clientY - offset.top + 20;
+        $mark.css({left: l, top: t}).stop().show(500);
+
+        var trueImg=$(this).children("img").attr("src");
+        trueImg=trueImg.replace(".jpg","_bigger.jpg");
+        $oImg.attr("src",trueImg);
+    });
+    $liList.mousemove(function (e) {
+        var l = e.clientX - offset.left + 20, t = e.clientY - offset.top + 20;
+        $mark.css({left: l + "px", top: t + "px"});
+    });
+    $liList.mouseout(function (e) {
+        $mark.stop().hide(500);
+    });
+</script>
+</body>
+</html>

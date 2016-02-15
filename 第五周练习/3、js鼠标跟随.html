@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js鼠标跟随</title>
+    <link href="css/mouse.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="img/apple_1.jpg"/></li>
+        <li><img src="img/apple_2.jpg"/></li>
+        <li><img src="img/apple_3.jpg"/></li>
+        <li><img src="img/apple_4.jpg"/></li>
+    </ul>
+    <div id="mark"><img src="img/apple_1_bigger.jpg"/></div>
+    <script type="text/javascript">
+        var box = document.getElementById("box"), liList = box.getElementsByTagName("li");
+
+        for (var i = 0; i < liList.length; i++) {
+            cur = liList[i];
+            cur.index = i;
+            cur.onmouseenter = function (e) {
+                e = e || window.event;
+                var mark = document.getElementById("mark"), oImg = mark.getElementsByTagName("img")[0];
+                if (mark) {
+                    var l = e.clientX - box.offsetLeft + 20, t = e.clientY - box.offsetTop + 20;
+                    var trueImg = this.getElementsByTagName("img")[0].src;
+                    trueImg = trueImg.replace(".jpg", "_bigger.jpg");
+
+                    mark.style.display = "block";
+                    mark.style.left = l + "px";
+                    mark.style.top = t + "px";
+                    oImg.src = trueImg;
+                }
+            };
+            cur.onmousemove = function (e) {
+                e = e || window.event;
+                var mark = document.getElementById("mark");
+                if (mark) {
+                    var l = e.clientX - box.offsetLeft + 20, t = e.clientY - box.offsetTop + 20;
+                    mark.style.left = l + "px";
+                    mark.style.top = t + "px";
+                }
+            };
+            cur.onmouseleave = function () {
+                var mark = document.getElementById("mark");
+                if (mark) {
+                    mark.style.display = "none";
+                }
+            };
+        }
+
+    </script>
+</div>
+</body>
+</html>

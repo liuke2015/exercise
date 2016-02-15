@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百度拖拽</title>
+    <style type="text/css">
+        html, body, h2 {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 300px;
+            height: 400px;
+            margin: -200px 0 0 -150px;
+            border: 1px solid #00516e;
+            background: #dbe5ff
+        }
+
+        #boxTop {
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            background: #00b3ee;
+            cursor: move;
+        }
+
+        #boxTop h2 {
+            color: #fff;
+            font: normal 16px/30px "";
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div id="boxTop">
+        <h2>可以拖拽我哦~</h2>
+    </div>
+</div>
+<script type="text/javascript" src="js/utils-css.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box"), boxTop = document.getElementById("boxTop");
+    var winW = document.documentElement.clientWidth || document.body.clientWidth, winH = document.documentElement.clientHeight || document.body.clientHeight;
+    var boxW = box.offsetWidth, boxH = box.offsetHeight;
+    var minL = 0, maxL = winW - boxW, minT = 0, maxT = winH - boxH;
+
+    utils.setGroupCss(box, {
+        left: (winW - boxW) / 2,
+        top: (winH - boxH) / 2,
+        margin: 0
+    });
+
+    var down = function (e) {
+        e = e || window.event;
+        this.starX = e.clientX;
+        this.starY = e.clientY;
+        this.starL = utils.getCss(box, "left");
+        this.starT = utils.getCss(box, "top");
+
+        var _this = this;
+
+        if (this.setCapture) {
+            this.setCapture();
+            this.onmousemove = move;
+            this.onmouseup = up;
+        } else {
+            document.onmousemove = function (e) {
+                move.call(_this, e);
+
+            };
+            document.onmouseup=function(e){
+                up.call(_this, e);
+            }
+        }
+    };
+    var move = function (e) {
+        e = e || window.event;
+
+        var curL = this.starL + (e.clientX - this.starX);
+        var curT = this.starT + (e.clientY - this.starY);
+
+        if (curL < minL) {
+            box.style.left = 0;
+        } else if (curL > maxL) {
+            box.style.left = maxL + "px";
+        } else {
+            box.style.left = curL + "px";
+        }
+
+        if (curT < minT) {
+            box.style.top = 0;
+        } else if (curT > maxT) {
+            box.style.left = maxT + "px";
+        } else {
+            box.style.top = curT + "px";
+        }
+    };
+
+    var up=function(e){
+        if(this.releaseCapture){
+            this.releaseCapture();
+            this.onmousemove=null;
+            this.onmouseup=null;
+        }else{
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+    };
+    boxTop.onmousedown=down;
+</script>
+</body>
+</html>

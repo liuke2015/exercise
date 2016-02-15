@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百度搜索</title>
+    <style type="text/css">
+        body, div, input, ul, li {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        input {
+            display: block;
+            outline: none;
+        }
+
+        .box {
+            margin: 50px auto;
+            width: 500px;
+        }
+
+        .box .search {
+            padding: 0 10px;
+            width: 478px;
+            height: 35px;
+            border: 1px solid #3c3c3c;
+        }
+
+        .box ul {
+            display: none;
+            border: 1px solid #C2CCD1;
+            border-top: none;
+        }
+
+        .box ul li {
+            padding: 0 10px;
+            height: 35px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+
+        .box ul li.hover {
+            background: #E0F2BE;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <input type="text" id="search" class="search"/>
+    <ul id="searchList">
+        <li>珠峰培训是全国知名的JS培训机构</li>
+        <li>周老师是珠峰培训的最帅的老师</li>
+        <li>刘松松是珠峰培训最丑的学员</li>
+        <li>耿大大是珠峰培训最老的老师</li>
+        <li>张仁阳老师是珠峰培训的大拿老师</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var search=document.getElementById("search"),searchList=document.getElementById("searchList");
+    var liList=searchList.getElementsByTagName("li");
+    for(var i=0;i<liList.length;i++){
+        liList[i].onmouseover=function(){
+            this.className="hover";
+        };
+        liList[i].onmouseout=function(){
+            this.className=null;
+        }
+    }
+    search.onkeyup=function(){
+        var val=this.value.replace(/(^ +)|( +$)/g,"");
+        searchList.style.display=val==""?"none":"block";
+    };
+    document.documentElement.onclick=function(e){
+        e=e||window.event;
+        var cur= e.target|| e.srcElement;
+        if(cur.id=="search"){
+            search.onkeyup.call(cur);
+        }else if(cur.tagName.toLowerCase()=="li"&&cur.parentNode==searchList){
+            search.value=cur.innerHTML;
+            searchList.style.display="none";
+        }else if(cur.id=="searchList"){
+
+        }else{
+            searchList.style.display="none";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>周末放大镜</title>
+    <style type="text/css">
+        html,body{padding:0;margin:0;}
+        img{border:0}
+        #content{position:relative;width:300px;height:223px;}
+        #show{position:absolute;left:310px;top:0;width:300px;height:223px;background:#f0e199;overflow:hidden;}
+        #mark{position:absolute;left:0;top:0;background: #000;opacity:0.2;filter:alpha(opacity=20)}
+    </style>
+</head>
+<body>
+<div id="content">
+    <img id="smallPic" src="img/smallPeony.jpg" width="300" height="223">
+    <!-- <div id="show"><img src="img/peony.jpg"></div>-->
+    <script type="text/javascript">
+        var oContent=document.getElementById("content"),sPic=document.getElementById("smallPic");
+        oContent.onmouseenter=function(e){
+            e=e||window.event;
+            var show=document.createElement("div");
+            show.id="show";
+            this.appendChild(show);
+
+            var oImg=new Image;
+            oImg.src=sPic.src.replace(/small([A-Z])/,function(){
+               return arguments[1].toLowerCase();
+            });
+            show.appendChild(oImg);
+            var mark=document.createElement("div");
+            mark.id="mark";
+            mark.stepW=show.offsetWidth/oImg.offsetWidth;
+            mark.stepH=show.offsetHeight/oImg.offsetHeight;
+            mark.style.width=mark.stepW*oContent.offsetWidth+"px";
+            mark.style.height=mark.stepH*oContent.offsetHeight+"px";
+            this.appendChild(mark);
+        };
+        oContent.onmousemove=function(e){
+            e=e||window.event;
+            var show=document.getElementById("show"),mark=document.getElementById("mark");
+            if(mark&&show){
+                var minL= 0,maxL=oContent.offsetWidth-mark.offsetWidth,minT= 0,maxT=oContent.offsetHeight-mark.offsetHeight;
+                var l= e.clientX-oContent.offsetLeft-mark.offsetWidth/ 2,t= e.clientY-oContent.offsetTop-mark.offsetHeight/ 2;
+                if(l<minL){
+                    mark.style.left=0;
+                    show.scrollLeft=0;
+                }else if(l>maxL){
+                    mark.style.left=maxL+"px";
+                    show.scrollLeft=maxL/ mark.stepW;
+                }else{
+                    mark.style.left=l+"px";
+                    show.scrollLeft=l/ mark.stepW;
+                }
+
+                if(t<minT){
+                    mark.style.top=0;
+                    show.scrollTop=0;
+                }else if(t>maxT){
+                    mark.style.top=maxT+"px";
+                    show.scrollTop=maxT/ mark.stepH;
+                }else{
+                    mark.style.top=t+"px";
+                    show.scrollTop=t/ mark.stepH;
+                }
+            }
+        };
+        oContent.onmouseleave=function(e){
+            var show=document.getElementById("show"),mark=document.getElementById("mark");
+            if(show){
+                this.removeChild(show);
+            }
+            if(mark){
+                this.removeChild(mark);
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
