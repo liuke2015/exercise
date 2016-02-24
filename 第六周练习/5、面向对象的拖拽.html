@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{margin:0;padding:0}
+        #div1,#div2,#div3,#div4{position:absolute;top:50px;left:100px;width:100px;height:100px;background: #f04124;}
+        #div2{background: #f0e199;left:300px;}
+        #div3{background: #007ca6;left:500px;}
+        #div4{background: #ee6dd8;top:200px;}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="div4"></div>
+<script type="text/javascript" src="js/event.js"></script>
+<script type="text/javascript">
+    function Drag(ele){
+        this.ele=ele;
+        this.starL=null;
+        this.starT=null;
+        this.starX=null;
+        this.starY=null;
+
+        this.MOVE=processThis(this,this.move);
+        this.DOWN=processThis(this,this.down);
+        this.UP=processThis(this,this.up);
+
+        on(this.ele,"mousedown",this.DOWN);
+    }
+    Drag.prototype.down=function(e){
+        this.starL=this.ele.offsetLeft;
+        this.starT=this.ele.offsetTop;
+        this.starX= e.pageX;
+        this.starY= e.pageY;
+
+        if(this.ele.setCapture){
+            this.ele.setCapture();
+            on(this.ele,"mousemove",this.MOVE);
+            on(this.ele,"mouseup",this.UP);
+        }else{
+            on(document,"mousemove",this.MOVE);
+            on(document,"mouseup",this.UP);
+        }
+        e.preventDefault();
+    };
+    Drag.prototype.move=function(e){
+        this.ele.style.left=this.starL+(e.pageX-this.starX)+"px";
+        this.ele.style.top=this.starT+(e.pageY-this.starY)+"px";
+    };
+    Drag.prototype.up=function(){
+        if(this.ele.releaseCapture){
+            this.ele.releaseCapture();
+            off(this.ele,"mousemove",this.MOVE);
+            off(this.ele,"mouseup",this.UP);
+        }else{
+            off(document,"mousemove",this.MOVE);
+            off(document,"mouseup",this.UP);
+        }
+    };
+    var div1=document.getElementById("div1");
+    new Drag(div1);
+    new Drag(div2);
+    new Drag(div3);
+    new Drag(div4);
+</script>
+</body>
+</html>

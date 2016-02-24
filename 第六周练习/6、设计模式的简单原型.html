@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+   /* function EventEmitter(){}
+    EventEmitter.prototype.on=function(evenType,fn){
+        if(!this["aEven"+evenType]){
+            this["aEven"+evenType]=[];
+        }
+        var ary=this["aEven"+evenType];
+        for(var i=0;i<ary.length;i++){
+            if(ary[i]==fn){
+                return;
+            }
+        }
+        ary.push(fn);
+    };
+    EventEmitter.prototype.run=function(evenType){
+        var ary=this["aEven"+evenType];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(typeof ary[i]=="function"){
+                    ary[i].call(this);
+                }else{
+                    ary.splice(i,1);
+                    i--;
+                }
+
+            }
+        }
+    };
+    EventEmitter.prototype.off=function(evenType,fn){
+        var ary=this["aEven"+evenType];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(ary[i]==fn){
+                    ary[i]=null;
+                    return;
+                }
+            }
+        }
+    };
+
+    function Kettle(){}
+    Kettle.prototype.boiling=function(){
+        console.log("开始烧水");
+        var that=this;
+        window.setTimeout(function(){
+            console.log("水烧开了！");
+            that.run("boiling");
+        },5000);
+    };
+    Kettle.prototype.__proto__=EventEmitter.prototype;
+    function noodles(){
+        console.log("开始泡面~");
+    }
+    function washing(){
+        console.log("开始洗脸~");
+    }
+    var k1=new Kettle();
+    k1.on("boiling",noodles);
+    k1.on("boiling",washing);
+    k1.boiling();*/
+    function Kettle(){}
+    Kettle.prototype=new EventEmitter;
+    Kettle.prototype.boiling=function(){
+        console.log("开始烧水");
+        var _this=this;
+        window.setTimeout(function(){
+            console.log("水烧开了");
+            _this.run("boiling");
+        },5000)
+    };
+    function EventEmitter(){}
+    EventEmitter.prototype.on=function(evenType,fn){
+        if(!this["aEven"+evenType]){
+            this["aEven"+evenType]=[];
+        }
+        var ary=this["aEven"+evenType];
+        for(var i=0;i<ary.lenght;i++){
+            if(ary[i]==fn){
+                return;
+            }
+        }
+        ary[ary.length]=fn;
+    };
+   EventEmitter.prototype.run=function(evenType){
+       var ary=this["aEven"+evenType];
+       for(var i=0;i<ary.length;i++){
+           if(typeof ary[i]=="function"){
+               ary[i].call(this);
+           }else{
+               ary[i]=null;
+           }
+       }
+   };
+   EventEmitter.prototype.off=function(evenType,fn){
+       var ary=this["aEven"+evenType];
+       for(var i=0;i<ary.length;i++){
+           if(ary[i]==fn){
+               ary[i]=null;
+               return;
+           }
+       }
+   };
+    function noodles(){
+        console.log("开始泡面~");
+    }
+    function washing(){
+        console.log("开始洗脸~");
+    }
+    var k1=new Kettle;
+    k1.on("boiling",noodles);
+    k1.on("boiling",washing);
+    k1.boiling();
+</script>
+</body>
+</html>

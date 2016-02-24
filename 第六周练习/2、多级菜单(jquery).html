@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style type="text/css">
+        html,body,ul,li{padding:0;margin:0;font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif;font-size:14px;color:#333}
+        #box{width:300px;border:1px solid #b5a66f;background: #fff6ea;padding:10px;}
+        ul,li{list-style:none;}
+        #box li{position:relative;line-height:30px;margin-left:15px;}
+        #box em{display:block;position:absolute;left:0;top:8px;width:16px;height:16px;background: url("img/icon.png") no-repeat -59px -28px;cursor:pointer;}
+        #box em.open{background-position:-42px -28px; }
+        #box span{padding-left:18px;}
+        #box li ul{display:none;}
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li>
+            <em></em><span>一级菜单第一个</span>
+            <ul>
+                <li>
+                    <em></em><span>二级菜单第一个</span>
+                    <ul>
+                        <li><span>三级菜单第一个</span></li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li><span>四级菜单第一个</span></li>
+                                <li><span>四级菜单第二个</span></li>
+                                <li><span>四级菜单第三个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <em></em><span>二级菜单第二个</span>
+                    <ul>
+                        <li><span>三级菜单第一个</span></li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li><span>四级菜单第一个</span></li>
+                                <li><span>四级菜单第二个</span></li>
+                                <li><span>四级菜单第三个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span>二级菜单第三个</span></li>
+            </ul>
+        </li>
+        <li>
+            <em></em><span>一级菜单第一个</span>
+            <ul>
+                <li>
+                    <em></em><span>二级菜单第一个</span>
+                    <ul>
+                        <li><span>三级菜单第一个</span></li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li><span>四级菜单第一个</span></li>
+                                <li><span>四级菜单第二个</span></li>
+                                <li><span>四级菜单第三个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span>二级菜单第二个</span></li>
+                <li><span>二级菜单第三个</span></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    $("#box em+span").each(function(){
+        $(this).css({cursor:"pointer"});
+    });
+   $("#box em+span").click(function(){
+       var $nex= $(this).next("ul");
+       var isBlock=$nex.css("display");
+       if(isBlock=="block"){//当前显示
+           $nex.slideUp();
+           $(this).prev("em").removeClass("open");
+           $nex.find("ul").slideUp();
+           $nex.find("em").removeClass("open");
+       }else{//当前隐藏
+           $nex.slideDown();
+           $(this).prev("em").addClass("open");
+       }
+
+   })
+</script>
+</body>
+</html>

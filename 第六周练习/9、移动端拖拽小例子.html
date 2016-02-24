@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #outer {
+            width: 80%;
+            margin: 20px 10%;
+            overflow: hidden;
+        }
+
+        #inner {
+            width: 500%;
+            height: 100px;
+            transition: .7s linear;
+        }
+
+        #inner li {
+            float: left;
+            width: 20%;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            color: #fff;
+            font-size: 2em;
+        }
+
+        #inner li:nth-child(1) {
+            background: #f04124
+        }
+
+        #inner li:nth-child(2) {
+            background: #f0d72d
+        }
+
+        #inner li:nth-child(3) {
+            background: #619af0
+        }
+
+        #inner li:nth-child(4) {
+            background: #56f05b
+        }
+
+        #inner li:nth-child(5) {
+            background: #f0978a
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <ul id="inner">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</div>
+<script type="text/javascript">
+   /* var inner=document.querySelector("#inner");
+    var oLis=document.querySelectorAll("#inner li");
+    [].forEach.call(oLis,function(ele,index){
+        ele.index=index;
+        ele.addEventListener("touchstart",start,false);
+        ele.addEventListener("touchmove",move,false);
+        ele.addEventListener("touchend",end,false);
+    });
+    function start(e){
+        this.starL= e.changedTouches[0].pageX;
+    }
+    function move(e){
+        e.preventDefault();
+        this.flag=true;
+        var moveX= e.changedTouches[0].pageX;
+        var changePos=moveX-this.starL;
+
+        this.changePos=changePos;
+        var move=-(this.index*this.offsetWidth-changePos);
+        this.parentNode.style.transform = 'translate('+move+'px,0)';
+    }
+    function end(e){
+        if(this.flag){
+            var index=setPos(this.index,this.changePos);
+            var move=-(index*this.offsetWidth);
+            this.parentNode.style.transform="translate("+move+"px,0)";
+        }
+    }
+    function setPos(cur,pos){
+        var index=null;
+        if(pos>0){
+            index=--cur;
+            if(index<0){
+                index=0
+            }
+        }else{
+            index=++cur;
+            if(index>=oLis.length-1){
+                index=oLis.length-1;
+            }
+        }
+        return index;
+    }*/
+   /* var inner=document.getElementById("inner");
+    var oLis=inner.getElementsByTagName("li");
+    [].forEach.call(oLis,function(ele,index){
+        ele.index=index;
+        ele.addEventListener("touchstart",start,false);
+        ele.addEventListener("touchmove",move,false);
+        ele.addEventListener("touchend",end,false);
+    });
+    function start(e){
+        this.starL= e.changedTouches[0].pageX;
+    }
+    function move(e){
+        e.preventDefault();
+        this.flag=true;
+        var moveX= e.changedTouches[0].pageX;
+        var changePos=moveX-this.starL;
+
+        this.changePos=changePos;
+        var move=-(this.index*this.offsetWidth-changePos);
+        this.parentNode.style.transform="translate("+move+"px,0)";
+    }
+    function end(){
+        if(this.flag){
+            var index=setPos(this.index,this.changePos);
+            var move=-(index*this.offsetWidth);
+            this.parentNode.style.transform="translate("+move+"px,0)";
+        }
+    }
+    function setPos(cur,pos){
+        var index=null;
+       if(pos>0){
+           index=--cur;
+           if(index<0){
+               index=0;
+           }
+       }else{
+           index=++cur;
+           if(index>oLis.length-1){
+               index=oLis.length-1;
+           }
+       }
+        return index;
+   }*/
+    var inner=document.getElementById("inner");
+    var oLis=inner.getElementsByTagName("li");
+
+    [].forEach.call(oLis,function(ele,index){
+        ele.index=index;
+
+        ele.addEventListener("touchstart",start,false);
+        ele.addEventListener("touchmove",move,false);
+        ele.addEventListener("touchend",end,false);
+    });
+    function start(e){
+        this.starL= e.changedTouches[0].pageX;
+    }
+    function move(e){
+        this.flag=true;
+        var moveX= e.changedTouches[0].pageX;
+        var changePos=moveX-this.starL;
+
+        this.changePos=changePos;
+        var move=-(this.index*this.offsetWidth-changePos);
+        this.parentNode.style.transform="translate("+move+"px,0)";
+    }
+    function end(){
+        var index=setPos(this.index,this.changePos);
+        var move=-(index*this.offsetWidth);
+        inner.style.transform="translate("+move+"px,0)";
+    }
+    function setPos(cur,pos){
+        var index=null;
+        if(pos>0){
+            index=--cur;
+            if(index<0){
+                index=0;
+            }
+        }else{
+            index=++cur;
+            if(index>oLis.length-1){
+                index=oLis.length-1;
+            }
+        }
+        return index;
+    }
+</script>
+</body>
+</html>

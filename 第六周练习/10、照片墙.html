@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>照片墙</title>
+    <style type="text/css">
+        *{margin:0;padding:0}
+        ul,li{list-style:none;;-webkit-user-select: none}
+        ul{width:480px;height:640px;margin:0px auto;padding:5px;background: #ffa295;}
+        ul li{float:left;width:150px;height:150px;margin:5px;background: #00b3ee}
+        ul li img{width:100%;height:100%;display:block;border:0}
+    </style>
+</head>
+<body>
+<ul>
+    <li><img src="img/1.png" alt=""/></li>
+    <li><img src="img/2.png" alt=""/></li>
+    <li><img src="img/3.png" alt=""/></li>
+    <li><img src="img/4.png" alt=""/></li>
+    <li><img src="img/5.png" alt=""/></li>
+    <li><img src="img/6.png" alt=""/></li>
+    <li><img src="img/7.png" alt=""/></li>
+    <li><img src="img/8.png" alt=""/></li>
+    <li><img src="img/9.png" alt=""/></li>
+    <li><img src="img/10.png" alt=""/></li>
+    <li><img src="img/11.png" alt=""/></li>
+    <li><img src="img/12.png" alt=""/></li>
+</ul>
+<script type="text/javascript" src="js/event.js"></script>
+<script type="text/javascript" src="js/drag_oop.js"></script>
+<script type="text/javascript" src="js/tween.js"></script>
+<!--<script type="text/javascript">
+    var oLis=document.getElementsByTagName("li");
+    //1、将li改成绝对定位
+    for(var i=oLis.length-1;i>=0;i&#45;&#45;){
+        var oLi=oLis[i];
+        oLi.style.left=(oLi.l=oLi.offsetLeft)+"px";
+        oLi.style.top=(oLi.t=oLi.offsetTop)+"px";
+        oLi.style.position="absolute";
+        oLi.style.margin=0;
+
+        var obj=new Drag(oLi);
+        obj.border();//拖拽加边框
+        obj.on("dragStar",increaseIndex);//被拖拽元素层级高
+        obj.on("dragEnd",goHome);//松手后，被拖拽元素回到原位置
+        obj.on("drag",getHited);
+        obj.on("dragEnd",changePos);
+
+    }
+    var index=0;
+    function increaseIndex(){
+        var ele=this.ele;
+        ele.style.zIndex=++index;
+        ele.style.cursor="move";
+        ele.style.backgroundColor="black";
+    }
+    function goHome(){
+        var ele=this.ele;
+        animate(ele,{left:ele.l,top:ele.t},200,4);
+        this.ele.style.cursor="default";
+    }
+    //碰撞检测
+    function getHited(){
+        var ele=this.ele;
+        this.Hited=[];
+        for(var i=0;i<oLis.length;i++){
+            var oLi=oLis[i];
+            if(oLi==ele)continue;
+            oLi.style.backgroundColor="";
+            if(testHited(ele,oLi)){
+                oLi.style.backgroundColor="yellow";
+                this.Hited.push(oLi);
+            }
+        }
+    }
+    function testHited(cur,other){
+        if(cur.offsetLeft+cur.offsetWidth<other.offsetLeft||cur.offsetTop+cur.offsetHeight<other.offsetTop||cur.offsetLeft>other.offsetLeft+other.offsetWidth||cur.offsetTop>other.offsetTop+other.offsetHeight){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //交换位置
+    function changePos(){
+        var ary=this.Hited;
+        console.log("here");
+        var ele=this.ele;
+        if(ary&&ary.length){
+            //计算每个产生碰撞元素与拖拽元素的距离，并保存在碰撞元素的自定义属性上
+            for(var i=0;i<ary.length;i++){
+                var oLi=ary[i];
+                oLi.distance=Math.sqrt(Math.pow((ele.offsetLeft-oLi.offsetLeft),2)+Math.pow((ele.offsetTop-oLi.offsetTop),2));
+            }
+            //按照自定义属性的距离排序
+            ary.sort(function(a,b){
+                return a.distance- b.distance;
+            });
+            oLi=ary[0];
+            animate(oLi,{left:ele.l,top:ele.t},200,4);
+            animate(ele,{left:oLi.l,top:oLi.t},200,4);
+
+            var tempL=ele.l,tempT=ele.t;
+            ele.l=oLi.l;
+            ele.t=oLi.t;
+            oLi.l=tempL;
+            oLi.t=tempT;
+        }
+        for(var k=0;k<oLis.length;k++){
+            var oLi=oLis[k];
+            oLi.style.backgroundColor="";
+        }
+        this.Hited=null;
+    }
+</script>-->
+<script type="text/javascript">
+    var oLis=document.getElementsByTagName("li");
+    //给li元素设置绝对定位
+    for(var i=oLis.length-1;i>=0;i--){
+        var oLi=oLis[i];
+        oLi.style.left=(oLi.l=oLi.offsetLeft)+"px";
+        oLi.style.top=(oLi.t=oLi.offsetTop)+"px";
+        oLi.style.position="absolute";
+        oLi.style.margin="0";
+
+        var obj=new Drag(oLi);
+        Drag.prototype.index=0;
+        obj.border();
+        obj.on("dragStar",increaseIndex);
+        obj.on("dragEnd",goHome);
+        obj.on("drag",getHited);
+        obj.on("dragEnd",changePos);
+    }
+    //改变被拖拽元素优先级
+    function increaseIndex(){
+        var ele=this.ele;
+        Drag.prototype.index+=1;
+        setCss(ele,"zIndex",Drag.prototype.index);
+        setCss(ele,"backgroundColor","black");
+    }
+    function goHome(){
+        var ele=this.ele;
+        animate(ele,{"left":ele.l,"top":ele.t,"backgroundColor":"#00B3EE"},300,1);
+        /*setCss(ele,"left",ele.l);
+        setCss(ele,"top",ele.t);
+        setCss(ele,"background","#00B3EE");*/
+    }
+    //碰撞检测
+    function getHited(){
+        var ele=this.ele;
+        ele.Hited=[];
+        for(var i=0;i<oLis.length;i++){
+            var oLi=oLis[i];
+            if(ele==oLi)continue;
+          setCss(oLi,"background","#00B3EE");
+            if(setHited(ele,oLi)){
+                setCss(oLi,"background","yellow");
+                ele.Hited.push(oLi);
+            }
+        }
+
+    }
+    function setHited(cur,other){
+        if(cur.offsetLeft+cur.offsetWidth<other.offsetLeft||cur.offsetTop+cur.offsetHeight<other.offsetTop||cur.offsetLeft>other.offsetLeft+other.offsetWidth||cur.offsetTop>other.offsetTop+other.offsetHeight){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //计算碰撞面积，面积最大者，交换位置
+    function changePos(){
+        var ele=this.ele;
+        var ary=ele.Hited;
+        if(ary&&ary.length){
+            for(var i=0;i<ary.length;i++){
+                var oLi=ary[i];
+                var distance=Math.sqrt(Math.pow((ele.offsetLeft-oLi.offsetLeft),2)+Math.pow((ele.offsetTop-oLi.offsetTop),2));
+                oLi.dis=distance;
+            }
+            ary.sort(function(a,b){
+                return a.dis- b.dis;
+            });
+            var cur=ary[0];
+            setCss(cur,"backgroundColor","black");
+            animate(cur,{"left":ele.l,"top":ele.t},300,2);
+            animate(ele,{"left":cur.l,"top":cur.t},300,1);
+
+            var tempL=ele.l,tempT=ele.t;
+            ele.l=cur.l;
+            ele.t=cur.t;
+            cur.l=tempL;
+            cur.t=tempT;
+        }
+        ele.Hited=null;
+        [].forEach.call(oLis,function(ele,index){
+            if(ele==cur) {
+
+            }else{
+                setCss(ele,"backgroundColor","#00B3EE");
+            }
+
+        })
+    }
+</script>
+</body>
+</html>

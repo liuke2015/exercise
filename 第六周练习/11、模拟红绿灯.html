@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function EventEmitter(){}
+    EventEmitter.prototype.on=function(type,fn){
+        if(!this[type]){
+            this[type]=[];
+        }
+        var ary=this[type];
+        for(var i=0;i<ary.length;i++){
+            if(ary[i]==fn){
+                return;
+            }
+        }
+        ary[ary.length]=fn;
+    };
+    EventEmitter.prototype.run=function(type){
+        var ary=this[type];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(typeof ary[i]=="function"){
+                    ary[i].call(this)
+                }else{
+                    ary.splice(i,1);
+                    i--;
+                }
+            }
+        }
+    };
+    EventEmitter.prototype.off=function(type,fn){
+        var ary=this[type];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(ary[i]==fn){
+                    ary[i]=null;
+                    break;
+                }
+            }
+        }
+    };
+    function TransformLight(){this.x=1;}
+    TransformLight.prototype=new EventEmitter();
+    TransformLight.prototype.lightRed=function(){
+        console.log("红灯亮了");
+        this.run("red");
+    };
+    TransformLight.prototype.lightYellow=function(){
+        console.log("黄灯亮了");
+        this.run("yellow");
+    };
+    TransformLight.prototype.lightGreen=function(){
+        console.log("绿灯亮了");
+        this.run("green");
+    };
+    function stop(){
+        console.log("不能走了!");
+    }
+    function waite(){
+        console.log("等一等!");
+    }
+    function go(){
+        console.log("可以走了!");
+    }
+    var obj=new TransformLight();
+    obj.on("red",stop);
+    obj.on("yellow",waite);
+    obj.on("green",go);
+    function lightGo(n){
+        switch(n){
+            case 1:
+                obj.lightRed();
+                break;
+            case 2:
+                obj.lightYellow();
+                break;
+            case 3:
+                obj.lightGreen();
+                break;
+        }
+        ++n;
+        if(n>3){n=1;}
+        window.setTimeout(function(){
+            lightGo(n);
+        },6000);
+    }
+    lightGo(1);
+</script>
+</body>
+</html>

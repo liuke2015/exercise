@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{position:absolute;left:10px;top:30px;width:100px;height:100px;background: #f04124;}
+    </style>
+</head>
+<body>
+<div id="div1" draggable="true"></div>
+<script type="text/javascript">
+    var oDiv=document.getElementById("div1");
+    oDiv.ondragstart=function(e){
+        this.starL=this.offsetLeft;
+        this.starT=this.offsetTop;
+        this.starX= e.clientX;
+        this.starY= e.clientY;
+    };
+    oDiv.ondrag=function(e){
+        this.style.left=this.starL+(e.clientX-this.starX)+"px";
+        this.style.top=this.starT+(e.clientY-this.starY)+"px";
+    };
+    oDiv.ondragend=function(e){
+        this.style.left=this.starL+(e.clientX-this.starX)+"px";
+        this.style.top=this.starT+(e.clientY-this.starY)+"px";
+    }
+</script>
+</body>
+</html>

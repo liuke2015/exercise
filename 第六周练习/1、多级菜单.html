@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style type="text/css">
+        html,body,ul,li{padding:0;margin:0;font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif;font-size:14px;color:#333}
+        #box{width:300px;border:1px solid #b5a66f;background: #fff6ea;padding:10px;}
+        ul,li{list-style:none;}
+        #box li{position:relative;line-height:30px;margin-left:15px;}
+        #box em{display:block;position:absolute;left:0;top:8px;width:16px;height:16px;background: url("img/icon.png") no-repeat -59px -28px;cursor:pointer;}
+        #box em.open{background-position:-42px -28px; }
+        #box span{padding-left:18px;}
+        #box li ul{display:none;}
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li>
+            <em></em><span>一级菜单第一个</span>
+            <ul>
+                <li>
+                    <em></em><span>二级菜单第一个</span>
+                    <ul>
+                        <li><span>三级菜单第一个</span></li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li><span>四级菜单第一个</span></li>
+                                <li><span>四级菜单第二个</span></li>
+                                <li><span>四级菜单第三个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <em></em><span>二级菜单第二个</span>
+                    <ul>
+                        <li><span>三级菜单第一个</span></li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li><span>四级菜单第一个</span></li>
+                                <li><span>四级菜单第二个</span></li>
+                                <li><span>四级菜单第三个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span>二级菜单第三个</span></li>
+            </ul>
+        </li>
+        <li>
+            <em></em><span>一级菜单第一个</span>
+            <ul>
+                <li>
+                    <em></em><span>二级菜单第一个</span>
+                    <ul>
+                        <li><span>三级菜单第一个</span></li>
+                        <li>
+                            <em></em><span>三级菜单第二个</span>
+                            <ul>
+                                <li><span>四级菜单第一个</span></li>
+                                <li><span>四级菜单第二个</span></li>
+                                <li><span>四级菜单第三个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span>二级菜单第二个</span></li>
+                <li><span>二级菜单第三个</span></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var oBox=document.getElementById("box");
+    var emList=oBox.getElementsByTagName("em");
+    //给每一个em后面的span添加小手指向的样式
+    for(var i=0;i<emList.length;i++){
+        var cur=emList[i];
+        var oSpan=utils.next(cur);
+        utils.css(oSpan,"cursor","pointer");
+    }
+    //二级以上菜单显示、隐藏
+    function menuShowHide(curEle){
+        var pre=utils.prev(curEle),nex=utils.next(curEle);
+        var isBlock=utils.css(nex,"display");
+        if(isBlock=="block"){
+           //当前状态是显示的，让它隐藏
+            utils.removeClass(pre,"open");
+            nex.style.display="none";
+            //不仅自己隐藏，让它所有的ul都隐藏
+            var ems=nex.getElementsByTagName("em"),uls=nex.getElementsByTagName("ul");
+            if(ems){
+                for(var i=0;i<ems.length;i++){
+                    utils.removeClass(ems[i],"open");
+                    uls[i].style.display="none";
+                }
+            }
+        }else{
+            //当前状态是隐藏的，让它显示
+            utils.addClass(pre,"open");
+            nex.style.display="block";
+        }
+    }
+    //用事件委托的方式，调用menuShowHide方法，并将span为当前元素传递过去
+    oBox.onclick=function(e){
+        e=e||window.event;
+        e.target= e.target|| e.srcElement;
+        if(e.target.tagName.toLowerCase()=="em"){//点击的是em，将em后面的span传递过去
+            var nex=utils.next(e.target);
+            menuShowHide(nex);
+        }else if(e.target.tagName.toLowerCase()=="span"){
+            var nex=utils.next(e.target);
+            if(nex.tagName.toLowerCase()=="ul"){
+                menuShowHide(e.target);
+            }
+        }
+    }
+</script>
+</body>
+</html>
