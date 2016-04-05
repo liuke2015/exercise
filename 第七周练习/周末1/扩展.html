@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、获取一个随机整数
+    Math.floor(Math.random()*10000000);
+    ~~(Math.random()*0xffffff);//~~取整的作用
+    //2、随机字符串 字母+数字
+    Math.floor(Math.random()*10000000).toString(36);//36 为36进制 2进制 8进制 10进制
+    //3、随机颜色(6位 0xffffff-0x100000)
+    //0xffffff-0x100000=15728639
+    //var s=15728639;
+    //s.toString(16)-->efffff
+    (0x100000+(~~(Math.random()*0xffffff))).toString(16)
+    //4、
+    var b=new Boolean(false);
+    if(b){console.log(1)}else{console.log(2)}//-->1,因为b是new出来的一个对象类型，js中，对象类型永远为真
+    //b-->Boolean {[[PrimitiveValue]]: false}
+    if(b.valueOf()){console.log(1)}else{console.log(2)}//-->2，任何对象都有valueOf()
+    b.valueOf();//-->false
+
+    var o={a:1};
+    o.toString();//[object Object]
+    o==1;//false
+    o.valueOf=function(){return 1};//valueOf被重写,运算之前回去找valueOf
+    o==1;//true
+
+    sss={a:1,b:2};
+    JSON.stringify(sss);//sss-->'{"a":"1","b":"2"}'
+    sss.toJSON=function(){return 1};//sss上的toJSON被重写
+    JSON.stringify(sss);//sss-->1  JSON在执行stringify的时候会去找sss上的toJSON,因为toJSON被重写，所以值变为了1
+
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //5、用递归思想实现:从1+2+3...+9+10的结果
+    /*aaa
+     sum(10) return 10+sum(9) -> sum(9) return 9+sum(8)
+     10+9+8+7+6+5+4+3+2+1+0
+     */
+    var m = 0;
+    function add(n) {
+        if(n<100){
+            document.write(n+" ");
+            var sum = n + m;
+            m = n;
+            return add(sum);
+        }
+    }
+    add(1);
+</script>
+</body>
+</html>

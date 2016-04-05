@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //Object.prototype.toString.call(12)==>"[object Number]"
+    /*
+     //比较麻烦的写法，用柯里化函数预处理代替
+     function isType(type,value){
+     return Object.prototype.toString.call(value)==="[object "+type+"]";
+     }
+     var isF=isType("Function",function(){});
+     var isN=isType("Number",12);
+     console.log(isF+" "+isN);*/
+
+   /* var cT = function () {
+        var isType = function (type) {
+            return function (value) {
+                var reg = new RegExp("\\[object " + type + "\\]", "i"), res = {}.toString.call(value);
+                return reg.test(res);
+            }
+        };
+        var obj = {
+            isNum: "number",
+            isStr: "string",
+            isBoo: "boolean",
+            isNul: "null",
+            isUnd: "undefined",
+            isObj: "object",
+            isFun: "function",
+            isAry: "array",
+            isReg: "regexp"
+        }, funObj = {};
+        for(var key in obj){
+            funObj[key]=isType(obj[key]);
+        }
+        return funObj;
+    }();
+
+    console.log(cT.isNum(14));*/
+  /*  var CT=(function(){
+        isType=function(type){
+            return function(value){
+                var reg=new RegExp("\\[object "+type+"\\]","i"),res=Object.prototype.toString.call(value);
+                return reg.test(res);
+            }
+        };
+        var obj={
+            isNum:"number",
+            isStr:"string",
+            isBoo:"boolean",
+            isNul:"null",
+            isUnd:"undefined",
+            isFun:"function",
+            isAry:"array",
+            isObj:"object",
+            isReg:"regexp"
+                },objFn={};
+        for(var key in obj){
+            objFn[key]=isType(obj[key]);
+        }
+        return objFn;
+    })();
+    console.log(CT.isAry(0));*/
+   /* var CT=(function(){
+        var isType=function(type){
+            return function(value){
+                var reg=new RegExp("\\[object "+type+"\\]","i"),res=Object.prototype.toString.call(value);
+                return reg.test(res);
+            }
+        };
+        var obj={
+            isNum:"number",
+            isStr:"string",
+            isBoo:"boolean",
+            isNul:"null",
+            isUnd:"undefined",
+            isFun:"function",
+            isAry:"array",
+            isObj:"object",
+            isReg:"regexp"
+                },objFn={};
+        for(var key in obj){
+            objFn[key]=isType(obj[key]);
+        }
+        return objFn;
+    })();
+    console.log(CT.isNum(13));
+*/
+    var CT=(function(){
+        var isType=function(type){
+            return function(value){
+                var reg=new RegExp("\\[object "+type+"\\]","i"),res=Object.prototype.toString.call(value);
+                return reg.test(res);
+            }
+        };
+        var obj={
+            isNum:"number",
+            isStr:"string",
+            isBoo:"boolean",
+            isNul:"null",
+            isUnd:"undefined",
+            isFun:"function",
+            isAry:"array",
+            isObj:"object",
+            isReg:"regexp"
+                },objFn={};
+        for(var key in obj){
+            objFn[key]=isType(obj[key]);
+        }
+        return objFn;
+    })();
+    console.log(CT.isNum(2));
+
+</script>
+</body>
+</html>

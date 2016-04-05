@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+       /* *{margin:0;padding:0}
+        table{width:500px;margin:0;padding:0}*/
+        table,tr,td{height:30px;line-height:30px;border:1px solid #333;border-collapse:collapse;}
+    </style>
+</head>
+<body>
+<form method="get" action="">
+    姓名：<input type="text" name="name" value="宅妞儿"/><br/><br/>
+    性别：<input type="radio" name="sex" value="女" checked/>女
+    <input type="radio" name="sex" value="男"/>男<br/><br/>
+    爱好：<input type="checkbox" name="hobby" value="看书"/>看书
+    <input type="checkbox" name="hobby" value="旅游"/>旅游
+    <input type="checkbox" name="hobby" value="美食"/>美食
+    <input type="checkbox" name="hobby" value="购物"/>购物
+    <input type="checkbox" name="hobby" value="睡觉"/>睡觉<br/><br/>
+    学历：
+    <select name="degree">
+        <option>小学</option>
+        <option>初中</option>
+        <option>高中</option>
+        <option>大学</option>
+    </select><br/><br/>
+    所学课程：
+    <select name="course" multiple>
+        <option>语文</option>
+        <option>数学</option>
+        <option>英语</option>
+        <option>计算机</option>
+    </select>
+    <br/><br/>
+    <input type="submit" name="btn" value="提交"/>
+</form>
+<div id="formContent"></div>
+<div>第一个div</div>
+<div>第二个div</div>
+<div>第三个div</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="lib/ajaxHelper.js"></script>
+    <script type="text/javascript">
+       /* window.onload = function () {
+            x.$http({
+                url: "data.json",
+                type: "get",
+                async: false,
+                username: "刘珂",
+                password: "123456",
+                timeout: 500,
+                dataType: "json",
+                success: function (data) {
+                    console.table(data.list);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            })
+        }*/
+        window.onload = function () {
+            x.$http({
+                url: "data.json",
+                type: "get",
+                async: false,
+                username: "刘珂",
+                password: "123456",
+                timeout: 500,
+                dataType: "json",
+                success: function (data) {
+                    console.table(data.list);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

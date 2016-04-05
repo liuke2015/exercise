@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        /* *{margin:0;padding:0}
+         table{width:500px;margin:0;padding:0}*/
+        table, tr, td {
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ffa295;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<form method="get" action="">
+    姓名：<input type="text" name="name" value="宅妞儿"/><br/><br/>
+    性别：<input type="radio" name="sex" value="女" checked/>女
+    <input type="radio" name="sex" value="男"/>男<br/><br/>
+    爱好：<input type="checkbox" name="hobby" value="看书"/>看书
+    <input type="checkbox" name="hobby" value="旅游"/>旅游
+    <input type="checkbox" name="hobby" value="美食"/>美食
+    <input type="checkbox" name="hobby" value="购物"/>购物
+    <input type="checkbox" name="hobby" value="睡觉"/>睡觉<br/><br/>
+    学历：
+    <select name="degree">
+        <option>小学</option>
+        <option>初中</option>
+        <option>高中</option>
+        <option>大学</option>
+    </select><br/><br/>
+    所学课程：
+    <select name="course" multiple>
+        <option>语文</option>
+        <option>数学</option>
+        <option>英语</option>
+        <option>计算机</option>
+    </select>
+    <br/><br/>
+    <input type="button" name="btn" value="提交"/>
+</form>
+<div id="formContent"></div>
+<div>第一个div</div>
+<div>第二个div</div>
+<div>第三个div</div>
+<script type="text/javascript">
+   /* function serialize(form){
+        var elements=form.elements;
+        var ary=[],str="";
+
+        for(var i=0;i<elements.length;i++){
+            var ele=elements[i];
+            if(!ele.name)continue;//当前元素没有name属性则直接进入下次循环
+            switch(ele.type){
+                case "select-one":
+                case "select-multiple":
+                    var options=ele.options;
+                    for(var j=0;j<options.length;j++){
+                        var opt=options[j];
+                        if(opt.selected){
+                            str=decodeURIComponent(ele.name)+"="+decodeURIComponent(opt.value);
+                            ary.push(str);
+                        }
+                    }
+                    break;
+                case "radio":
+                case "checkbox":
+                    if(!ele.checked)
+                    break;
+                default:
+                    str=decodeURIComponent(ele.name)+"="+decodeURIComponent(ele.value);
+                    ary.push(str);
+            }
+        }
+        return ary.join("&");
+    }
+    document.getElementsByName("btn").item(0).onclick=function(){
+        var xhr=new XMLHttpRequest();
+        var queryString=serialize(this.parentNode);
+        console.log(queryString);
+        xhr.open("GET","/ajax?"+queryString,true);
+        xhr.send();
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                document.getElementById("formContent").innerHTML+=xhr.responseText+"<br/>";
+            }
+        }
+    }*/
+    function serialize(form){
+        var elements=form.elements;
+        var str="",ary=[];
+
+        for(var i=0;i<elements.length;i++){
+            var ele=elements[i];
+            if(!ele.name)continue;
+            switch(ele.type){
+                case "select-one":
+                case "select-multiple":
+                    var options=ele.options;
+                    for(var j=0;j<options.length;j++){
+                        var opt=options[j];
+                        if(opt.selected){
+                            str=decodeURIComponent(ele.name)+"="+decodeURIComponent(opt.value);
+                            ary.push(str);
+                        }
+                    }
+                    break;
+                case "radio":
+                case "checkbox":
+                    if(!ele.checked)
+                    break;
+                default:
+                    str=decodeURIComponent(ele.name)+"="+decodeURIComponent(ele.value);
+                    ary.push(str);
+            }
+        }
+        return ary.join("&");
+    }
+    document.getElementsByName("btn").item(0).onclick=function(){
+        var xhr=new XMLHttpRequest();
+        var queryStr=serialize(this.parentNode);
+        console.log(queryStr);
+        xhr.open("GET","/ajax?"+queryStr,true);
+        xhr.send();
+        xhr.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                document.getElementById("formContent").innerHTML+=xhr.responseText+"<br/>";
+            }
+        }
+    }
+</script>
+</body >
+</html >

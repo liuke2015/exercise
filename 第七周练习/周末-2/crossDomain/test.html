@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        /*var getCors = (function () {
+         if (window.XMLHttpRequest && "withCredentials" in (new XMLHttpRequest)) {
+         return function () {
+         return new XMLHttpRequest();
+         }
+         } else if (window.XDomainRequest) {
+         return function () {
+         return new XDomainRequest();
+         }
+         }
+         throw new Error("不支持此功能");
+         })();
+         var cros = getCors();
+         cros.open("get", "http://localhost:3000/cors", "true");
+         cros.onload = function () {
+         console.log(cros.responseText);
+         };
+         cros.send();*/
+        var getCors=(function(){
+            if(window.XMLHttpRequest&&"withCredentials" in (new XMLHttpRequest)){
+                return function(){
+                    return new XMLHttpRequest();
+                }
+            }else if(window.XDomainRequest){
+                return function(){
+                    return new XDomainRequest();
+                }
+            }
+            throw new Error("不支持此功能");
+        })();
+        var cors=getCors();
+        cors.open("get","http://localhost:3000/cors","true");
+        cors.onload=function(){
+            console.log(cors.responseText);
+        };
+        cors.withCredentials=true;
+        cors.send();
+    </script>
+</head>
+<body>
+hello word!
+</body>
+</html>

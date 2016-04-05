@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        table,tr,td{border:1px solid #00b3ee;border-collapse:collapse;}
+    </style>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/javascript">
+    function show(obj){
+        str="<table>";
+        for(var key in obj){
+            str+="<tr>";
+            str+="<td>"+key+":"+obj[key]+"</td>";
+            str+="</tr>";
+        }
+
+        str+="</table>";
+        document.getElementById("content").innerHTML=str;
+
+    }
+    var script=document.createElement("script");
+    script.src="http://suggestion.baidu.com/su?wd=a&cb=show";
+    document.body.appendChild(script);
+
+</script>
+</body>
+</html>

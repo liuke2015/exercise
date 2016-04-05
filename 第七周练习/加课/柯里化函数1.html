@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<script type="text/javascript">
+    //柯里化函数：预处理的作用
+    //第一个应用：绑定事件，改变this关键字
+   /* function processThis(obj,fn){
+        return function(){
+            var ary=[].slice.call(arguments,0);
+            fn.apply(obj,ary);
+        }
+    }
+    var oDiv=document.getElementById("div1");
+    var obj={name:"珠峰"};
+    function fn(e){
+        console.log(e);
+    }
+    oDiv.addEventListener("click",processThis(obj,fn),false);*/
+
+    //更改函数this的方法（比较完美的）
+    /*function bindFn(fn,context){
+        var args=Array.prototype.slice.call(arguments,2);
+        return function(){
+            var innerArgs=Array.prototype.slice.call(arguments,0);
+            var finalArgs=args.concat(innerArgs);
+            return fn.apply(context,finalArgs);
+        }
+    }*/
+    function bindFn(fn,context){
+        var outAry=Array.prototype.slice.call(arguments,2);
+        return function(){
+            var inAry=Array.prototype.slice.call(arguments,0);
+            var finAry=outAry.concat(inAry);
+            return fn.apply(context,finAry);
+        }
+
+    }
+
+    var oDiv=document.getElementById("div1");
+    var obj={name:"珠峰"};
+    function fn(e,num){
+        console.log(e);
+        console.log(num);
+        console.log(this);
+    }
+    oDiv.addEventListener("click",bindFn(fn,obj,100),false);
+</script>
+</body>
+</html>

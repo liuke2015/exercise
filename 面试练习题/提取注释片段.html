@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //给出一个表达式把注释掉的部分提取出来
+    function tplA(){/*
+        <ul>
+            <li></li>
+        <li></li>
+        </ul>
+    */}
+    var reg=/(?:\/\*)([\w\W]*)(?:\*\/)/i;
+    var ht=reg.exec(tplA.toString())[1];
+    console.log(ht);
+
+</script>
+</body>
+</html>

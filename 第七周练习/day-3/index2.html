@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        table {
+            margin: 20px 0 20px 20px;
+        }
+
+        table, tr, td {
+            border: 1px solid #00b3ee;
+            border-collapse: collapse;
+        }
+
+        td {
+            line-height: 30px;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<form method="get">
+    姓名：<input type="text" value="大宝" name="name"/><br/>
+    性别：<input type="radio" value="男" name="sex" checked/>男
+    <input type="radio" value="女" name="sex"/>女<br/>
+    爱好：<input type="checkbox" value="打游戏" name="hobby"/>打游戏
+    <input type="checkbox" value="看小说" name="hobby"/>看小说
+    <input type="checkbox" value="旅游" name="hobby"/>旅游
+    <input type="checkbox" value="美食" name="hobby"/>美食
+    <br/>
+    学历：
+    <select name="degree">
+        <option>小学</option>
+        <option>初中</option>
+        <option>大学</option>
+        <option>研究生</option>
+    </select>
+    <br/>
+    所学课程：
+    <select name="score" multiple>
+        <option>语文</option>
+        <option>数学</option>
+        <option>英语</option>
+        <option>美术</option>
+        <option>体育</option>
+    </select>
+    <br/>
+    <!-- <input type="submit" value="提交" name="btn"/>-->
+    <input type="buttn" value="提交" name="btn"/>
+</form>
+<div id="content">
+    提交信息
+</div>
+<div>
+    1
+</div>
+<div>
+    2
+</div>
+<div>
+    3
+</div>
+<script type="text/javascript">
+    function serialize(form){
+        var eles=form.elements,str="",ary=[];
+        for(var i=0;i<eles.length;i++){
+            var ele=eles[i];
+            if(!ele.name)continue;
+            switch(ele.type){
+                case "select-one":
+                case "select-multiple":
+                    var options=ele.options;
+                    for(var j=0;j<options.length;j++){
+                        var opt=options[j];
+                        if(opt.selected){
+                            str=encodeURIComponent(ele.name)+"="+encodeURIComponent(opt.value);
+                            ary.push(str);
+                        }
+                    }
+                    break;
+                case "radio":
+                case "checkbox":
+                    if(!ele.checked) break;
+                case undefined:
+                    break;
+                default:
+                    str=encodeURIComponent(ele.name)+"="+encodeURIComponent(ele.value);
+                        ary.push(str);
+                    break;
+            }
+        }
+        return ary.join("&");
+    }
+    document.getElementsByName("btn").item(0).onclick = function () {
+        var oCon = document.getElementById("content"), oTable = oCon.getElementsByTagName("table")[0];
+        if (!oTable) {
+            var oTable = document.createElement("table");
+            oCon.appendChild(oTable);
+        }
+        var xhr = new XMLHttpRequest();
+
+       // xhr.open("get", "/ajax?name=大宝5&sex=男&hobby=打游戏&hobby=看小说&hobby=旅游&hobby=美食&degree=大学&score=语文&score=数学&score=英语&btn=提交", true);
+        var strData=serialize(this.parentNode);
+        xhr.open("get","/ajax?"+strData,true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                var tr = document.createElement("tr");
+                var str = "";
+                for (var key in data) {
+                    str += "<td>" + data[key] + "</td>";
+                }
+                tr.innerHTML = str;
+                oTable.appendChild(tr);
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title></title>
     <style type="text/css">
+        html,body{width:100%;height:100%;}
         div {
-            width: 100px;
-            height: 100px;
+            width: 0px;
+            height: 0px;
             background: #fadb4e;
             position: absolute;
             left: 150px;
@@ -20,10 +21,17 @@
 <script type="text/javascript" src="js/tween20160205.js"></script>
 <script type="text/javascript">
     var oDiv=document.getElementById("div1");
-    var obj={left:800};
+   /* var obj={left:800};
     oDiv.onclick=function(){
         animate(this,obj,600,3,function(){
             this.style.background="green";
+        })
+    }*/
+
+    var obj={width:100,height:200,left:75};
+    document.body.onclick=function(){
+        animate(oDiv,obj,600,3,function(){
+            oDiv.style.background="green";
         })
     }
 </script>

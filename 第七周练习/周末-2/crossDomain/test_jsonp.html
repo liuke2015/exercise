@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="jsonp.js"></script>
+    <script type="text/javascript">
+        window.onload=function(){
+            JSONP("http://localhost:3000/cross",{test:"1"},function(data){
+                console.log(data);
+            },"name");
+            JSONP("http://localhost:3000/cross",{test:"2",ab:"w"},function(data){
+                console.log(data);
+            },"name");
+            JSONP("http://localhost:3000/cross",{test:"3",abc:"c",wh:"ff"},function(data){
+                console.log(data);
+            },"name");
+            JSONP("http://localhost:3000/cross",{test:"4"},function(data){
+                console.log(data);
+            },"name");
+            JSONP("http://localhost:3000/cross",{test:"5"},function(data){
+                console.log(data);
+            },"name");
+
+        }
+    </script>
+</head>
+<body>
+test_jsonp.html
+</body>
+</html>

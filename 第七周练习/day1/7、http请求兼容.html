@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var XHR=function(){
+        var xmlhttp;
+        if(window.XMLHttpRequest){
+            xmlhttp=new XMLHttpRequest();
+        }else{
+            //IE5,IE6
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return xmlhttp;
+    };
+    var xmlObj=XHR();
+</script>
+</body>
+</html>

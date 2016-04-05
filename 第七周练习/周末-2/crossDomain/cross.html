@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>跨域讲解</title>
+   <!-- <link href="test.html" rel="import"/>可以将别的文件链接进来 注意设置：rel="import"-->
+   <!-- <link href="http://localhost:3000/cross" rel="import"/>link不能访问，跨域了-->
+    <script>
+        var zfky=function(data){
+            console.log(data);
+        };
+        window.onload=function(){
+            var image=document.createElement("img");
+            image.src="http://localhost:3000/tongji?_="+Math.random();
+            document.body.appendChild(image);
+        }
+    </script>
+
+    <script src="http://localhost:3000/cross?name=zfky"></script>
+</head>
+<body>
+</body>
+</html>

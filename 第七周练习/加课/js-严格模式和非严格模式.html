@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //严格模式和非严格模式
+    "use strict";
+
+    //1、变量：定义变量必须加var
+  /*  var num1=12;
+    num2=12; //num2 is not defined
+*/
+    //2、对象
+    /*var obj={
+        name:"zhufeng",
+        name:"peixun"
+    };*/
+    //Duplicate data property in object literal not allowed in strict mode[在文字对象严格模式不允许重复的数据属性]
+
+    //3、function 中的arguments:在严格模式下，arguments不能映射我们的形参变量
+    //在严格模式下，不能使用callee和caller
+  /*  function fn(a){
+        arguments[0]=20;
+        console.log(a);//10
+        console.log(arguments.callee);
+        console.log(arguments.caller);
+    }
+    fn(10);*/
+
+    //4、this:用call或者apply改变this关键字的时候，第一个参数是我们要改变的关键字,严格模式下，你第一个写null或者undefined不再是window了而是本身了，不写的话也不是window了，而是undefined
+   /* function fn(){
+        console.log(this);
+    }
+    fn();//this-->undefined
+    fn.call(null);//this-->null*/
+
+    //5、在严格模式中虽然arguments和eval不是关键字也不是保留字，但是也不能用来做变量名
+    var arguments=13; //Uncaught SyntaxError: Unexpected eval or arguments in strict mode
+
+
+
+</script>
+</body>
+</html>

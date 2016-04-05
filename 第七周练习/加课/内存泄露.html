@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //js内存泄露
+   /* javascript是一种垃圾收集式语言，这就是说，内存是根据对象的创建分配给该对象的
+    并会在没有对该对象的引用时由浏览器收回
+    Internet Explorer 和 Mozilla Firefox 均使用引用计数来为DOM对象处理内存。
+
+    在引用计数系统，每个所引用的对象都会保留一个计数，以获悉有多少对象正在引用它。
+    如果计数为零，该对象就会被销毁，其占用的内存也会返回给*/
+
+    //浏览器都有自己的内存销毁的机制
+    //谷歌：看当前的内存是否有东西在占用着，没有被占用的话，自己会在空闲的时间进行销毁
+
+    //1、给DOM对象增加一个属性，属性值是对象
+    document.getElementById("div1").zhuFeng={};
+
+    //2、DOM对象和js对象相互的引用
+    function fn(obj){
+        this.a=obj;
+        obj.b=this;
+    }
+    var f=new fn(document.getElementById("div1"));
+
+    //3、给DOM对象用attachEvent绑定事件
+    ele.attachEvent("onclick",doClick);
+
+    //4、从外到内执行appendChild引发的内存泄露,例如：
+    //我要创建一个ul，里面有10个li,把整体放倒div1中
+    var oDiv=document.getElementById("div1");
+    var oUl=document.createElement("ul");
+    oDiv.appendChild(oUl);//放在这里是不行的
+    for(var i=0;i<10;i++){
+        var oLi=document.createElement("li");
+        oUl.appendChild(oLi);
+    }
+
+    //5、反复重写同一个属性会造成内存大量占用（但关闭IE后内存会被释放），例如：
+    var oDiv=document.getElementById("div1");
+    var obj={};
+    for(var i=0;i<5000;i++){
+        oDiv.innerHTML+=i;//没有用定义一个str拼接字符串，造成大量累加
+        obj.name=i;//永远是最后一个i
+    }
+
+
+
+
+
+    //解决办法：
+    //1、在window.onunload事件中，把内存地址的引用清除
+    window.onunload=function(){
+        document.getElementById("div1").zhuFeng=null;
+    };
+    //2、
+    window.onunload=function() {
+        document.getElementById("div1").b=null;
+    };
+    //3、在onunload事件中，把attachEvent绑定的事件都移除掉
+    window.onunload=function() {
+        ele.detachEvent("onclick",doClick);
+    };
+    //4、
+    var oDiv=document.getElementById("div1");
+    var oUl=document.createElement("ul");
+    for(var i=0;i<10;i++){
+        var oLi=document.createElement("li");
+        oUl.appendChild(oLi);
+    }
+    oDiv.appendChild(oUl);
+
+</script>
+</body>
+</html>

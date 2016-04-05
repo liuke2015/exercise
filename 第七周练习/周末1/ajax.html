@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+this is ajax.html
+<script type="text/javascript">
+    var getXHR = (function () {
+        var list = [
+            function () {
+                return new XMLHttpRequest;
+            }, function () {
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            }, function () {
+                return new ActiveXObject("Msxml2.XMLHTTP");
+            }, function () {
+                return new ActiveXObject("Msxml3.XMLHTTP");
+            }
+        ], xhr = null;
+        while (xhr = list.shift()) {
+            try {
+                xhr();
+                break;
+            } catch (e) {
+                continue;
+            }
+        }
+        if (xhr !== null) {
+            return xhr;
+        }
+        throw new ReferenceError("浏览器不支持此功能！");
+    })();
+    var xhr = getXHR();
+    xhr.open("get", "/ajax", true, "linda", "1128");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState && /^2\d{2}$/.test(xhr.status)) {
+            console.log(xhr.responseText)
+        }
+    };
+    xhr.send();
+</script>
+</body>
+</html>

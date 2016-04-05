@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+tcp udp
+CURD（增删改查）
+
+restful表征状态转移
+增加：put
+删除：delete
+修改：post
+查询：get
+
+head是没有响应主体，只有响应手部
+
+get系和post系的区别
+1、get系没有请求主体，post系有请求主体
+2、get系会被缓存，post系不会被缓存
+3、get系有大小限制，post系没有大小限制（浏览器的url是有大小限制的，IE为2K,chrom为8K）
+4、get系明文发送，可以通过url看到给server发送的数据，post系会把data放到请求主体里，无法看见
+
+即时通讯 socket
+1、http connection 101
+2、tcp
+
+301永久转移
+302临时转移
+负载均衡：一台机器的压力平均的其他的机器上。   集群
+303 307重定向
+304缓存策略
+
+和304同时存在的有2个响应首部
+last-modified 11:35
+(标识文件最后一次修改的时间，格式为gmt标准时间，并且时间只精确到秒)
+etag   12345
+(只要修改一次，etag就修改一次)散列值 sha1算法算出的散列值
+请求首部
+if-modified-since    11:35
+if-none-match    12345
+
+200
+last-modified 11:38
+etag   12346
+
+另外2个响应头
+cache-control second(缓存到多少秒)
+expires gmt date（缓存时间）
+
+400 bad request 缺少参数
+401 not XXX未认证
+403 forbidden 禁止访问
+404 not found 未找到
+417 资源过大
+
+500  internal server error
+503  并发太多
+
+
+http是什么？
+答：http是一个传输协议，也是一个事物。包括2个事件：一个 请求一个响应。请求和响应都包括三部分：起始行、首部、主体。
+
+MIME type
+text/html
+text/css
+text/javascript
+image/png
+image/jpg
+image/gif
+application/json
+application/octet-stream
+
+http 80
+https 443
+ftp
+smtp
+
+scheme://username:password@hostname:port/path?querystring
+</body>
+</html>

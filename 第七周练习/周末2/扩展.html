@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    console.log(1);
+    console.error(1);
+    console.info(1);
+    console.warn(1);
+
+
+    console.time("a");//a是个标签，随便定义
+    for(var i=0;i<10000;i++){}
+    console.timeEnd("a");
+    //a:14.000ms
+
+
+    console.table([{name:"dff",age:12},{name:"dfff",age:13},{name:"deeef",age:13},{name:"dww",age:13},{name:"dggf",age:13}]);//输出表格，可以根据name、age排序
+
+
+    console.dir({a:1,b:2});//输出详情
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<link href="http://localhost:3000/cross" rel="import">&lt;!&ndash;import:导入&ndash;&gt;-->
+    <script type="text/javascript">
+        var zfky=function(data){
+            console.log(data);
+        }
+        window.onload=function(){
+            var image=document.createElement("img");
+            image.src="http://localhost:5000/tongji?_="+Math.random();
+            document.body.appendChild(image);
+
+        }
+    </script>
+    <script src="http://localhost:5000/cross?name=zfky"></script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+时钟：
+<div id="clock"></div>
+<script type="text/javascript">
+    setInterval(function(){
+        var xhr=new XMLHttpRequest();
+        xhr.open("post","http://localhost:8080/clock",true);
+        xhr.setRequestHeader("zf","px");
+        xhr.onreadystatechange=function(){
+            if(this.readyState==4){
+                if(this.status==200){
+                    document.querySelector("#clock").innerHTML=this.responseText;
+                }/*else{
+                    document.querySelector("#clock").innerHTML="服务器挂了~";
+                }
+*/
+            }
+        };
+        xhr.send();
+
+    },1000);
+
+</script>
+</body>
+</html>

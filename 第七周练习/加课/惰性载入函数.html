@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>惰性载入函数</title>
+</head>
+<body>
+<script type="text/javascript">
+    //惰性思想：能只处理一遍的，绝对不处理两遍
+
+    //具有惰性思想的单例模式
+    var tools=(function(){
+        var flag="getElementsByClassName" in document;
+        return {
+            listToArray:function(likeArray){
+                var ary=[];
+                if(flag){
+                    ary=[].slice.call(likeArray,0);
+                }else{
+                    for(var i=0;i<likeArray.length;i++){
+                        ary.push(likeArray[i]);
+                    }
+                }
+                return ary;
+            },
+            getElementsByClass:function(cName,context){
+                context=context||document;
+                if(flag){
+                    return this.listToArray(context.getElementsByClassName(cName));
+                }
+                var ary=[],reg=new RegExp("(?:^| +)"+cName+"(?: +|$"),allNodes=context.getElementsByTagName("*");
+                for(var i=0;i<allNodes.length;i++){
+                    var cur=allNodes[i];
+                    if(reg.test(cur.className)){
+                        ary.push(cur);
+                    }
+                }
+                return ary;
+            }
+        }
+    })();
+
+    var tools={
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //惰性思想的第二种形式：函数重复盖
+   /* var createXHR=(function(){
+        var fn=null;
+        if(window.XMLHttpRequest){
+            fn=function(){
+                return new XMLHttpRequest();
+            }
+        }else{
+            if(new ActiveXObject("Microsoft.XMLHTTP")){
+                fn=function(){
+                    return new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }else if(new ActiveXObject("Msxml2.XMLHTTP")){
+                fn=function(){
+                    return new ActiveXObject("Msxml2.XMLHTTP");
+                }
+            }else{
+                fn=function(){
+                    return new ActiveXObject("Msxml3.XMLHTTP");
+                }
+            }
+        }
+        return fn;
+    })();
+
+    var xhr=createXHR();*/
+    var createXHR=(function(){
+        var fn=null;
+        if(window.XMLHttpRequest){
+            fn=function(){
+                return new XMLHttpRequest;
+            }
+        }else{
+            if(new ActiveXObject("Microsoft.XMLHTTP")){
+                fn=function(){
+                    return new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }else if(new ActiveXObject("Msxml3.XMLHTTP")){
+                fn=function(){
+                    return new ActiveXObject("Msxml3.XMLHTTP");
+                }
+            }else if(new ActiveXObject("Msxml2.XMLHTTP")){
+                fn=function(){
+                    return new ActiveXObject("Msxml2.XMLHTTP");
+                }
+            }
+        }
+        if(fn!==null){
+            return fn;
+        }else{
+            throw new Error("浏览器不支持ajax");
+        }
+    })();
+    var xhr=createXHR();
+    //惰性思想的这两种形式，都是第一次赋值的时候，就把需要检测的兼容性处理好了，然后以后在用的时候直接用，不需要再重新的检测了
+    //优势：对于经常使用的方法（我们类库中的方法），我们应用惰性思想可以节省性能
+    //弊端：因为把压力都给第一次了，所以第一次加载会相对慢一些（所以不是所有的方法都适合惰性思想，比较适合类库）
+
+    /*function createXHR(){
+        var xhr=null;
+        if(window.XMLHttpRequest){
+            xhr=new XMLHttpRequest();
+        }else {
+            if(new ActiveXObject("Microsoft.XMLHTTP")){
+                xhr= new ActiveXObject("Microsoft.XMLHTTP");
+            }else if(new ActiveXObject("Msxml2.XMLHTTP")){
+                xhr=new ActiveXObject("Msxml2.XMLHTTP");
+            }else{
+                xhr=new ActiveXObject("Msxml3.XMLHTTP");
+            }
+        }
+        return xhr;
+    }*/
+</script>
+</body>
+</html>
