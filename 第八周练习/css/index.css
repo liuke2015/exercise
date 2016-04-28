@@ -1,0 +1,22 @@
+*{padding:0;margin:0;}
+html,body{font-size: 14px;font-family: "\5FAE\8F6F\96C5\9ED1", "microsoft yahei", "sans-serif";-webkit-user-select:none;}
+ul,li{list-style: none}
+#box{width:600px;padding:10px;border:1px solid #00a8e1;margin:20px auto;border-radius:10px;overflow:hidden;box-shadow:3px 3px 5px 0 #ccc;}
+#box h1{font:normal 14px/30px "";overflow:hidden;
+    background:#f08519;
+    background: -webkit-linear-gradient(left,#00b3ee, #34e9ee, #54eea4, #c3ee73);
+    background: -moz-linear-gradient(left,#00b3ee, #34e9ee, #54eea4, #c3ee73);
+    background: -ms-linear-gradient(left,#00b3ee, #34e9ee, #54eea4, #c3ee73);
+    background: -o-linear-gradient(left,#00b3ee, #34e9ee, #54eea4, #c3ee73);
+    background: linear-gradient(left,#00b3ee, #34e9ee, #54eea4, #c3ee73);
+}
+#box h1 span,
+.list li span{float:left;width:200px;height:30px;text-align: center;line-height:30px;}
+.list li{overflow: hidden;cursor:pointer;}
+#page{padding-top:10px;float:right;}
+#page span,#page ul,#page li,#page input{float:left;height:20px;line-height:20px;}
+#page span,#page li,#page input{padding:0 5px;margin:0 2px;border:1px solid #00b3ee;cursor:pointer}
+#page input#search{width:30px;outline:none;cursor:text;text-align:center;}
+.even{background: #f0e199}
+.cPage{background: #0093c6;color:#fff;
+}

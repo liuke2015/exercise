@@ -1,0 +1,54 @@
+*{padding:0;margin:0;}
+ul,li{list-style:none;}
+a{text-decoration:none;}
+html,body{width:100%;height:100%;overflow:hidden;}
+#main{position:absolute;left:50%;top:0;width:640px;height:1008px;margin-left:-320px;-webkit-transform-origin: top;}
+/**进度条**/
+.load{position:relative;width:100%;height:100%;z-index: 10;background: #000;}
+.progress{position:absolute;width:70%;height:40px;top:40%;margin:-16px 15% 0;background: #fff;border-radius:40px;overflow:hidden;}
+.progress span{display:block;width:0;height:40px;
+    background-image:-webkit-linear-gradient(35deg, #5cb85c 25% , #74c274 50% , #5cb85c 75%,#74c274 100% );background-size: 40px 40px;background-repeat: repeat-x;-webkit-transition: 1s;}
+/**接听-挂断电话**/
+#tel{position:absolute;width:100%;height:100%;background: url(../images/phoneBg.jpg) no-repeat;-webkit-transition:1s;z-index:9;}
+#tel .logo{position:absolute;width:100%;height:89px;background: url("../images/logo.png") no-repeat center;top:10%;}
+.callUp{position:absolute;width:520px;height:360px;left:50%;bottom:5%;margin-left:-260px;background: url("../images/phoneBtn.png") no-repeat;z-index: 8}
+.callUp-border,.callUp-click{position:absolute;display:block;width:144px;height:144px;top:160px;left:373px;}
+.callUp-border{border:1px solid #4cd864;-webkit-animation: borderScale 1s ease-in-out infinite;border-radius: 50%;z-index:-1;}
+@-webkit-keyframes borderScale {
+    0%{
+        -webkit-transform: scale(1.2);
+    }
+    100%{
+        -webkit-transform: scale(.8);
+    }
+}
+.callUp-click{z-index: 1;cursor:pointer;}
+.callDown{position:absolute;left:50%;bottom:5%;width:520px;height:659px;margin-left:-260px;background: url("../images/phoneKey.png") no-repeat;-webkit-transform: translateY(659px);-webkit-transition:-webkit-transform 1s;z-index: 7;opacity:0;}
+.callDown-click{display:block;position:absolute;width:135px;height:135px;top:483px;left:193px;}
+/**对话部分***/
+#message{position:relative;width:100%;height:100%;background: #cecece;z-index: 5;}
+.textBot{position:absolute;width:640px;height:88px;background: url("../images/messageText.png") no-repeat;background-size:640px 88px;left:50%;bottom:0;margin-left:-320px;}
+#message ul{width:100%;overflow:hidden;-webkit-transition:1s;padding-top:20px;}
+#message ul li{position:relative;width:500px;min-height:82px;padding-bottom:20px;-webkit-transform: translateY(20px);-webkit-transition: .5s;opacity: 0}
+#message ul li span{display:block;width:auto;max-width:300px;font:20px/24px "";padding:10px;margin-top:10px;border-radius:5px;}
+#message ul li img{position:relative;margin-top:20px;z-index: 1}
+#message ul li.left{float:left;background: url("../images/messageHead1.png") no-repeat left top;margin-left:20px;}
+#message ul li.left img,#message ul li.left span{float:left;}
+#message ul li.left img{margin-left:90px;}
+#message ul li.left span{background: #fff;border:1px solid #cecece;margin-left:-1px;}
+#message ul li.right{float:right;background: url("../images/messageHead2.png") no-repeat right top;margin-right:20px;}
+#message ul li.right img,#message ul li.right span{float:right;}
+#message ul li.right img{margin-right:90px;}
+#message ul li.right span{background: #a2e55c;border:1px solid #93b577;margin-right:-1px;
+}
+/**魔方**/
+#cube{position:absolute;width:100%;height:100%;background: url("../images/cubeBg.jpg") no-repeat;background-size:cover;perspective:800px;}
+.cubeBox{position:absolute;width:510px;height:510px;left:50%;top:50%;margin:-255px 0 0 -255px;transform-style: preserve-3d;transform-origin: 255px 255px -255px;-webkit-transform:scale(0.2) rotateY(-135deg) rotateX(-135deg);-webkit-transition: 1s;}
+.cubeBox li{position:absolute;width:510px;height:510px;}
+.cubeBox li:nth-of-type(1){background: url("../images/cubeImg1.png") no-repeat;}
+.cubeBox li:nth-of-type(2){background: url("../images/cubeImg2.png") no-repeat;left:510px;-webkit-transform: rotateY(90deg);-webkit-transform-origin: left;}
+.cubeBox li:nth-of-type(3){background: url("../images/cubeImg3.png") no-repeat;left:-510px;-webkit-transform: rotateY(-90deg);-webkit-transform-origin:right;}
+.cubeBox li:nth-of-type(4){background: url("../images/cubeImg4.png") no-repeat;top:-510px;-webkit-transform: rotateX(90deg);-webkit-transform-origin:bottom;}
+.cubeBox li:nth-of-type(5){background: url("../images/cubeImg5.png") no-repeat;top:510px;-webkit-transform: rotateX(-90deg);-webkit-transform-origin: top;}
+.cubeBox li:nth-of-type(6){background: url("../images/cubeImg6.png") no-repeat;-webkit-transform: translateZ(-510px);}
+

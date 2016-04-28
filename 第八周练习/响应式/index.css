@@ -1,0 +1,43 @@
+*{margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{font-weight:normal}
+ul,li{list-style:none}
+a{color:#333;text-decoration:none;}
+body,html{font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif}
+.headerLayout{position:fixed;width:100%;height:80px;line-height:80px;background:#fff;box-shadow:0 1px 10px rgba(0,0,0,.3)}
+.header{overflow:hidden}
+@media screen and (min-width: 1001px){
+    .header{width:1000px;margin:0 auto;}
+}
+.logo{float:left;margin-top:10px;}
+.header ul{float:right}
+.header ul li{float:left;margin:0 10px}
+.channel{text-align: center;padding:100px 0 80px;}
+.channel li{display: inline-block;max-width: 23%;margin:0 1%;}
+.channel li img{width:100%;}
+.service{background: #f0f0f0;text-align:center;}
+.service h3{font-size:2.3em;padding:1em 0 0.7em}
+.info{padding:0 20px 2em;font-size:1.2em;}
+.service li{display:inline-block;width:263px;vertical-align:top;background:#fff;border-right:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;}
+.service li img{width:100%;}
+.service li h5{font-size:1.2em;padding:0.5em 0;}
+.service li p{text-align:left;padding:10px;line-height:1.75;}
+@media screen and (max-width:1000px){
+    body{font-size:14px;}
+    .header ul li{margin:0 7px}
+    .channel li.min img{max-width:50px;}
+    .service li{width:32%;}
+}
+@media screen and (max-width:480px){
+    body{font-size:12px;}
+    .headerLayout{position:absolute;height:50px;line-height:50px;box-shadow: none;background: #619af0
+    }
+    .logo{margin-left:10px;line-height:0; }
+    .header ul{width:100%;background: #619af0;display:none;}
+    .header ul li{float:none;}
+    .header ul li a{display:block; color:#fff;}
+    .header:after{position:absolute;width:50px;height:50px;content:"";background: url("images/btn.png") no-repeat;right:10px;top:0px;background-size:100% 100%;cursor:pointer;}
+    .channel li{width:46%;margin:0 2%;max-width:100%;}
+    .service li{width: 100%;border-right:0;}
+    .service li img{float:left;width:25px;height:25px;margin:5px 10px 0 10px}
+    .service li h5{text-align: left;}
+}

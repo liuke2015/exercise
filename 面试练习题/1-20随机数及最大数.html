@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary=[];
+    for(var i=0;i<20;i++){
+        ary.push(Math.ceil(Math.random()*19+1));
+    }
+    var string=ary.join(",");
+    console.log(string);
+    var obj={},max= 0;
+    for(var i=0;i<ary.length;i++){
+        var cur=ary[i];
+        if(obj[cur]){
+            obj[cur]++;
+        }else{
+            obj[cur]=1;
+        }
+        if(obj[cur]>max){
+            max=obj[cur];
+        }
+    }
+    var objMax={};
+    for(var key in obj){
+        if(obj[key]==max){
+            objMax[key]=max;
+        }
+    }
+    console.log(obj);
+    console.log(max);
+    console.log(objMax);
+</script>
+</body>
+</html>

@@ -62,31 +62,31 @@
     3
 </div>
 <script type="text/javascript">
-    function serialize(form){
-        var eles=form.elements,str="",ary=[];
-        for(var i=0;i<eles.length;i++){
-            var ele=eles[i];
-            if(!ele.name)continue;
-            switch(ele.type){
+    function serialize(form) {
+        var eles = form.elements, str = "", ary = [];
+        for (var i = 0; i < eles.length; i++) {
+            var ele = eles[i];
+            if (!ele.name)continue;
+            switch (ele.type) {
                 case "select-one":
                 case "select-multiple":
-                    var options=ele.options;
-                    for(var j=0;j<options.length;j++){
-                        var opt=options[j];
-                        if(opt.selected){
-                            str=encodeURIComponent(ele.name)+"="+encodeURIComponent(opt.value);
+                    var options = ele.options;
+                    for (var j = 0; j < options.length; j++) {
+                        var opt = options[j];
+                        if (opt.selected) {
+                            str = encodeURIComponent(ele.name) + "=" + encodeURIComponent(opt.value);
                             ary.push(str);
                         }
                     }
                     break;
                 case "radio":
                 case "checkbox":
-                    if(!ele.checked) break;
+                    if (!ele.checked) break;
                 case undefined:
                     break;
                 default:
-                    str=encodeURIComponent(ele.name)+"="+encodeURIComponent(ele.value);
-                        ary.push(str);
+                    str = encodeURIComponent(ele.name) + "=" + encodeURIComponent(ele.value);
+                    ary.push(str);
                     break;
             }
         }
@@ -100,9 +100,9 @@
         }
         var xhr = new XMLHttpRequest();
 
-       // xhr.open("get", "/ajax?name=大宝5&sex=男&hobby=打游戏&hobby=看小说&hobby=旅游&hobby=美食&degree=大学&score=语文&score=数学&score=英语&btn=提交", true);
-        var strData=serialize(this.parentNode);
-        xhr.open("get","/ajax?"+strData,true);
+        // xhr.open("get", "/ajax?name=大宝5&sex=男&hobby=打游戏&hobby=看小说&hobby=旅游&hobby=美食&degree=大学&score=语文&score=数学&score=英语&btn=提交", true);
+        var strData = serialize(this.parentNode);
+        xhr.open("get", "/ajax?" + strData, true);
         xhr.send();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {

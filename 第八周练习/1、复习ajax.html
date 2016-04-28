@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    /* $.ajax({
+     url:"text.txt",
+     type:"get",
+     dataType:"json",//text
+     async:true,
+     success:function(data){
+     //data就是请求的结果
+     console.log(data);
+     },
+     error:function(){
+
+     }
+     });
+     $.ajax({
+     url:"text.txt",
+     type:"post",
+     data:{"name":"12"},
+     dataType:"json",//text
+     async:true,
+     success:function(data){
+     //data就是请求的结果
+     console.log(data);
+     },
+     error:function(){
+
+     }
+     });*/
+    /*var getXHR = (function () {
+     if ("XMLHttpRequest" in window) {
+     return function () {
+     return new XMLHttpRequest();
+     }
+     }
+     if (new ActiveXObject("Microsoft.XMLHTTP")) {
+     return function () {
+     return new ActiveXObject("Microsoft.XMLHTTP");
+     }
+     }
+     if (new ActiveXObject("Msxml2.XMLHTTP")) {
+     return function () {
+     return new ActiveXObject("Msxml2.XMLHTTP");
+     }
+     }
+     if (new ActiveXObject("Msxml3.XMLHTTP")) {
+     return function () {
+     return new ActiveXObject("Msxml3.XMLHTTP");
+     }
+     }
+     })();
+     var xhr = getXHR();
+     xhr.open("get", "text.txt");
+     xhr.onreadystatechange = function () {
+     if (this.readyState == 4 && /^2\d{2}/.test(this.status)) {
+     var val = this.responseText;
+     console.log(val);
+     }
+     };
+     xhr.send();*/
+
+</script>
+<!--跨域访问-->
+<!--<script>
+    function mycb(data) {
+        console.log(data);
+        /*  var frg=document.createDocumentFragment();
+         var ul=document.createElement("ul");
+         for(var n in data){
+         if(!data.hasOwnProperty(n)) continue;
+         var li=document.createElement("li");
+         li.innerHTML=n+"="+data[n];
+         frg.appendChild(li);
+         }
+         ul.appendChild(frg);
+         document.body.appendChild(ul);*/
+    }
+</script>
+<script src="http://matchweb.sports.qq.com/kbs/list?callback=mycb&columnId=100000&startTime=2015-12-18&endTime=2015-12-18"></script>-->
+<!--<script>
+    $.ajax({
+        url:"http://matchweb.sports.qq.com/kbs/list?columnId=100000&startTime=2015-12-18&endTime=2015-12-18&_="+Math.random(),
+        dataType:"jsonp",
+        type:"get",
+        jsonpCallback:"a",
+        success:function(data){
+            console.log(data);
+        }
+    })
+</script>-->
+<script>
+    $.ajax({
+        url:"https://gsp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=1&sc=hao123&_="+Math.random(),
+        dataType:"jsonp",
+        type:"get",
+        jsonp:"cb",
+        jsonpCallback:"a",
+        success:function(data){
+            console.log(data);
+        }
+    })
+</script>
+</body>
+</html>

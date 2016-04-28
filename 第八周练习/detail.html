@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>内容详细页</title>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript">
+        function queryUI(str){
+            var reg=/([^?&=]+)=([^?&=]+)/g;
+            var obj={};
+            str.replace(reg,function(){
+                obj[arguments[1]]=arguments[2];
+            });
+            return obj;
+        }
+        var url=window.location.href;
+        var urlObj=queryUI(url);
+        utils.ajax("data.txt",function(data){
+            for(var i=0;i<data.length;i++){
+                var cur=data[i];
+                if(cur["num"]==urlObj["num"]){
+                    var str="num:"+cur["num"]+" sex:"+(cur["sex"]==1?"男":"女")+" score:"+cur["score"];
+                    document.body.innerHTML=str;
+                    break;
+                }
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>
