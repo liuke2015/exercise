@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>匀速反弹动画</title>
+    <link type="text/css" rel="stylesheet" href="css/style1.css"/>
+</head>
+<body>
+<div id="div1"></div>
+<script src="js/utils.js"></script>
+<script>
+    var oDiv=document.getElementById("div1");
+    var target=utils.win("clientWidth")-oDiv.offsetWidth;
+    move.call(oDiv,target);
+    /*function move(tar){
+        var _this=this,step=5;
+        window.clearTimeout(_this.timer);
+        ~function _move(){
+            window.clearTimeout(_this.timer);
+            var cur=utils.css(_this,"left");
+            if(cur<tar){
+                if(cur+step>=tar){
+                    utils.css(_this,"left",tar);
+                    move.call(_this,0);
+                }
+                utils.css(_this,"left",cur+step);
+            }else if(cur>tar){
+                if(cur-step<=tar){
+                    utils.css(_this,"left",tar);
+                    move.call(_this,target);
+                }
+                utils.css(_this,"left",cur-step);
+            }else{
+                return;
+            }
+            _this.timer=window.setTimeout(_move,13);
+        }();
+    }*/
+    function move(tar){
+        var _this=this,step=5;
+        window.clearTimeout(_this.timer);
+        ~function _move(){
+            window.clearTimeout(_this.timer);
+            var cur=utils.css(_this,"left");
+            if(cur<tar){
+                if(cur+step>=tar){
+                    utils.css(_this,"left",tar);
+                    move.call(_this,0);
+                }
+                utils.css(_this,"left",cur+step);
+            }else if(cur>tar){
+                if(cur-step<=tar){
+                    utils.css(_this,"left",tar);
+                    move.call(_this,target);
+                }
+                utils.css(_this,"left",cur-step);
+            }else{
+                return;
+            }
+            _this.timer=window.setTimeout(_move,13);
+        }();
+    }
+</script>
+</body>
+</html>

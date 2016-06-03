@@ -1,0 +1,11 @@
+*{margin:0;padding:0}
+ul,li{list-style:none;}
+.box{position:relative;width:350px;height:450px;padding:20px;}
+#img-top{position:relative;border:1px solid #ccc;width:350px;height:350px;}
+#img-top img{display:block;width:100%;height:100%;}
+#mark{position:absolute;left:0;top:0;background: #000;opacity:0.5;filter:alpha(opacity=50);z-index: 1;cursor:move;}
+#img-desc{display:none;position: absolute;left:380px;top:20px;width:350px;height:350px;border:1px solid #ccc;overflow:hidden;}
+#img-desc img{position:absolute;}
+#picList{padding:10px 10px 10px 0px;}
+#picList li{float:left;width:60px;height:60px;margin-left:6px;_display:inline;border:1px solid #ccc;}
+#picList li img{display:block;width:100%;height:100%;}

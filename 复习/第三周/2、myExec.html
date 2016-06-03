@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+   /* RegExp.prototype.myExecAll=function myExecAll(){
+        var str=arguments[0],res=null,_this=this,ary=[];
+        if(!_this.global){
+            _this=eval(_this.toString()+"g");
+        }
+        res=_this.exec(str);
+        while(res){
+            ary[ary.length]=res;
+            res=_this.exec(str);
+        }
+        return ary;
+    };*/
+  /* RegExp.prototype.myExecAll=function myExecAll(){
+       var str=arguments[0],_this=this,ary=[],res=null;
+       if(!_this.global){
+           _this=eval(_this.toString()+"g");
+       }
+       res=_this.exec(str);
+       while(res){
+           ary[ary.length]=res[0];
+           res=_this.exec(str);
+       }
+       return ary;
+   };*/
+   RegExp.prototype.myExecAll=function myExecAll(){
+       var str=arguments[0],_this=this,res=null,ary=[];
+       if(!_this.global){
+           _this=eval(_this.toString()+"g");
+       }
+       res=_this.exec(str);
+       while(res){
+           ary[ary.length]=res[0];
+           res=_this.exec(str);
+       }
+       return ary;
+   };
+    var str="2015kjkjk2016jjkj2017dsjkljk2018dffd232";
+    var ary=/\d+/.myExecAll(str);
+    console.log(ary);
+</script>
+</body>
+</html>

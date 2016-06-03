@@ -1,0 +1,7 @@
+@charset "utf-8";
+*{margin:0;padding:0}
+ul,li{list-style:none}
+body,html{}
+#box{position:relative;width:1000px;height:300px;margin:100px auto;overflow: hidden}
+#box ul{position:absolute;left:0;top:0;width:5000px;height:300px;}
+#box ul li{float:left;width:1000px;height:300px;}

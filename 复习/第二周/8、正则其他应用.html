@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //My name is珠峰培训.I am38 years old.I am in class4 grade6.
+    var str = "My name is{0}.I am{1} years old.I am in class{2} grade{3}.";
+    var a = ["珠峰培训", 38, 4, 6];
+    str=str.replace(/{(\d)}/g,function(){
+        return a[arguments[1]];
+    })
+    console.log(str);
+
+    //6a22b8c
+    var str2 = "123a778b332c";
+    var reg2 = /(\d)(\d)(\d)/g;
+    str2=str2.replace(reg2,function(){
+        return Math.abs(-arguments[1]-arguments[2]-arguments[3]);
+    })
+    console.log(str2);
+</script>
+</body>
+</html>

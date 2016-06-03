@@ -1,0 +1,17 @@
+*{margin:0;padding:0}
+html,body{width:100%;height:100%;}
+a{text-decoration:none}
+ul,li{list-style:none}
+img{border:0;}
+#box{position:relative;width:1000px;height:300px;margin:0 auto;overflow:hidden}
+#picList{position:absolute;top:0;left:0;width:4000px;height:300px;overflow: hidden}
+#picList li{float:Left;width:1000px;height:300px;}
+#picList img{display:block;width:100%;height:100%;}
+
+#tip{position:absolute;right:10px;bottom:10px;overflow:hidden;}
+#tip li{float:left;margin-left:5px;width:15px;height:15px;border-radius:50%;background: #ccc;cursor:pointer;}
+#tip li.select{background: #f08519;z-index: 5;}
+
+.btn{display:none;position:absolute;top:50%;margin-top:-23px;width:29px;height:45px;background-image:url("../images/pre.png");overflow:hidden;opacity:.2;filter:alpha(opacity=20);}
+#btnL{left:10px;background-position:left top}
+#btnR{right:10px;background-position:45px top}

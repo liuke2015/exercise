@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var str="777777888888866666666633333333";
+    //去掉这个字符中的重复数字 2种方法
+   /* var newStr=str.replace(/(\d)\1+/g,function(){
+        return arguments[1];
+        });*/
+    var newStr=str.replace(/(\d)\1+/g,"$1");
+    console.log(newStr);
+</script>
+</body>
+</html>

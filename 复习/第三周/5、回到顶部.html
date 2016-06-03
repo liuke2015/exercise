@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>回到顶部</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 1000%;
+            background: #ffeedd;
+            background: -webkit-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: -moz-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: -ms-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: -o-linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+            background: linear-gradient(top, #ffeedd, #FFCF78, #08BECE);
+        }
+
+        #div1 {
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            width: 80%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #008000;
+            color: #fff;
+        }
+
+        #goTo {
+            display: none;
+            position: fixed;
+            right: 5px;
+            bottom: 15px;
+            width: 52px;
+            height: 52px;
+            background: #fff;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px 0 #ccc;
+        }
+
+        #goTo em {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -17px 0 0 -17px;
+            width: 34px;
+            height: 34px;
+            background: #fff;
+        }
+        #goTo em:after{
+            content: "";
+            display:block;
+            width:0;
+            height:0;
+            border-width:10px;
+            border-color:transparent transparent #aaa transparent;
+            border-style:dashed dashed solid dashed;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+        }
+    </style>
+</head>
+<body>
+<div id="goTo"><em></em></div>
+<script>
+   /* function getWin(attr){
+        return document.documentElement[attr]||document.body[attr];
+    }
+    var goTo=document.getElementById("goTo");
+    function winScroll(){
+        var winH=getWin("clientHeight"),scrollT=getWin("scrollTop");
+        goTo.style.display=scrollT>=winH?"block":"none";
+    }
+    window.onscroll=winScroll;
+
+    goTo.onclick=function(){
+        goTo.style.display="none";
+        window.onscroll=null;
+
+        var endT=getWin("scrollTop")-0;
+        var step=(endT/500)*10;
+        //动画部分
+       var timer= window.setInterval(function(){
+            document.documentElement.scrollTop-=step;
+            document.body.scrollTop-=step;
+            var scrollT=getWin("scrollTop");
+            if(scrollT<=0){
+                clearInterval(timer);
+                window.onscroll=winScroll;
+            }
+        },10)
+    }*/
+    function getWin(attr){
+        return document.documentElement[attr]||document.body[attr];
+    }
+    function winScroll(){
+        var scrollT=getWin("scrollTop");
+        goTo.style.display=scrollT>=winH?"block":"none";
+    }
+    var goTo=document.getElementById("goTo");
+    var winH=getWin("clientHeight");
+    window.onscroll=winScroll;
+
+    goTo.onclick=function(){
+        goTo.style.display="none";
+        window.onscroll=null;
+
+        var scrollT=getWin("scrollTop");
+        var endT=scrollT-0;
+        var step=(endT/500)*10;
+        var timer=window.setInterval(function(){
+            document.documentElement.scrollTop-=step;
+            document.body.scrollTop-=step;
+            if(getWin("scrollTop")<=0){
+                clearInterval(timer);
+                window.onscroll=winScroll;
+            }
+        },10);
+
+    }
+
+
+</script>
+</body>
+</html>

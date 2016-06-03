@@ -1,0 +1,45 @@
+@charset "utf-8";
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: "Microsoft Yahei";
+    font-size: 14px;
+}
+
+#bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #d3e3ee;
+    opacity:0;
+}
+
+#box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    /*margin: -150px 0 0 -120px;*/
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ccc;
+}
+
+#box h2 {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #333;
+    font-weight: normal;
+    background: #f08519;
+    opacity:0;
+}

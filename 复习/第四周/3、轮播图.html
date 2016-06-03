@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>js轮播图</title>
+    <link rel="stylesheet" href="css/style3.css"/>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="images/banner1.jpg"/></li>
+        <li><img src="images/banner2.jpg"/></li>
+        <li><img src="images/banner3.jpg"/></li>
+        <li><img src="images/banner4.jpg"/></li>
+    </ul>
+</div>
+<script src="js/utils.js"></script>
+<script>
+    var index = 0, oUl = document.getElementById("box").getElementsByTagName("ul")[0];
+
+    var move = function (duration, interval) {
+        var _this = this;
+        clearTimeout(_this.autoMove);
+        var step = -(1000 / duration) * interval, tar = -1000 * index;
+        ~function _move() {
+            clearTimeout(_this.timer);
+            var curL = utils.css(_this, "left");
+            if (curL + step <= tar) {
+                utils.css(_this, "left", tar);
+                if (index >= 4) {
+                    index = 0;
+                    utils.css(_this, "left", 0);
+                }
+                oUl.autoMove = window.setTimeout(autoMove, 3000);
+                return;
+            }
+            utils.css(_this, "left", curL + step);
+            _this.timer = window.setTimeout(_move, interval);
+        }();
+    };
+    var autoMove = function () {
+        index++;
+        move.call(oUl, 500, 10);
+    };
+    window.onload=function(){
+        var firLi=utils.first(oUl);
+        var oLi=document.createElement("li");
+        oLi.innerHTML=firLi.innerHTML;
+        oUl.appendChild(oLi);
+        var oLisNum=oUl.getElementsByTagName("li").length;
+        utils.css(oUl,"width",oLisNum*1000);
+        oUl.autoMove = window.setTimeout(autoMove, 3000);
+    }
+
+</script>
+</body>
+</html>

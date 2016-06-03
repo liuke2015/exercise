@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>放大镜</title>
+    <link rel="stylesheet" href="css/desc.css"/>
+</head>
+<body>
+<div class="box">
+    <div id="img-top">
+        <img src="images/TB1wan_430x430q90.jpg"/>
+    </div>
+    <ul id="picList">
+        <li><img src="images/TB1wan_60x60q90.jpg" alt=""/></li>
+        <li><img src="images/TB2TtAjn_60x60q90.jpg" alt=""/></li>
+        <li><img src="images/TB21Xobn_60x60q90.jpg" alt=""/></li>
+        <li><img src="images/TB21zZXn_60x60q90.jpg" alt=""/></li>
+        <li><img src="images/TB28AjJn_60x60q90.jpg" alt=""/></li>
+    </ul>
+    <div id="img-desc">
+    </div>
+</div>
+<script>
+    var imgT = document.getElementById("img-top"), imgD = document.getElementById("img-desc");
+    var offset = function (curEle) {
+        var par = curEle.offsetParent;
+        var l = curEle.offsetLeft, t = curEle.offsetTop;
+        while (par) {
+            if (navigator.userAgent.indexOf("MSIE 8.0") < 0) {
+                l += par.clientLeft;
+                t += par.clientTop;
+            }
+            l += par.offsetLeft;
+            t += par.offsetTop;
+            par = par.offsetParent;
+        }
+        return {left: l, top: t}
+    };
+    var offsetL = offset(imgT).left, offsetT = offset(imgT).top;
+    var scaleW=null,scaleH=null;
+
+    var setPos = function (e, curEle) {
+        e = e || window.event;
+        var l = e.clientX - offsetL-curEle.offsetWidth/2, t = e.clientY - offsetT-curEle.offsetHeight/2;
+        var minL = 0, minT = 0, maxL = imgT.clientWidth - curEle.offsetWidth, maxT = imgT.clientHeight - curEle.offsetHeight;
+
+
+        var oImg = imgD.getElementsByTagName("img")[0];
+        if(l<minL){
+            curEle.style.left=minL+"px";
+            oImg.style.left=-minL*1/scaleW+"px"
+        }else if(l>maxL){
+            curEle.style.left=maxL+"px";
+            oImg.style.left=-maxL*1/scaleW+"px"
+        }else{
+            curEle.style.left=l+"px";
+            oImg.style.left=-l*1/scaleW+"px"
+        }
+
+        if(t<minT){
+            curEle.style.top=minT+"px";
+            oImg.style.top=-minT*1/scaleW+"px";
+        }else if(t>maxT){
+            curEle.style.top=maxT+"px";
+            oImg.style.top=-maxT*1/scaleW+"px";
+        }else{
+            curEle.style.top=t+"px";
+            oImg.style.top=-t*1/scaleW+"px";
+        }
+
+
+    }
+
+    imgT.onmouseenter = function (e) {
+        var _this=this;
+        //获取大图
+        var oImg = imgD.getElementsByTagName("img")[0];
+        //如果没有获取到大图，就添加大图。同时，添加mark
+        if (!oImg) {
+            var oImg = new Image;
+            var imgSrc = _this.getElementsByTagName("img")[0].getAttribute("src").replace("_430x430q90", "");
+            oImg.onload = function () {
+                imgD.appendChild(oImg);
+
+                var mark = document.createElement("div");
+                mark.id = "mark";
+                _this.appendChild(mark);
+                //计算大小图比例，并按照比例给mark设置宽高
+                scaleW=_this.clientWidth / oImg.offsetWidth;
+                scaleH=_this.clientHeight / oImg.offsetHeight;
+
+                mark.style.width = scaleW*_this.clientWidth + "px";
+                mark.style.height = scaleH*_this.clientHeight + "px";
+
+                setPos(e, mark);
+            };
+            //图片地址加上随机数为了防止IE下缓存无法加载
+            oImg.src = imgSrc+"?"+Math.random();
+            imgD.style.display = "block";
+        }
+    };
+
+    imgT.onmousemove=function(e){
+        var mark = document.getElementById("mark");
+        if(mark){
+            setPos(e, mark);
+        }
+    }
+    imgT.onmouseleave = function () {
+        var oImg = imgD.getElementsByTagName("img")[0];
+        var mark = document.getElementById("mark");
+        if(oImg){
+            imgD.removeChild(oImg);
+            imgD.style.display="none";
+        }
+        if(mark){
+            this.removeChild(mark);
+        }
+    }
+    //点击小图，更换对应图片
+    var oPic=document.getElementById("picList"),picList=oPic.getElementsByTagName("li");
+    for(var i=0;i<picList.length;i++){
+        var cur=picList[i];
+        cur.index=i;
+        cur.onclick=function(){
+            var imgSrc=this.getElementsByTagName("img")[0].getAttribute("src").replace("60x60q90", "430x430q90");
+            imgT.getElementsByTagName("img")[0].setAttribute("src",imgSrc);
+
+        }
+    }
+
+</script>
+</body>
+</html>

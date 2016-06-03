@@ -9,6 +9,7 @@ http.createServer(function (req, res) {
     var urlObj = url.parse(req.url, true);
     var pathname = urlObj.pathname;
     var query = urlObj.query;
+
     if (pathname == "/" || pathname == "/index2.html") {
         if (query.btn == undefined) {
             var strFile = fs.readFileSync("index2.html").toString();

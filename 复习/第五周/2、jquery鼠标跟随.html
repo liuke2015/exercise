@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jquery鼠标跟随</title>
+    <link rel="stylesheet" href="css/mouse1.css"/>
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<ul class="box">
+    <li><img src="images/apple_1.jpg" alt=""/></li>
+    <li><img src="images/apple_2.jpg" alt=""/></li>
+    <li><img src="images/apple_3.jpg" alt=""/></li>
+    <li><img src="images/apple_4.jpg" alt=""/></li>
+</ul>
+<div class="bigBox" style="display: none">
+    <img src="images/apple_1_bigger.jpg" alt=""/>
+</div>
+<script>
+    $(function(){
+        var $bigBox=$(".bigBox"),$liList=$(".box>li");
+        $liList.mouseenter(function(e){
+            var trueSrc=$(this).children("img").attr("src");
+            trueSrc=trueSrc.replace(".jpg","_bigger.jpg");
+            $(".bigBox>img").attr("src",trueSrc);
+            $bigBox.stop().show(200);
+            $bigBox.css({"left": e.clientX+20,"top": e.clientY+20})
+        });
+        $liList.mouseleave(function(){
+            $bigBox.stop().hide(200);
+        })
+        $liList.mousemove(function(e){
+            var l= e.clientX+20,t= e.clientY+20;
+            $bigBox.css({"left":l,"top":t})
+        })
+    });
+
+</script>
+</body>
+</html>

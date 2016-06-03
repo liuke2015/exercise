@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百叶窗效果</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #box {
+            position: relative;
+            width: 1000px;
+            height: 300px;
+            margin: 0 auto;
+            background: url("images/banner3.jpg");
+        }
+
+        #box ul {
+            position: relative;
+            width: 1000px;
+            height: 300px;
+        }
+
+        #box li {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1000px;
+            height: 300px;
+        }
+
+        #box li span {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+            filter:Alpha(Opacity=0);
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="js/utils.js"></script>
+<script src="js/myTween.js"></script>
+<script>
+    var imagesList = ["images/banner1.jpg", "images/banner2.jpg", "images/banner3.jpg"];
+    (function () {
+        //1、绑定数据
+        if (!imagesList) {
+            return;
+        }
+        var oBox = document.getElementById("box"), frg = document.createDocumentFragment(), oUl = document.createElement("ul");
+        var cols = 10, rows = 3, l = null, t = null, yl = -400, yt = null;
+        for (var i = 0; i < imagesList.length; i++) {
+            var cur = imagesList[i];
+            var li = document.createElement("li");
+            for (var j = 0; j < rows; j++) {
+                for (var k = 0; k < cols; k++) {
+                    var span = document.createElement("span");
+                    with (span.style) {
+                        backgroundImage = "url(" + cur + ")";
+                        backgroundPosition = "-" + k * 100 + "px -" + j * 100 + "px";
+                        l = k * 100;
+                        t = j * 100;
+                        switch (j) {
+                            case 0:
+                                top = -200 + "px";
+                                left = yl + "px";
+                                yt = -200;
+                                break;
+                            case 1:
+                                top = t + "px";
+                                left = yl + "px";
+                                yt = t;
+                                break;
+                            default:
+                                top = t + 200 + "px";
+                                left = yl + "px";
+                                yt = t + 200;
+
+                        }
+                    }
+                    span.l = l;
+                    span.yl = yl;
+                    span.t = t;
+                    span.yt = yt;
+                    li.appendChild(span);
+                }
+            }
+            frg.appendChild(li);
+        }
+        oUl.appendChild(frg);
+        oBox.appendChild(oUl);
+    })();
+
+    window.onload = function () {
+        var liList = document.getElementById("box").getElementsByTagName("li");
+        var liN = liList.length;
+        var i = -1, index = null;
+
+        function autoMove() {
+            i++;
+            index = i == 0 ? (liN - 1) : (i - 1);
+            var curL = liList[i];
+            //当前li层级为1，其他为0
+            for (var k = 0; k < liN; k++) {
+                liList[k].style.zIndex = 0;
+            }
+            utils.css(curL, "zIndex", 1);
+            //当前li 里的span进行活动
+            var aSpan = curL.getElementsByTagName("span");
+            for (var j = 0; j < aSpan.length; j++) {
+                var curS = aSpan[j];
+                curS.index = j;
+                ~function (ele) {
+                    curS.timer = window.setTimeout(function () {
+                        animate(ele, {"left": ele.l, "top": ele.t,"opacity":1}, 800, 2, function () {
+                            if (i == liN - 1) {
+                                i = -1;
+                            }
+
+                            if (this.index == (aSpan.length - 1)) {
+                                //前一个banner回到原来的位置
+                                var spanList = liList[index].getElementsByTagName("span");
+                                for (var n = 0; n < spanList.length; n++) {
+                                    var curSpan = spanList[n];
+                                    utils.setGroupCss(curSpan, {
+                                        "left": curSpan.yl,
+                                        "top": curSpan.yt,
+                                        "opacity":0
+                                    })
+                                }
+                                curL.timer = window.setTimeout(autoMove, 3000);
+
+                            }
+                        });
+                    }, j % 10 * 200);
+                }(curS);
+            }
+        }
+
+        autoMove();
+
+    }
+</script>
+</body>
+</html>

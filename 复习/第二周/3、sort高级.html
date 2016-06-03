@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var ary = [
+        {name: "程明杰", age: 17},
+        {name: "李鑫", age: 27},
+        {name: "王亚静", age: 22},
+        {name: "信永亮", age: 25},
+        {name: "刘影", age: 18}
+    ];
+    //按照年龄排序
+ /*   ary.sort(function(a,b){
+        return a.age- b.age;
+    });
+    console.log(ary);
+    //按照姓名排序*/
+    ary.sort(function(a,b){
+        return a.name.localeCompare(b.name);
+    });
+    console.log(ary);
+</script>
+</body>
+</html>

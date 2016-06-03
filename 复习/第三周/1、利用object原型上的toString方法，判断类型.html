@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function isType(val,type){
+        var reg=new RegExp("\\[object "+type+"\\]","i");
+        console.log(reg.test(Object.prototype.toString.call(val)));
+    }
+    var ary=[];
+    isType(ary,"array");
+</script>
+</body>
+</html>

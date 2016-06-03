@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jquery轮播图</title>
+    <link rel="stylesheet" href="css/style4.css"/>
+</head>
+<body>
+<div id="box">
+    <ul id="picList">
+        <li><img src="images/banner1.jpg" alt=""/></li>
+        <li><img src="images/banner2.jpg" alt=""/></li>
+        <li><img src="images/banner3.jpg" alt=""/></li>
+        <li><img src="images/banner4.jpg" alt=""/></li>
+    </ul>
+    <ul id="tip">
+        <li class="select">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+    var $pic=$("#picList");
+    var index=0;
+    function appendLi(){
+        var li=$("<li>");
+        li.html($pic.children().first().html());
+        $pic.append(li);
+        $pic.css({"width":1000*$pic.children().length});
+    }
+
+    function changeTip(){
+        $("#tip>li").click(function(){
+            index=$(this).index()-1;
+            autoMove();
+        });
+    }
+    function autoMove(){
+        index++;
+        $pic.stop().animate({"left":-index*1000+"px"},600,function(){
+            if(index>=4){
+                index=0;
+                $pic.css({"left":0});
+            }
+            $("#tip>li:eq("+index+")").addClass("select").siblings("li").removeClass("select");
+        })
+    }
+    $("#box").mouseenter(function(){
+        clearInterval($pic.timer);
+    });
+    $("#box").mouseleave(function(){
+        $pic.timer=window.setInterval(autoMove,3000);
+    });
+    $pic.timer=window.setInterval(autoMove,3000);
+    appendLi();
+    changeTip()
+</script>
+</body>
+</html>

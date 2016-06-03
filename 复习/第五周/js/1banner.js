@@ -1,6 +1,4 @@
-/**
- * Created by dell on 2016/2/5.
- */
+
 var zhufengEffect = {
     //当前时间*变化量/持续时间+初始值
     zfLinear: function (t, b, c, d) {
@@ -163,115 +161,179 @@ var zhufengEffect = {
         }
     }
 };
-var getCss = function (ele, attr) {
-    if ("getComputedStyle" in window) {
-        var val = window.getComputedStyle(ele, null)[attr];
-        //IE10下，如果没有写margin值，会默认margin值为空字符串""，如果取到的值是空字符串，设置其值为0；
-        if (val) {
-            return parseFloat(val);
-        } else {
-            return 0;
-        }
-    } else {
-        if (attr == "opacity") {
-            val = ele.currentStyle.filter;
-            var reg = /alpha\(opacity=((?:\d|[1-9]\d)(?:\.\d+)?)\)/;
-            if (reg.test(val)) {
-                return RegExp.$1 / 100;
-            } else {
-                return 1;
-            }
-        } else {
-            val = ele.currentStyle[attr];
-            reg = /\d+/;
-            //IE7/8下，如果没有写margin值，会默认margin值为"auto",所以匹配其内容是否含有数字，没有的话值设置为0;
-            if (reg.test(val)) {
-                return parseFloat(ele.currentStyle[attr]);
-            } else {
-                return 0;
-            }
-        }
-    }
-};
-var setCss = function (ele, attr, val) {
-    var reg = /^(width|height|left|top|right|bottom|((margin|padding)(Left|Top|Right|Bottom)?))$/;
-    if (attr == "float") {
-        ele.style.cssFloat = val;
-        ele.style.styleFloat = val;
-    } else if (attr == "opacity") {
-        ele.style.opacity = val;
-        ele.style.filter = "alpha(opacity=" + val * 100 + ")";
-    } else if (reg.test(attr)) {
-
-        ele["style"][attr] = isNaN(val) ? val : val + "px";
-
-    } else {
-        ele.style.attr = val;
-    }
-};
-var animate = function (ele, oTarget, duration, effect, callBack) {
+function animate(ele, oTarget, duration,effect, callBack) {
     //一共31种效果，常用的效果有五种，那我们把常用的效果用数字来表示
     //0表示减速，1表示匀速，2表示elastic弹性的,3表示back,返回式，4表示bounce反弹
     //再用0减速效果为默认效果
-    var fnEffect = zhufengEffect.Expo.easeOut;
-    if (typeof effect == "number") {
-        switch (effect) {
+    var fnEffect=zhufengEffect.Expo.easeInOut;
+    if(typeof effect =="Number"){
+        switch (effect){
             case 1:
-                fnEffect = zhufengEffect.zfLinear;
+                fnEffect=zhufengEffect.zfLinear;
                 break;
             case 2:
-                fnEffect = zhufengEffect.Quart.easeInOut;
+                fnEffect=zhufengEffect.Quart.easeInOut;
                 break;
             case 3:
-                fnEffect = zhufengEffect.Back.easeOut;
+                fnEffect=zhufengEffect.Back.easeOut;
                 break;
             case 4:
-                fnEffect = zhufengEffect.zfBounce.easeOut;
+                fnEffect=zhufengEffect.zfBounce.easeOut;
                 break;
             case 5:
-                fnEffect = zhufengEffect.Expo.easeIn;
+                fnEffect=zhufengEffect.Expo.easeIn;
+                break;
+            default :
+                fnEffect=zhufengEffect.Expo.easeInOut;
         }
-    } else if (effect instanceof Array) {
+    }else if(effect instanceof Array){
         if(effect.length==1){
             fnEffect=zhufengEffect.zfLinear;
         }else if(effect.length==2){
-            fnEffect = zhufengEffect[effect[0]][effect[1]];
+            fnEffect=zhufengEffect[effect[0]][effect[1]];
         }
-    } else if (typeof effect == "function") {
-        fnEffect = zhufengEffect.Expo.easeOut;
-        callBack = effect;
+    }else if(typeof effect=="function"){
+        callBack=effect;
+        fnEffect=zhufengEffect.Expo.easeInOut;
     }
 
-    var oBegin = {}, oChange = {};
-    for (var attr in oTarget) {
-        var begin = getCss(ele, attr);
-        var change = oTarget[attr] - begin;
-        oBegin[attr] = begin;
-        oChange[attr] = change;
+
+    var oBegin = {}, oChange = {}, timers = 0, interval = 13;
+    for (var key in oTarget) {
+        oBegin[key] = parseFloat(utils.css(ele, key));
+        oChange[key] = oTarget[key] - oBegin[key];
     }
-    var times = 0;
-    var interval = 13;
+    //1)清除之前正在运行的动画
     window.clearInterval(ele.timer);
-    function step() {
-        times += interval;
-        if (times < duration) {
-            for (var attr in oChange) {
-                var change=oChange[attr];
-                var begin=oBegin[attr];
-                var val=fnEffect(times,begin,change,duration);
-                setCss(ele, attr, val);
-            }
-        } else {
-            for (var attr in oTarget) {
-                var val = oTarget[attr];
-                setCss(ele, attr, val);
+    //2)开始设置新的动画执行我们的操作
+    ele.timer=window.setInterval(function(){
+        timers += interval;
+        if(timers>=duration){
+            for (var key in oTarget) {
+                utils.css(ele, key, oTarget[key]);
             }
             window.clearInterval(ele.timer);
             if (typeof callBack == "function") {
                 callBack.call(ele);
             }
+            return;
         }
-    }
+        for (var key in oTarget) {
+            var val=fnEffect(timers,oBegin[key],oChange[key],duration);
+            utils.css(ele, key, val);
+        }
+    },interval);
+}
 
-    ele.timer = window.setInterval(step, interval);
+
+var dataAry = ["images/banner1.jpg", "images/banner2.jpg", "images/banner3.jpg", "images/banner4.jpg"];
+
+var oBox=document.getElementById("box"),oPicList=document.getElementById("picList"),oTip=document.getElementById("tip");
+//绑定数据
+function bindPic() {
+    if (!dataAry) {
+        return
+    }
+    var strP="",strT="";
+    strP+='<li trueImg="'+dataAry[dataAry.length-1]+'"></li>';
+    for(var i=0;i<dataAry.length;i++){
+        strP+='<li trueImg="'+dataAry[i]+'"></li>';
+    }
+    strP+='<li trueImg="'+dataAry[0]+'"></li>';
+    oPicList.innerHTML=strP;
+    for(var i=0;i<dataAry.length;i++){
+        i==0?strT+='<li class="select"></li>':strT+='<li></li>';
+    }
+    oTip.innerHTML=strT;
+}
+bindPic();
+//图片延时加载
+var liList=oPicList.getElementsByTagName("li");
+function initImg(){
+    for(var i=0;i<liList.length;i++){
+        ~function(i){
+            var curLi=liList[i];
+            if(!curLi.isLoad){
+                var oImg=new Image;
+                oImg.src=curLi.getAttribute("trueImg");
+                oImg.onload=function(){
+                    curLi.appendChild(oImg);
+                    curLi.isLoad=true;
+                }
+            }
+        }(i);
+    }
+}
+initImg();
+//动态设置picList的width
+utils.setGroupCss(oPicList,{
+        "width":1000*liList.length,
+        "left":-1000
+});
+//自动轮播
+var index=1;
+function autoMove(){
+    index++;
+    if(index>dataAry.length){
+        index=1;
+        utils.css(oPicList,"left",0);
+    }
+    if(index<0){
+        index=3;
+        utils.css(oPicList,"left",-4*1000);
+    }
+    autoTip(index);
+    animate(oPicList,{"left":-index*1000},800,2);
 };
+oPicList.autoMove=window.setInterval(autoMove,3000);
+//焦点对齐
+var tipList=oTip.getElementsByTagName("li");
+function autoTip(index){
+    var tipAry=utils.listToArray(tipList);
+    index--;
+    if(index<0){
+        index=dataAry.length-1;
+    }
+    tipAry.myForEach(function(cur,i,ary){
+        cur.className=i==index?"select":null;
+    })
+}
+//点击焦点切换图片
+for(var i=0;i<tipList.length;i++){
+    var curT=tipList[i];
+    curT.index=i;
+    curT.onclick=function(){
+        index=this.index+1;
+        autoTip(index);
+        animate(oPicList,{"left":-index*1000},800,2);
+    };
+}
+//点击btn按钮实现切换
+var btnL=document.getElementById("btnL"),btnR=document.getElementById("btnR");
+btnR.onclick=function(){
+    autoMove();
+}
+btnL.onclick=function(){
+    index-=2;
+    autoMove();
+};
+btnR.onmouseenter=btnL.onmouseenter=function(){
+    var _this=this;
+    utils.css(_this,"opacity",0.8);
+}
+btnR.onmouseleave=btnL.onmouseleave=function(){
+    var _this=this;
+    utils.css(_this,"opacity",0.5);
+}
+
+oBox.onmouseenter=function(){
+    window.clearInterval(oPicList.autoMove);
+    btnL.style.display="block";
+    btnR.style.display="block";
+};
+oBox.onmouseleave=function(){
+    oPicList.autoMove=window.setInterval(autoMove,3000);
+    btnL.style.display="none";
+    btnR.style.display="none";
+};
+

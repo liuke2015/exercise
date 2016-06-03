@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多方面运动动画</title>
+    <link rel="stylesheet" href="css/style2.css"/>
+</head>
+<body>
+<div id="bg"></div>
+<div id="box">
+    <h2>hello world~</h2>
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script>
+    var bg = document.getElementById("bg"), box = document.getElementById("box"),h=box.getElementsByTagName("h2")[0];
+    function move(duration, interval, opt, callBack) {
+        utils.css(bg,"opacity",1);
+        var w = opt.w, h = opt.h, _this = this;
+        var stepW = (w / duration) * interval, stepH = (h / duration) * interval, stepO = (1 / duration) * interval;
+        ~function _move() {
+            window.clearTimeout(_this.timer);
+            var curW = utils.css(_this, "width"), curH = utils.css(_this, "height"), curO = parseFloat(utils.css(_this, "opacity"));
+            if (curW + stepW >= w) {
+                utils.setGroupCss(_this,
+                        {
+                            "width":w,
+                            "height":h,
+                            "opacity":1,
+                            "marginTop":-(h/2),
+                            "marginLeft":-(w/2)
+                        });
+                if(typeof callBack=="function"){
+                    callBack();
+                }
+                return;
+            }
+            utils.setGroupCss(_this,
+                    {
+                        "width":curW+stepW,
+                        "height":curH+stepH,
+                        "opacity":curO+stepO,
+                        "marginTop":-((curH+stepH)/2),
+                        "marginLeft":-((curW+stepW)/2)
+                    });
+            _this.timer=window.setInterval(_move,13);
+        }();
+    }
+
+    var cBack=function(){
+        var count= 0,_this=this;
+        _this.timer=window.setInterval(function(){
+            count+=0.1;
+            if(count>1){
+                clearInterval(_this.timer);
+            }
+            utils.css(_this,"opacity",count);
+        },60);
+    };
+    window.setTimeout(function(){
+        move.call(box,600,13,{"w":240,"h":300},function(){
+            cBack.call(h);
+        });
+    },1000);
+
+</script>
+</body>
+</html>

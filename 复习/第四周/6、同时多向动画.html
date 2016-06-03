@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>同时多方向动画</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+<div id="div"></div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script>
+    /*function animate(ele,oTarget,duration ,callBack){
+     duration=duration||600;
+     var oBegin={},oChange={};
+     for(var key in oTarget){
+     oBegin[key]=parseFloat(utils.css(ele,key));
+     oChange[key]=oTarget[key]-oBegin[key];
+     }
+     var timers=0;
+     var interval=15;
+     clearInterval(ele.timer);
+     function step(){
+     timers+=interval;
+     if(timers<duration){
+     for(var key in oTarget){
+     var val=timers/duration*oChange[key]+oBegin[key];
+     utils.css(ele,key,val);
+     }
+     }else{
+     for(var key in oTarget){
+     var val=oTarget[key];
+     utils.css(ele,key,val);
+     }
+     clearInterval(ele.timer);
+     if(typeof callBack=="function"){
+     callBack.call(ele);
+     }
+     }
+     }
+     ele.timer=window.setInterval(step,interval);
+     };*/
+    function animate(ele, oTarget, duration, callBack) {
+        clearTimeout(ele.timer);
+        var oBegin = {}, oChange = {}, timers = 0, interval = 13;
+        for (var key in oTarget) {
+            oBegin[key] = parseFloat(utils.css(ele, key));
+            oChange[key] = oTarget[key] - oBegin[key];
+        }
+        function step() {
+            timers += interval;
+            console.log(timers);
+            if (timers < duration) {
+                for (var key in oTarget) {
+                    var val = timers / duration * oChange[key] + oBegin[key];
+                    utils.css(ele, key, val);
+                }
+            } else {
+                for (var key in oTarget) {
+                    utils.css(ele, key, oTarget[key]);
+                }
+                if (typeof callBack == "function") {
+                    callBack.call(ele);
+                }
+                clearInterval(ele.timer);
+            }
+        }
+        ele.timer=window.setInterval(step,interval);
+    }
+    var oDiv = document.getElementById("div");
+    oDiv.onclick = function () {
+        var _this = this;
+        animate(_this, {"left": 300, "top": 200, "width": 300, "height": 300, "opacity": 0.2}, 1000, function () {
+            utils.css(this, "backgroundColor", "red");
+        })
+    }
+</script>
+</body>
+</html>

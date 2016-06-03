@@ -1,6 +1,44 @@
 /**
  * Created by dell on 2016/2/5.
  */
+/*var _utils={
+    css : function css(curEle, attr, value) {
+    //get
+    var reg = /^[+-]?(\d|([1-9]\d+))(\.\d+)?(px|pt|em|rem)$/, val = null;
+    if (typeof value == "undefined") {
+        if ("getComputedStyle" in window) {
+            val = window.getComputedStyle(curEle, null)[attr]
+        } else {
+            val = curEle.currentStyle[attr];
+            if (attr == "opacity") {
+                var regOpa = /alpha\(opacity=(\d+)\)/;
+                if (regOpa.test(val)) {
+                    return regExp.$1 / 100;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        return reg.test(val) ? parseFloat(val) : val;
+    }
+    //set
+    var regStye = /^(top|left|bottom|bottom|width|height|((margin|padding)(Left|Top|Bottom|Right)?))$/;
+    if (attr == "opacity") {
+        if (value >= 0 && value <= 1) {
+            curEle["style"]["opacity"] = value;
+            curEle["style"]["filter"] = "alpha(opacity=" + value * 100 + ")";
+        }
+    } else if (attr == "float") {
+        curEle["style"]["cssFloat"] = value;
+        curEle["style"]["styleFloat"] = value;
+    } else if (regStye.test(attr)) {
+        curEle["style"][attr] = value + "px";
+    } else {
+        curEle["style"][attr] = value;
+    }
+}
+};
+window.utils=_utils;*/
 var zhufengEffect = {
     //当前时间*变化量/持续时间+初始值
     zfLinear: function (t, b, c, d) {
@@ -163,115 +201,67 @@ var zhufengEffect = {
         }
     }
 };
-var getCss = function (ele, attr) {
-    if ("getComputedStyle" in window) {
-        var val = window.getComputedStyle(ele, null)[attr];
-        //IE10下，如果没有写margin值，会默认margin值为空字符串""，如果取到的值是空字符串，设置其值为0；
-        if (val) {
-            return parseFloat(val);
-        } else {
-            return 0;
-        }
-    } else {
-        if (attr == "opacity") {
-            val = ele.currentStyle.filter;
-            var reg = /alpha\(opacity=((?:\d|[1-9]\d)(?:\.\d+)?)\)/;
-            if (reg.test(val)) {
-                return RegExp.$1 / 100;
-            } else {
-                return 1;
-            }
-        } else {
-            val = ele.currentStyle[attr];
-            reg = /\d+/;
-            //IE7/8下，如果没有写margin值，会默认margin值为"auto",所以匹配其内容是否含有数字，没有的话值设置为0;
-            if (reg.test(val)) {
-                return parseFloat(ele.currentStyle[attr]);
-            } else {
-                return 0;
-            }
-        }
-    }
-};
-var setCss = function (ele, attr, val) {
-    var reg = /^(width|height|left|top|right|bottom|((margin|padding)(Left|Top|Right|Bottom)?))$/;
-    if (attr == "float") {
-        ele.style.cssFloat = val;
-        ele.style.styleFloat = val;
-    } else if (attr == "opacity") {
-        ele.style.opacity = val;
-        ele.style.filter = "alpha(opacity=" + val * 100 + ")";
-    } else if (reg.test(attr)) {
-
-        ele["style"][attr] = isNaN(val) ? val : val + "px";
-
-    } else {
-        ele.style.attr = val;
-    }
-};
-var animate = function (ele, oTarget, duration, effect, callBack) {
+function animate(ele, oTarget, duration,effect, callBack) {
     //一共31种效果，常用的效果有五种，那我们把常用的效果用数字来表示
     //0表示减速，1表示匀速，2表示elastic弹性的,3表示back,返回式，4表示bounce反弹
     //再用0减速效果为默认效果
-    var fnEffect = zhufengEffect.Expo.easeOut;
-    if (typeof effect == "number") {
-        switch (effect) {
+    var fnEffect=zhufengEffect.Expo.easeInOut;
+    if(typeof effect =="Number"){
+        switch (effect){
             case 1:
-                fnEffect = zhufengEffect.zfLinear;
+                fnEffect=zhufengEffect.zfLinear;
                 break;
             case 2:
-                fnEffect = zhufengEffect.Quart.easeInOut;
+                fnEffect=zhufengEffect.Quart.easeInOut;
                 break;
             case 3:
-                fnEffect = zhufengEffect.Back.easeOut;
+                fnEffect=zhufengEffect.Back.easeOut;
                 break;
             case 4:
-                fnEffect = zhufengEffect.zfBounce.easeOut;
+                fnEffect=zhufengEffect.zfBounce.easeOut;
                 break;
             case 5:
-                fnEffect = zhufengEffect.Expo.easeIn;
+                fnEffect=zhufengEffect.Expo.easeIn;
+                break;
+            default :
+                fnEffect=zhufengEffect.Expo.easeInOut;
         }
-    } else if (effect instanceof Array) {
-        if(effect.length==1){
+    }else if(effect instanceof Array){
+        if(effect.length==1){zfLinear
             fnEffect=zhufengEffect.zfLinear;
         }else if(effect.length==2){
-            fnEffect = zhufengEffect[effect[0]][effect[1]];
+            fnEffect=zhufengEffect[effect[0]][effect[1]];
         }
-    } else if (typeof effect == "function") {
-        fnEffect = zhufengEffect.Expo.easeOut;
-        callBack = effect;
+    }else if(typeof effect=="function"){
+        callBack=effect;
+        fnEffect=zhufengEffect.Expo.easeInOut;
     }
 
-    var oBegin = {}, oChange = {};
-    for (var attr in oTarget) {
-        var begin = getCss(ele, attr);
-        var change = oTarget[attr] - begin;
-        oBegin[attr] = begin;
-        oChange[attr] = change;
+    clearTimeout(ele.timer);
+    var oBegin = {}, oChange = {}, timers = 0, interval = 13;
+    for (var key in oTarget) {
+        oBegin[key] = parseFloat(utils.css(ele, key));
+        oChange[key] = oTarget[key] - oBegin[key];
     }
-    var times = 0;
-    var interval = 13;
-    window.clearInterval(ele.timer);
     function step() {
-        times += interval;
-        if (times < duration) {
-            for (var attr in oChange) {
-                var change=oChange[attr];
-                var begin=oBegin[attr];
-                var val=fnEffect(times,begin,change,duration);
-                setCss(ele, attr, val);
+        timers += interval;
+        if (timers < duration) {
+            for (var key in oTarget) {
+                var val=fnEffect(timers,oBegin[key],oChange[key],duration);
+               /* if(key=="opacity"){
+                 console.log(val);
+                 }*/
+                utils.css(ele, key, val);
             }
         } else {
-            for (var attr in oTarget) {
-                var val = oTarget[attr];
-                setCss(ele, attr, val);
+            for (var key in oTarget) {
+                utils.css(ele, key, oTarget[key]);
             }
-            window.clearInterval(ele.timer);
+            clearInterval(ele.timer);
             if (typeof callBack == "function") {
                 callBack.call(ele);
             }
         }
     }
-
-    ele.timer = window.setInterval(step, interval);
-};
+    ele.timer=window.setInterval(step,interval);
+}

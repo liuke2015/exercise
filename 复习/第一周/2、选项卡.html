@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        ul,li{list-style:none}
+        a{text-decoration: none}
+        #box{width:500px;height:300px;margin:100px auto;}
+        #bot-tit{height:30px;font:14px/30px "";overflow:hidden;}
+        #bot-tit span{float:left;height:30px;padding:0 30px;border:1px solid #00b3ee;margin-right:5px;border-bottom:0;cursor: pointer;-webkit-user-select:none;}
+        #bot-tit span.select{border-color:#f04124}
+        #conBox{height:270px;}
+        .content{display:none;height:270px;border:1px solid #f04124}
+        .content.select{display:block}
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="bot-tit">
+            <span class="select">
+               看体育
+            </span>
+            <span>
+               看美术
+            </span>
+            <span>
+               看音乐
+            </span>
+        </div>
+        <div id="conBox">
+            <div class="content select">体育</div>
+            <div class="content">美术</div>
+            <div class="content">音乐</div>
+        </div>
+    </div>
+    <script>
+        var oConBox=document.getElementById("conBox");
+        var aSpan=document.getElementById("bot-tit").getElementsByTagName("span");
+        var aCon=oConBox.getElementsByTagName("div");
+        //方法一
+      /* for(var i=0;i<aSpan.length;i++){
+           var cur=aSpan[i];
+           cur.index=i;
+           cur.onclick=function(){
+               for(var j=0;j<aCon.length;j++){
+                   aCon[j].style.display="none";
+                   aSpan[j].className=null;
+               }
+               aCon[this.index].style.display="block";
+               aSpan[this.index].className="select";
+           }
+       }*/
+        //方法二
+      /*  for(var i=0;i<aSpan.length;i++){
+            var cur=aSpan[i];
+            cur.onclick=(function(i){
+                return function(){
+                    for(var j=0;j<aCon.length;j++){
+                        aCon[j].style.display="none";
+                        aSpan[j].className=null;
+                    }
+                    aCon[i].style.display="block";
+                    aSpan[i].className="select";
+                }
+            })(i);
+        }*/
+        //方法三
+        for(var i=0;i<aSpan.length;i++){
+            ~function(i){
+                aSpan[i].onclick=function(){
+                    for(var j=0;j<aCon.length;j++){
+                        aCon[j].style.display="none";
+                        aSpan[j].className=null;
+                    }
+                    aCon[i].style.display="block";
+                    aSpan[i].className="select";
+                }
+            }(i)
+        }
+
+    </script>
+</body>
+</html>

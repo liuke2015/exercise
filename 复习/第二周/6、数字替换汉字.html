@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //把382909替换成叁捌贰玖零玖
+    var a = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
+    var str="382909";
+    var newStr=str.replace(/\d/g,function(){
+        return a[arguments[0]];
+    })
+</script>
+</body>
+</html>

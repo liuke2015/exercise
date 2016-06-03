@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>js鼠标跟随</title>
+    <link rel="stylesheet" href="css/mouse2.css"/>
+</head>
+<body>
+<ul class="box">
+    <li><img src="images/apple_1.jpg" alt=""/></li>
+    <li><img src="images/apple_2.jpg" alt=""/></li>
+    <li><img src="images/apple_3.jpg" alt=""/></li>
+    <li><img src="images/apple_4.jpg" alt=""/></li>
+</ul>
+<!--<div class="bigBox">
+    <img src="images/apple_1_bigger.jpg" alt=""/>
+</div>-->
+<script src="js/utils.js"></script>
+<script>
+    var oBox=utils.getElementsByClass("box")[0];
+    var liList=document.getElementsByTagName("li");
+    for(var i=0;i<liList.length;i++){
+        var cur=liList[i];
+        cur.index=i;
+        cur.onmouseenter=function(e){
+            e=e||window.event;
+            var _this=this;
+            var oBig=document.getElementById("bigBox");
+            if(!oBig){
+                var oBig=document.createElement("div");
+                oBig.id="bigBox";
+                var trImg=this.getElementsByTagName("img")[0].getAttribute("src");
+                trImg=trImg.replace(".jpg","_bigger.jpg");
+                var oImg=new Image;
+                oImg.onload=function(){
+                    oBig.appendChild(oImg);
+                };
+                oImg.src=trImg;
+                var l= e.clientX+20,t= e.clientY+20;
+                utils.setGroupCss(oBig,{"left":l,"top":t});
+                document.body.appendChild(oBig);
+            }
+            _this.onmousemove=function(){
+                moveFn.call(_this);
+            };
+            _this.onmouseleave=function(){
+                leaveFn.call(_this);
+            }
+        };
+    }
+    function moveFn(e){
+        e=e||window.event;
+        var l= e.clientX+20,t= e.clientY+20;
+        var oBig=document.getElementById("bigBox");
+        if(oBig){
+            utils.setGroupCss(oBig,{"left":l,"top":t});
+        }
+    }
+    function leaveFn(e){
+        e=e||window.event;
+        var oBig=document.getElementById("bigBox");
+        if(oBig){
+            document.body.removeChild(oBig);
+            this.onmousemove=null;
+            this.onmouseleave=null;
+        }
+    }
+</script>
+</body>
+</html>

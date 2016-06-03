@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>滑动门</title>
+    <style type="text/css">
+        .tabbedPanels{ width:550px; margin:20px auto;}
+        .tabbedPanels .tabGroup{ list-style:none; margin:0; padding:0; overflow:hidden; }
+        .tabbedPanels .tab{ padding:0; margin:0 0 0 10px; float:left; font-size:16px; background:#FC9; line-height:30px; height:30px; width:80px; text-align:center; -webkit-user-select:none; cursor:pointer; }
+        .tabbedPanels .contentGroup{ overflow:hidden; clear:both; }
+        .tabbedPanels .content{ width:530px; padding:10px;  height:350px; display:none;}
+
+        .tabbedPanels li.selectedTab{ background:#CCC; font-weight:bold; color:darkBlue;}
+        .tabbedPanels div.selectedContent{ display:block; background:#ccc;}
+        .promoted{ color:red; font-size:16px; font-weight:bold;}
+    </style>
+</head>
+<body>
+<div class="tabbedPanels">
+    <ul class="tabGroup">
+        <li class="tab selectedTab">选项一 </li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三 </li>
+        <li class="tab promoted">选项四</li>
+        <li class="tab">选项五 </li>
+
+    </ul>
+    <div class="contentGroup">
+        <div class="content selectedContent">
+            第一部分内容
+        </div>
+        <div class="content">
+            第二部分内容
+            <div>
+                <h3>珠峰培训课程</h3>
+                <ul>
+                    <li>JavaScript</li>
+                    <li>HTML5</li>
+                    <li>移动端</li>
+                    <li>Node.js</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            第三部分内容
+        </div>
+        <div class="content">
+            第四部分内容
+        </div>
+        <div class="content">
+            第五部分内容
+        </div>
+    </div>
+
+</div>
+<!--  分隔线  -->
+<div class="tabbedPanels">
+    <ul class="tabGroup">
+        <li class="tab selectedTab">选项一 </li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三 </li>
+        <li class="tab promoted">选项四</li>
+        <li class="tab">选项五 </li>
+
+    </ul>
+    <div class="contentGroup">
+        <div class="content selectedContent">
+            第一部分内容
+        </div>
+        <div class="content">
+            第二部分内容
+            <div>
+                <h3>珠峰培训课程</h3>
+                <ul>
+                    <li>JavaScript</li>
+                    <li>HTML5</li>
+                    <li>移动端</li>
+                    <li>Node.js</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            第三部分内容
+        </div>
+        <div class="content">
+            第四部分内容
+        </div>
+        <div class="content">
+            第五部分内容
+        </div>
+    </div>
+
+</div>
+<!--  分隔线  -->
+<div class="tabbedPanels">
+    <ul class="tabGroup">
+        <li class="tab selectedTab">选项一 </li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三 </li>
+        <li class="tab promoted">选项四</li>
+        <li class="tab">选项五 </li>
+
+    </ul>
+    <div class="contentGroup">
+        <div class="content selectedContent">
+            第一部分内容
+        </div>
+        <div class="content">
+            第二部分内容
+            <div>
+                <h3>珠峰培训课程</h3>
+                <ul>
+                    <li>JavaScript</li>
+                    <li>HTML5</li>
+                    <li>移动端</li>
+                    <li>Node.js</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            第三部分内容
+        </div>
+        <div class="content">
+            第四部分内容
+        </div>
+        <div class="content">
+            第五部分内容
+        </div>
+    </div>
+
+</div>
+<!--  分隔线  -->
+<div class="tabbedPanels">
+    <ul class="tabGroup">
+        <li class="tab selectedTab">选项一 </li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三 </li>
+        <li class="tab promoted">选项四</li>
+        <li class="tab">选项五 </li>
+
+    </ul>
+    <div class="contentGroup">
+        <div class="content selectedContent">
+            第一部分内容
+        </div>
+        <div class="content">
+            第二部分内容
+            <div>
+                <h3>珠峰培训课程</h3>
+                <ul>
+                    <li>JavaScript</li>
+                    <li>HTML5</li>
+                    <li>移动端</li>
+                    <li>Node.js</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            第三部分内容
+        </div>
+        <div class="content">
+            第四部分内容
+        </div>
+        <div class="content">
+            第五部分内容
+        </div>
+    </div>
+
+</div>
+<!--  分隔线  -->
+<script src="js/dom.js"></script>
+<script>
+    var liList=DOM.getElementsByClass("tab");
+    console.log(liList);
+    for(var i=0;i<liList.length;i++){
+        liList[i].onclick=changeTab;
+    }
+    function changeTab(){
+        var _this=this;
+        var index=DOM.index(_this);
+
+        //tit当前高亮
+        DOM.addClass(_this,"selectedTab");
+        var siblings=DOM.siblings(_this);
+        console.log(siblings);
+        for(var i=0;i<siblings.length;i++){
+            DOM.removeClass(siblings[i],"selectedTab");
+        }
+        //对应con显示，其余隐藏
+        var children=DOM.children(DOM.next(_this.parentNode));
+        for(var j=0;j<children.length;j++){
+            DOM.removeClass(children[j],"selectedContent");
+        }
+        DOM.addClass(children[index],"selectedContent");
+
+    }
+</script>
+</body>
+</html>
