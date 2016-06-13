@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>百度拖拽</title>
+    <link rel="stylesheet" href="css/baiduTrag.css"/>
+</head>
+<body>
+<div id="box">
+    <h2>百度拖拽案例</h2>
+</div>
+<script src="js/utils.js"></script>
+<script>
+    var oBox=document.getElementById("box"),botT=oBox.getElementsByTagName("h2")[0];
+
+    //给box设置left与top值,并且居中
+    var winW=utils.win("clientWidth"),winH=utils.win("clientHeight");
+    var boxW=oBox.offsetWidth,boxH=oBox.offsetHeight;
+    utils.setGroupCss(oBox,{
+        "left":(winW-boxW)/2,
+        "top":(winH-boxH)/2,
+        "margin":0
+    });
+    //当鼠标按下时，设置初始值
+    var down=function(e){
+        var e=e||window.event;
+        this.starX= e.clientX;
+        this.starY= e.clientY;
+        this.starL=oBox.offsetLeft;
+        this.starT=oBox.offsetTop;
+
+        var _this=this;
+        if(this.setCapture){
+            this.setCapture();
+            this.onmousemove=move;
+            this.onmouseup=up;
+        }else{
+            document.onmousemove=function(e){
+                move.call(_this,e)
+            }
+            document.onmouseup=function(e){
+                up.call(_this,e)
+            }
+        }
+    }
+
+    var move=function(e){
+        e=e||window.event;
+        var l=this.starL+(e.clientX-this.starX),t=this.starT+(e.clientY-this.starY);
+        console.log(l);
+        var minL= 0,maxL=winW-boxW,minT= 0,maxT=winH-boxH;
+        if(l<=minL){
+            utils.css(oBox,"left",minL)
+        }else if(l>=maxL){
+            utils.css(oBox,"left",maxL)
+        }else{
+            utils.css(oBox,"left",l)
+        }
+
+        if(t<=minT){
+            utils.css(oBox,"top",minT)
+        }else if(t>=maxT){
+            utils.css(oBox,"top",maxT)
+        }else{
+            utils.css(oBox,"top",t)
+        }
+    };
+    var up=function(e){
+        e=e||window.event;
+        if(this.releaseCapture){
+            this.releaseCapture();
+            this.onmousemove=null;
+            this.onmouseup=null;
+        }else{
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+    };
+    botT.onmousedown=down;
+</script>
+</body>
+</html>

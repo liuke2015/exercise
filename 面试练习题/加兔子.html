@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //一开始只有一对兔子
+    //从第三个月开始，每个月生一对
+
+
+    var month = prompt("输入月份"),ary = [],m=0;
+    ary.push(m);
+    for (var i = 1; i <= month; i++) {
+        for (var j = 0; j < ary.length; j++) {
+            var cur=++ary[j];
+            if (cur >= 3) {
+                m=0;
+                ary.push(m);
+            }
+        }
+    }
+    document.write(month+"个月，有"+ary.length+"对儿兔子");//[8, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1]
+    //ary[0]-->第一对兔子，ary[1]-->第二对兔子;ary[0]对应的值，是第一对兔子的月份，ary[1]对应的值是第二对二兔子的月份
+    //ary.length为兔子的总数量
+
+
+</script>
+</body>
+</html>

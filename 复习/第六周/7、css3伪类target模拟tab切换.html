@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>target-animation</title>
+    <style type="text/css">
+        *{margin:0;padding:0}
+        ul,li{list-style:none;}
+        a{text-decoration: none}
+        #box,.bg{width:100%;height:100%}
+        .bg{position:fixed;}
+        #box ul{position: absolute;bottom:10px;left:0;text-align: center;width:100%;z-index: 9999}
+        #box ul li{display: inline-block;margin:0 20px;}
+        #box ul li img{display: block;width:110px;height:110px;border: 10px solid rgba(255,255,255,.2);border-radius: 50%;}
+        .bg:target{z-index: 10;}
+        .bg1-target{
+            -webkit-animation: slideDown 1s ease-in-out;
+            animation: slideDown 1s ease-in-out;
+
+        }
+        @-webkit-keyframes slideDown {
+            0%{
+               top:-500px
+            }
+            100%{
+               top:0;
+            }
+        }
+        .bg2-target{
+            -webkit-animation: slideLeft .8s ease-in;
+            animation: slideLeft .8s ease-in;
+        }
+        @-webkit-keyframes slideLeft {
+            0%{left:-500px}
+            100%{left:0}
+        }
+        .bg3-target{
+            -webkit-animation: scale .8s ease-in;
+            animation: scale .8s ease-in;
+        }
+        @-webkit-keyframes scale {
+            0%{
+                -webkit-transform: scale(0.2);
+                transform: scale(0.2);
+            }
+            100%{
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+        .bg4-target{
+            -webkit-animation: rotate .8s ease-in;
+            animation: rotate .8s ease-in;
+        }
+        @-webkit-keyframes rotate {
+            0%{
+                -webkit-transform: scale(0.2) rotate(-360deg);
+                transform: scale(0.2) rotate(-360deg);
+            }
+            100%{
+                -webkit-transform: scale(1) rotate(0deg);
+                transform: scale(1) rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="images/1.jpg" alt="" class="bg" id="bg1"/>
+    <img src="images/2.jpg" alt="" class="bg" id="bg2"/>
+    <img src="images/3.jpg" alt="" class="bg" id="bg3"/>
+    <img src="images/4.jpg" alt="" class="bg" id="bg4"/>
+    <ul>
+        <li><a href="#bg1"><img src="images/1.jpg" alt=""/></a></li>
+        <li><a href="#bg2"><img src="images/2.jpg" alt=""/></a></li>
+        <li><a href="#bg3"><img src="images/3.jpg" alt=""/></a></li>
+        <li><a href="#bg4"><img src="images/4.jpg" alt=""/></a></li>
+    </ul>
+</div>
+<script>
+    var oBox=document.getElementById("box"),aImg=oBox.getElementsByTagName("img");
+    var aLi=oBox.getElementsByTagName("li");
+    var maxN= 4,num=-1;
+    var autoMove=function(){
+        oBox.timer=window.setInterval(function(){
+            num++;
+            if(num>=maxN){
+                num=0;
+            }
+            for(var i=0;i<maxN;i++){
+                aImg[i].className="bg";
+                aImg[i].style.zIndex=1;
+            }
+            aImg[num].className="bg bg"+(num+1)+"-target";
+            aImg[num].style.zIndex=10;
+        },3000);
+    };
+    oBox.onmouseenter=function(){
+        clearInterval(this.timer);
+    };
+    oBox.onmouseleave=function(){
+        autoMove()
+    };
+    autoMove();
+    //循环绑定li点击事件
+    for(var i=0;i<aLi.length;i++){
+        aLi[i].index=i;
+        aLi[i].onclick=function(){
+            for(var j=0;j<aLi.length;j++){
+                aImg[j].className="bg";
+                aImg[j].style.zIndex=1;
+            }
+            aImg[this.index].className="bg bg"+(this.index+1)+"-target";
+            aImg[this.index].style.zIndex=10;
+            num=this.index;
+        }
+    }
+</script>
+</body>
+</html>

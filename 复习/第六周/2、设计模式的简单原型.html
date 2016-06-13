@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>烧水-设计模式</title>
+</head>
+<body>
+<script>
+    function EventEmitter(){}
+    EventEmitter.prototype.on=function(type,fn){
+        if(!this["myEven"+type]){
+            this["myEven"+type]=[];
+        }
+        var ary=this["myEven"+type];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(ary[i]==fn)return;
+            }
+        }
+        ary.push(fn);
+    };
+    EventEmitter.prototype.off=function(type,fn){
+        var ary=this["myEven"+type];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(ary[i]==fn){
+                    ary[i]=null;
+                    return;
+                }
+            }
+        }
+    };
+    EventEmitter.prototype.run=function(type){
+        var ary=this["myEven"+type];
+        if(ary){
+            for(var i=0;i<ary.length;i++){
+                if(typeof ary[i]=="function"){
+                    ary[i].call(this);
+                }else{
+                    ary.splice(i,1);
+                    i--;
+                }
+            }
+        }
+    };
+    function Kettle(){}
+    Kettle.prototype.__proto__=EventEmitter.prototype;
+    Kettle.prototype.boiling=function(){
+        console.log("开始烧水~");
+        var _this=this;
+        window.setTimeout(function(){
+            console.log("水烧开了~");
+            _this.run("boiling");
+        },3000);
+    };
+    function noodle(){
+        console.log("开水泡面~");
+    }
+    function washingFace(){
+        console.log("温水洗脸~");
+    }
+    var k1=new Kettle();
+    k1.on("boiling",noodle);
+    k1.on("boiling",washingFace);
+    k1.boiling();
+</script>
+</body>
+</html>

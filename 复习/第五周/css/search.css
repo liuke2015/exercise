@@ -1,0 +1,8 @@
+@charset "utf-8";
+*{margin:0;padding:0}
+ul,li{list-style:none}
+.box{position:relative;width:360px;height:100px;margin:30px auto;}
+#search{width:340px;height:30px;font:14px/30px "Microsoft Yahei";padding:5px 0;border:1px solid #ccc;outline:none;padding-left:10px;}
+#searchList{display:none;position:absolute;left:0;top:41px;width:350px;overflow:hidden;border:1px solid #ccc;border-top:0;z-index: 9999;}
+#searchList li{width:340px;height:28px;font:14px/28px "Microsoft Yahei";padding-left:10px;cursor:pointer}
+#searchList li.hover{background: #f0e199;}

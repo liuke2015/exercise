@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自定义事件的拖拽</title>
+    <style>
+        #div1{position:absolute;width:100px;height:100px;background: #f04124;left:0;top:0;border-radius:50%;}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script src="js/event.js"></script>
+<script src="js/drag_event.js"></script>
+<script>
+    var oDiv1=document.getElementById("div1");
+on(oDiv1,"mousedown",down);
+on(div1,"selfDragStart",clearEvent);
+on(div1,"selfDrag",getSpeed);
+on(div1,"selfDragEnd",drop);
+on(div1,"selfDragEnd",fly);
+
+    function clearEvent(){
+        clearTimeout(this.flyTimer);
+        clearTimeout(this.dropTimer);
+    }
+    function getSpeed(){
+        if(!this.prePosi){
+            this.prePosi=this.offsetLeft;
+        }else{
+            this.speed=this.offsetLeft-this.prePosi;
+            this.prePosi=this.offsetLeft;
+        }
+    }
+    function fly(){
+        this.speed*=0.97;
+        maxL=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth;
+        var val=this.offsetLeft+this.speed;
+        if(val<=0){
+            this.style.left=0;
+            this.speed*=-1;
+        }else if(val>maxL){
+            this.style.left=maxL+"px";
+            this.speed*=-1;
+        }else{
+            this.style.left=val+"px";
+        }
+
+        if(Math.abs(this.speed)>=0.5){
+            this.flyTimer=window.setTimeout(myBind(this,fly),20);
+        }
+    }
+    var count=0;
+    function drop(){
+        if(!this.dropSpeed){
+            this.dropSpeed=9;
+        }else{
+            this.dropSpeed+=9;
+        }
+        this.dropSpeed*=0.97;
+
+        var maxT=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight;
+        var val=this.offsetTop+this.dropSpeed;
+        if(val>=maxT){
+            this.style.top=maxT+"px";
+            this.dropSpeed*=-1;
+            count++;
+        }else{
+            this.style.top=val+"px";
+            count=0;
+        }
+
+        if(count<2){
+            this.dropTimer=window.setTimeout(myBind(this,drop),20);
+        }
+
+    }
+</script>
+</body>
+</html>

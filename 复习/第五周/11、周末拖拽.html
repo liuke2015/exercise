@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多个拖拽</title>
+    <style type="text/css">
+        #div1,#div2,#div3{ width:100px; height:100px; background:red; position:absolute; top:0; left:200px; cursor:move;}
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2" style="left:200px; top:200px; background:black;"></div>
+<div id="div3" style="left:400px; top:300px; background:green;"></div>
+<script type="text/javascript" src="js/weekendEvent.js"></script>
+<script>
+    var oDiv1=document.getElementById("div1"), oDiv2=document.getElementById("div2"), oDiv3=document.getElementById("div3");
+    on(oDiv1,"mousedown",down);
+    on(oDiv2,"mousedown",down);
+    on(oDiv3,"mousedown",down);
+
+    function down(e){
+        e=e||window.event;
+        this.starL=this.offsetLeft;
+        this.starT=this.offsetTop;
+        this.starX= e.clientX;
+        this.starY= e.clientY;
+
+        if(this.setCapture){
+            this.setCapture();
+            on(this,"mousemove",move);
+            on(this,"mouseup",up);
+        }else{
+            var _this=this;
+            this.MOVE=function(e){
+                move.call(_this,e);
+            };
+            this.UP=function(e){
+                up.call(_this,e);
+            };
+            on(document,"mousemove",this.MOVE);
+            on(document,"mouseup",this.UP);
+        }
+    }
+
+    function move(e){
+        e=e||window.event;
+        var l=this.starL+(e.clientX-this.starX),t=this.starT+(e.clientY-this.starY);
+
+        var minL= 0,maxL=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth;
+        var minT= 0,maxT=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeigth;
+        if(l>=maxL){
+            this.style.left=maxL+"px";
+        }else if(l<=minL){
+            this.style.left=minL+"px";
+        }else{
+            this.style.left=l+"px";
+        }
+
+        if(t>=maxT){
+            this.tyle.top=maxT+"px";
+        }else if(t<=minT){
+            this.style.top=minT+"px";
+        }else{
+            this.style.top=t+"px";
+        }
+    }
+
+    function up(){
+        if(this.releaseCapture){
+            this.releaseCapture();
+            off(this,"mousemove",move);
+            off(this,"mouseup",up);
+        }else{
+            off(document,"mousemove",this.MOVE);
+            off(document,"mouseup",this.UP);
+        }
+    }
+</script>
+</body>
+</html>
