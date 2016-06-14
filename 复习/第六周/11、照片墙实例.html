@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>照片墙实例</title>
+    <style type="text/css">
+        ul,li{ margin:0; padding:0; list-style:none;}
+        ul{ padding:5px; width:480px; height:640px; margin:100px auto; position:relative; background:#6F6;}
+        li{ width:150px; height:150px; margin:5px; float:left; overflow:hidden; background:#39C; cursor:move; -webkit-user-select:none;}
+        li img{ width:150px; height:150px; display:block; border:none;}
+    </style>
+</head>
+<body>
+<ul>
+    <li><img src="img/1.png"></li>
+    <li><img src="img/2.png"></li>
+    <li><img src="img/3.png"></li>
+    <li><img src="img/4.png"></li>
+    <li><img src="img/5.png"></li>
+    <li><img src="img/6.png"></li>
+    <li><img src="img/7.png"></li>
+    <li><img src="img/8.png"></li>
+    <li><img src="img/9.png"></li>
+    <li><img src="img/10.png"></li>
+    <li><img src="img/11.png"></li>
+    <li><img src="img/12.png"></li>
+</ul>
+<script type="text/javascript" src="js/event.js"></script>
+<script type="text/javascript" src="js/drag_oop.js"></script>
+<script type="text/javascript" src="js/tween.js"></script>
+<script>
+    var liList=document.getElementsByTagName("li");
+    for(var i=liList.length-1;i>=0;i--){
+        var curLi=liList.item(i);
+        with(curLi.style){
+            top=(curLi.t=curLi.offsetTop)+"px";
+            left=(curLi.l=curLi.offsetLeft)+"px";
+            position="absolute";
+            margin="0";
+        }
+        var obj=new Drag(curLi);
+        obj.border();
+        obj.on("dragStart",addZIndex);
+        obj.on("dragEnd",goHome);
+        obj.on("drag",getHited);
+        obj.on("dragEnd",changePos);
+    }
+    var z=0;
+    function addZIndex(){
+        this.ele.style.zIndex=++z;
+    }
+    function goHome(){
+        var ele=this.ele;
+        animate(ele,{left:ele.l,top:ele.t},200,2);
+    }
+    function getHited(){
+        var ele=this.ele;
+        this.hitAry=[];
+        for(var i=0;i<liList.length;i++){
+            var oLi=liList[i];
+            if(ele==oLi)continue;
+            oLi.style.background="#39C";
+            if(testHit(ele,oLi)){
+                oLi.style.background="yellow";
+                this.hitAry.push(oLi);
+            }
+        }
+    }
+    function testHit(ele,other){
+        var elePW=ele.offsetLeft+ele.offsetWidth,elePH=ele.offsetTop+ele.offsetHeight;
+        var otherPW=other.offsetLeft+other.offsetWidth,otherPH=other.offsetTop+other.offsetHeight;
+        if(elePW<other.offsetLeft||elePH<other.offsetTop||otherPW<ele.offsetLeft||otherPH<ele.offsetTop){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function changePos(){
+        var ary=this.hitAry;
+        if(ary){
+            var ele=this.ele;
+            for(var i=0;i<ary.length;i++){
+                var oLi=ary[i];
+                oLi.distance=Math.pow(oLi.offsetLeft-ele.offsetLeft,2)+Math.pow(oLi.offsetTop-ele.offsetTop,2);
+                oLi.style.background="#39C";
+            }
+            ary.sort(function(a,b){
+                return a.distance- b.distance;
+            });
+            var maxLi=ary[0];
+            animate(ele,{"left":maxLi.l,"top":maxLi.t},200,3);
+            animate(maxLi,{"left":ele.l,"top":ele.t},200,2);
+            var tempL=ele.l,tempT=ele.t;
+
+            ele.l=maxLi.l;
+            ele.t=maxLi.t;
+            maxLi.l=tempL;
+            maxLi.t=tempT;
+
+            maxLi.style.background="#000";
+            ele.style.background="#39C";
+        }
+        this.hitAry=null;
+    }
+</script>
+</body>
+</html>
