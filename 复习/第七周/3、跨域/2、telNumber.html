@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>电话号码查询</title>
+    <style type="text/css">
+        *{padding:0;margin:0;}
+        .box{width:400px;height:auto;margin:100px auto 0;}
+        .box input,button{padding:5px;}
+        #tel-cb{padding-top:5px;font-size:14px;}
+        i{font-style:normal;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="tel" placeholder="请输入查询电话" name="tel"/>
+    <button>电话查询</button>
+    <div id="tel-cb"></div>
+</div>
+<script src="jsonp.js"></script>
+<script>
+    var tel = document.getElementsByName("tel")[0], btn = document.getElementsByTagName("button")[0], con = document.getElementById("tel-cb");
+    btn.onclick = function () {
+        var val = tel.value;
+        var reg=/1(3|5|7|8)[0-9]{9}/;
+        //var reg = /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/;
+        /*电话号码正则表达式（支持手机号码，3-4位区号，7-8位直播号码，1－4位分机号）
+         匹配格式：
+         11位手机号码
+         3-4位区号，7-8位直播号码，1－4位分机号
+         如：12345678901、1234-12345678-1234*/
+        if (val && reg.test(val)) {
+            JSONP("http://tcc.taobao.com/cc/json/mobile_tel_segment.htm",{"tel":val},function(data){
+                var str=data["province"]+"省 "+data["catName"];
+                con.innerHTML=str;
+            },"callback");
+        }else{
+            con.innerHTML="<i style='color:red'>请输入正确电话号码格式</i>";
+        }
+    };
+
+
+
+</script>
+</body>
+</html>

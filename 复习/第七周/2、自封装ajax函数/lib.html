@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ajax自封装函数</title>
+</head>
+<body>
+<script src="lib/ajaxHelper.js"></script>
+<script>
+    window.onload=function(){
+        x.$ajax({
+            type:"get",
+            url:"data.json",
+            async:true,
+            cache:false,
+            data:{"姓名":"张三","年龄":"29"},
+            username:"linda",
+            password:"123",
+            success:function(data){
+                console.table(data.list);
+            },
+            error:function(e){
+                console.log("出错了");
+            },
+            dataType:"json",
+            timeout:500
+        })
+    }
+</script>
+</body>
+</html>

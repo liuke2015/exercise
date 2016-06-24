@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表单验证</title>
+    <style type="text/css">
+        *{margin:0;padding:0}
+        #form1{width:500px;margin:10px auto;}
+        dd{padding:5px 0;}
+        table{width:60%;margin:0 auto;}
+        table,td,th{border:1px solid #00b3ee;border-collapse:collapse;}
+        td,th{padding:5px;}
+    </style>
+</head>
+<body>
+<form action="" method="get" id="form1">
+    <dl>
+        <dd><label>姓名：<input type="text" name="my-name" value=""/> </label></dd>
+        <dd><label>年龄：<input type="text" name="my-old" value=""/> </label></dd>
+        <dd> 性别：<input type="radio" name="my-sex" value="女" checked="checked"> 女 <input type="radio" name="my-sex" value="男"> 男 </dd>
+        <dd>学历:
+            <select name="my-edu">
+                <option value="小学">小学</option>
+                <option value="初中">初中</option>
+                <option value="高中">高中</option>
+                <option value="大学">大学</option>
+            </select>
+        </dd>
+        <dd>
+            所学课程：
+            <input type="checkbox" name="courses" value="语文"/> 语文
+            <input type="checkbox" name="courses" value="数学"/> 数学
+            <input type="checkbox" name="courses" value="英语"/> 英语
+            <input type="checkbox" name="courses" value="历史"/> 历史
+            <input type="checkbox" name="courses" value="地理"/> 地理
+        </dd>
+        <dd>
+            爱好：
+            <select name="my-hobby" multiple="multiple">
+                <option value="游泳">游泳</option>
+                <option value="旅游">旅游</option>
+                <option value="看电影">看电影</option>
+                <option value="跳舞">跳舞</option>
+            </select>
+        </dd>
+        <!--<dd><input type="submit" value="提交" name="sub"/> </dd>-->
+        <dd><input type="button" value="提交" name="sub"/> </dd>
+    </dl>
+</form>
+<div id="show-content">
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>学历</th>
+            <th>所学课程</th>
+            <th>爱好</th>
+            <th>操作</th>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    function serialize(form){
+        var eles=form.elements,ary=[],str="";//count用来计算没有value值得表单元素个数
+        for(var i=0;i<eles.length;i++){
+            var ele=eles[i];
+            if(!ele.name) {
+                continue;
+            }
+            switch (ele.type){
+                case "select-one":
+                case "select-multiple":
+                    var opts=ele.options;
+                    for(var j=0;j<opts.length;j++){
+                        var opt=opts[j];
+                        if(opt.selected){
+                            str=encodeURIComponent(ele.name)+"="+encodeURIComponent(opt.value);
+                            ary.push(str);
+                        }
+                    }
+                    break;
+                case "radio":
+                case "checkbox":
+                    if(!ele.checked) {
+                        break;
+                    }
+                default :
+                     ele.value=ele.value.replace(/^\s+|\s+$/g,"");
+                     if(ele.value!=""){
+                            str=encodeURIComponent(ele.name)+"="+encodeURIComponent(ele.value);
+                            ary.push(str);
+                     }
+            }
+        }
+        str=ary.join("&");
+        //信息完整校验
+        var nameAry=["my-name","my-old","my-sex","my-edu","courses","my-hobby"],nameAry2=["姓名","年龄","性别","学历","课程","兴趣爱好"];
+        var nameStr="",flag=true;
+        for(var i=0;i<nameAry.length;i++){
+            var name=nameAry[i];
+           document.getElementsByName(name)[0]
+            var reg=new RegExp(name+"=");
+            if(!reg.test(str)){
+                nameStr+=nameAry2[i]+" ";
+                flag=false;
+            }
+        }
+        if(!flag){
+            alert("信息不完整，请填写："+nameStr);
+            return;
+        }
+        return str;
+    }
+    var form1=document.getElementById("form1");
+    document.getElementsByName("sub")[0].onclick=function(){
+        var str=serialize(form1);
+        if(!str){
+            return;
+        }
+        var oCon=document.getElementById("show-content"),oTable = oCon.getElementsByTagName("table")[0];
+        if (!oTable) {
+            var oTable = document.createElement("table");
+            oCon.appendChild(oTable);
+        }
+        var xhr=new XMLHttpRequest();
+        xhr.open("get","/ajax?"+str);
+        xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+        //xhr.setRequestHeader('myname-123', 'zhangyatao');
+        xhr.onreadystatechange=function(){
+            if(this.readyState==4 && /^2\d+/.test(this.status)){
+                var query=JSON.parse(xhr.responseText);
+
+                var tr=document.createElement("tr"),strTd="";
+                for(var key in query){
+                    if(key=="sub"){
+                        strTd+="<td><a del='true' href='javascript:;'>删除</a></td>";
+                        continue;
+                    }
+                    strTd+="<td>"+query[key]+"</td>"
+                }
+                tr.innerHTML=strTd;
+                oTable.appendChild(tr);
+
+            }
+        };
+        xhr.send();
+    };
+   //删除操作部分，不过因为后台已经写入data.txt文档，所以删除后，下次刷新还会出现
+    var oTable = document.getElementsByTagName("table")[0];
+    var delAry=oTable.getElementsByTagName("a");
+    for(var i=0;i<delAry.length;i++){
+        var cur=delAry[i];
+        cur.index=i;
+        cur.onclick=function(){
+            var flag=cur.getAttribute("del");
+            if(flag){
+                var oTr=this.parentNode.parentNode;
+                if(oTr){
+                    oTable.tBodies[0].removeChild(oTr);
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
