@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="js/zeptoBase.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" id="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <link href="css/base.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/scroll.js"></script>
+    <script type="text/javascript" src="js/city.js"></script>
+    <script type="text/javascript" src="js/scroller.js"></script>
+    <script type="text/javascript" src="js/listbase.js"></script>
+    <script type="text/javascript" src="js/datetime.js"></script>
+
+    <link href="css/search.css" rel="stylesheet">
+    <link href="css/register.css" rel="stylesheet">
+    <link href="css/scroll.css" rel="stylesheet"/>
+    <title>9000万优质单身男女的选择</title>
+
+</head>
+<body ontouchstart="">
+<header>
+    <div class="register_head clearfix">
+        <img src="http://i2.zastatic.com/imwap/wap2015/images/icon/reg_logo_0075c3b.png" class="reg_logo"/>
+        <div>
+            <a class="reg_login" href="##">登录</a>
+        </div>
+    </div>
+</header>
+<article>
+    <div class="register_box clearfix">
+        <div class="search_box-flex clearfix">
+            <form id="registerForm" action="" method="post">
+                <div class="search_item reg_item_title" style="">
+                    <p>15秒闪电注册</p>
+                </div>
+                <div class="search_item reg_item_gender">
+                    <span>性别</span>
+								<span class="search_content radio_box" id="radio_box">
+								    <!-- 这里sex的值，1或2，是从微信注册那边带过来的 -->
+									<label><input type="radio" id="sexGirl" name="baseInfo.sex" class="un_select_radio" value="1"  req="请选择性别"/>女</label>
+									<label><input type="radio" id="sexBoy" name="baseInfo.sex" class="un_select_radio"  value="0"  req="请选择性别"/>男</label>
+								</span>
+                </div>
+                <div class="search_item">
+                    <span>所在地</span>
+                    <span class="search_content" id="my_city">请选择所在地</span>
+                    <span class="arrow_down"></span>
+                    <input type="hidden" name="baseInfo.workCity" id="areaCode" class="req" req="请选择所在地"/>
+                    <ul id="my_citylist" class="no_show"  select_name="city" first_name="areaCode" text_show="my_city" cascade-level="3">
+                    </ul>
+                </div>
+                <div class="search_item">
+                    <span>我的生日</span>
+                    <span class="search_content" id="birthday">请选择生日</span>
+                    <input type="hidden" name="birthday" id="birthdayC" class="req" req="请选择生日"/>
+                    <span class="arrow_down"></span>
+                </div>
+                <div class="search_item">
+                    <span>目的</span>
+                    <span class="search_content" id="purpose">请选择</span>
+                    <input type="hidden" name="purpose" id="purposeC" class="req" req="请选择"/>
+                    <span class="arrow_down"></span>
+                    <ul id="my_purposelist" class="no_show"  select_name="city" first_name="areaCode" text_show="my_city" cascade-level="3">
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <button class="btn search_btn" id="submit">免费注册</button>
+    </div>
+</article>
+<footer>
+    <div class="reg_footer_title">
+        <p>与9000万会员一起开启缘分</p>
+    </div>
+
+    <div class="reg_copyright">
+        Copyright © 2005-2016
+    </div>
+
+</footer>
+<script type="text/javascript" src="js/registerFirstStep.js"></script>
+<script type="text/javascript">
+    var pro=[{"001":"住房1","002":"住房2","003":"住房3"}];
+   new RegisterStepOne();
+</script>
+</body>
+</html>

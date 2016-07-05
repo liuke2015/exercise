@@ -1,0 +1,327 @@
+
+
+<!doctype html>
+<html>
+<head>
+
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/base_fb76c7b.js"></script>
+    <script>
+
+        function getSubId(refer){
+            var subId = 0;
+            if(!refer){
+                return -1;
+            }
+            if(/baidu.com/.test(refer)){
+                return 1;
+            }else if(/haosou.com|\.so.com/.test(refer)){
+                return 2;
+            }else if(/sogou.com/.test(refer)){
+                return 3;
+            }else if(/sm.cn/.test(refer)){
+                return 4;
+            }else if(/google.com/.test(refer)){
+                return 5;
+            }else if(/yahoo.com/.test(refer)){
+                return 6;
+            }else if(/bing/.test(refer)){
+                return 7;
+            }else if(/youdao.com/.test(refer)){
+                return 8;
+            }else if(/easou.com/.test(refer)){
+                return 9;
+            }else if(/zhenai.com/.test(refer)){
+                return 0;
+            }
+            return -1;
+        }
+
+        function seoStat(entry){
+            var channelId='903489',ref,arr,reg=new RegExp("(^| )SEOReferrer=([^;]*)(;|$)");
+            if(arr=document.cookie.match(reg)){
+                ref = unescape(arr[2]);
+            }else{
+                ref = document.referrer;
+            }
+            var	subid = getSubId(ref);
+            if(entry && subid > 0){
+                var url='http://m.zhenai.com/from.do?channelId='+channelId;
+                $.ajax({
+                    url:url,
+                    success: function(data){}
+                });
+                setPathCookie("isSEO","1",1);
+            }
+        };
+
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?f52c795bd647ab28d8ad0993d250933f";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        var _hmt = _hmt || [];
+
+
+        //设置Cookie
+        function setPathCookie(name, value, time) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + time * 24 * 60 * 60 * 1000); //N天过期
+            document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + exp.toGMTString()+";path=/";
+            return true;
+        };
+
+        function ajaxStat(resourceId,accessPoint,sParam,isPV) {
+            var ref=document.referrer;
+            var url='http://cdnlog.zhenai.com/visit/?resourceId='+resourceId+'&accessPoint='+accessPoint+'&sParam='+sParam+'&isPV='+isPV+'&referer='+encodeURIComponent(ref?ref:'')+"&r="+Math.random();
+            $.ajax({
+                url:url,
+                dataType:"jsonp",
+                success: function(data){
+                }
+            })
+        };
+    </script>
+
+
+
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/listTemplate_0f28ca4.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" id="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <link href="http://i0.zastatic.com/imwap/wap2015/css/public/base_4817f1b.css" rel="stylesheet">
+
+    <meta name="baidu-tc-cerfication" content="9fecc1e38648f51b5623c62857f4a091" />
+
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/iscroll_e6f5038.js"></script>
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/wap_workcity2015_4311636.js"></script>
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/zhenai_wap.scroller_0dc725b.js"></script>
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/zhenai_wap.listbase_ec1ebff.js"></script>
+    <script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/lib/zhenai_wap.datetimebase_9192144.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0" type="text/javascript"></script>
+
+    <link href="http://i0.zastatic.com/imwap/wap2015/css/list_565cbe5.css" rel="stylesheet">
+    <link href="http://i0.zastatic.com/imwap/wap2015/css/search_095bf6b.css" rel="stylesheet">
+    <link href="http://i0.zastatic.com/imwap/wap2015/css/register_38a9bbd.css" rel="stylesheet">
+    <link href="http://i0.zastatic.com/imwap/wap2015/css/public/zhenai_scroll_select_2f17ee7.css" rel="stylesheet"/>
+    <title>9000万优质单身男女的选择</title>
+
+</head>
+<body ontouchstart="">
+<header>
+    <div class="register_head clearfix">
+        <img src="http://i2.zastatic.com/imwap/wap2015/images/icon/reg_logo_0075c3b.png" class="reg_logo"/>
+        <div>
+
+            <a  onclick="_hmt.push(['_trackEvent', '注册', '注册-登录按钮-着陆页'])"  class="reg_login" href="/v2/login/login.do">登录</a>
+
+        </div>
+    </div>
+</header>
+<article>
+    <div class="register_box clearfix">
+        <div class="search_box-flex clearfix">
+            <form id="registerForm" action="/v2/register/registerStep_1.do" method="post">
+                <div class="search_item reg_item_title" style="">
+                    <p>15秒闪电注册</p>
+                </div>
+                <div class="search_item reg_item_gender">
+                    <span>性别</span>
+								<span class="search_content radio_box" id="radio_box">
+								    <!-- 这里sex的值，1或2，是从微信注册那边带过来的 -->
+									<label><input type="radio" id="sexGirl" name="baseInfo.sex" class="un_select_radio" value="1"  req="请选择性别"/>女</label>
+									<label><input type="radio" id="sexBoy" name="baseInfo.sex" class="un_select_radio"  value="0"  req="请选择性别"/>男</label>
+								</span>
+                </div>
+                <div class="search_item">
+                    <span>所在地</span>
+                    <span class="search_content" id="my_city">请选择所在地</span>
+                    <span class="arrow_down"></span>
+                    <input type="hidden" name="baseInfo.workCity" id="areaCode" class="req" req="请选择所在地"/>
+                    <ul id="my_citylist" class="no_show"  select_name="city" first_name="areaCode" text_show="my_city" cascade-level="3">
+                    </ul>
+                </div>
+                <div class="search_item">
+                    <span>我的生日</span>
+                    <span class="search_content" id="birthday">请选择生日</span>
+                    <input type="hidden" name="birthday" id="birthdayC" class="req" req="请选择生日"/>
+                    <span class="arrow_down"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <button class="btn search_btn" id="submit" onclick="clickLog()">免费注册</button>
+    </div>
+</article>
+<footer>
+    <div class="reg_footer_title">
+        <p>与9000万会员一起开启缘分</p>
+    </div>
+  <!--  <div class="reg_img_box">
+        <div class="reg_img_wrapper" id="reg_img_wrapper">
+            <div class="reg_img_scroller" id="reg_img_scroller">
+                <ul id="vip_header">
+                    <script type="text/javascript">
+                        //优质男
+                        var data_male =[{sex: "0", age: "27", height: "175",  salary: "1万-2万元",  visualPhoto: "http://photo14.zastatic.com/images/photo/16108/64428279/1393153647791_8.jpg"},
+                            {sex: "0", age: "29", height: "175",  salary: "5万元以上",  visualPhoto: "http://photo15.zastatic.com/images/photo/15776/63102868/1388123106015_8.jpg"},
+                            {sex: "0", age: "30", height: "178",  salary: "1万-2万元",  visualPhoto: "http://photo16.zastatic.com/images/photo/16994/67974119/1404618918527_8.jpg"},
+                            {sex: "0", age: "25", height: "180",  salary: "3千-5千元",  visualPhoto: "http://photo14.zastatic.com/images/photo/10833/43331109/1379931350366_8.jpg"},
+                            {sex: "0", age: "27", height: "186",  salary: "1万-2万元",  visualPhoto: "http://photo16.zastatic.com/images/photo/14722/58886687/1374328501184_8.jpg"},
+                            {sex: "0", age: "28", height: "176",  salary: "1万-2万元",  visualPhoto: "http://photo16.zastatic.com/images/photo/16182/64726607/1395454673349_8.jpg"},
+                            {sex: "0", age: "24", height: "175",  salary: "5千-8千元",  visualPhoto: "http://photo15.zastatic.com/images/photo/15965/63856150/1392268906065_8.jpg"},
+                            {sex: "0", age: "34", height: "178",  salary: "5万元以上",  visualPhoto: "http://photo12.zastatic.com/images/photo/15464/61855921/1384501506244_8.jpg"},
+                            {sex: "0", age: "29", height: "177",  salary: "5万元以上",  visualPhoto: "http://photo11.zastatic.com/images/photo/16820/67278294/1404623423941_8.jpg"},
+                            {sex: "0", age: "30", height: "176",  salary: "5千-8千元",  visualPhoto: "http://photo0.zastatic.com/images/photo/5019/20075090/1383466406463_8.jpg"},
+                            {sex: "0", age: "30", height: "175",  salary: "2万-5万元",  visualPhoto: "http://photo12.zastatic.com/images/photo/16004/64013617/1391924985897_8.jpg"},
+                            {sex: "0", age: "32", height: "180",  salary: "1万-2万元",  visualPhoto: "http://photo14.zastatic.com/images/photo/9276/37102467/1318057769846_8.jpg"},
+                            {sex: "0", age: "28", height: "181",  salary: "5千-8千元",  visualPhoto: "http://photo15.zastatic.com/images/photo/15531/62123914/1384697317594_8.jpg"},
+                            {sex: "0", age: "32", height: "172",  salary: "1万-2万元",  visualPhoto: "http://photo16.zastatic.com/images/photo/13798/55190393/1384065123784_8.jpg"},
+                            {sex: "0", age: "30", height: "176",  salary: "5千-8千元",  visualPhoto: "http://photo4.zastatic.com/images/photo/8024/32095229/1403580162108_8.jpg"},
+                            {sex: "0", age: "29", height: "178",  salary: "5万元以上",  visualPhoto: "http://photo16.zastatic.com/images/photo/16616/66463835/1399878076457_8.jpg"},
+                            {sex: "0", age: "26", height: "176",  salary: "2万-5万元",  visualPhoto: "http://photo15.zastatic.com/images/photo/16114/64455868/1398058957419_8.jpg"},
+                            {sex: "0", age: "28", height: "174",  salary: "2万-5万元",  visualPhoto: "http://photo12.zastatic.com/images/photo/11383/45530533/1403413912257_8.jpg"}];
+                        //优质女
+                        var data_female =[{sex: "1", age: "24", height: "160",  salary: "1千元以下",  visualPhoto: "http://photo12.zastatic.com/images/photo/17298/69189037/1407401104964_8.jpg"},
+                            {sex: "1", age: "24", height: "165",  salary: "3千-5千元",  visualPhoto: "http://photo13.zastatic.com/images/photo/17023/68089952/1404887050322_8.jpg"},
+                            {sex: "1", age: "24", height: "160",  salary: "5千-8千元",  visualPhoto: "http://photo13.zastatic.com/images/photo/16736/66942326/1407173325262_8.jpg"},
+                            {sex: "1", age: "20", height: "165",  salary: "3千-5千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16912/67645950/1404001615476_3.jpg"},
+                            {sex: "1", age: "20", height: "166",  salary: "3千-5千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16229/64915704/1394422459383_8.jpg"},
+                            {sex: "1", age: "20", height: "168",  salary: "1千元以下",  visualPhoto: "http://photo11.zastatic.com/images/photo/16948/67788276/1404128562832_8.jpg"},
+                            {sex: "1", age: "24", height: "165",  salary: "3千-5千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16983/67928340/1404535245126_8.jpg"},
+                            {sex: "1", age: "24", height: "160",  salary: "2千-3千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16988/67948338/1404543064207_8.jpg"},
+                            {sex: "1", age: "19", height: "170",  salary: "5千-8千元",  visualPhoto: "http://photo12.zastatic.com/images/photo/16950/67796179/1404168104394_8.jpg"},
+                            {sex: "1", age: "24", height: "165",  salary: "3千-5千元",  visualPhoto: "http://photo16.zastatic.com/images/photo/16799/67195565/1402897868408_8.jpg"},
+                            {sex: "1", age: "23", height: "164",  salary: "2万-5万元",  visualPhoto: "http://photo12.zastatic.com/images/photo/16765/67056067/1402331104593_8.jpg"},
+                            {sex: "1", age: "20", height: "168",  salary: "1千元以下",  visualPhoto: "http://photo11.zastatic.com/images/photo/16948/67788276/1404128562832_8.jpg"},
+                            {sex: "1", age: "23", height: "166",  salary: "3千-5千元",  visualPhoto: "http://photo13.zastatic.com/images/photo/13348/53388032/1409831847064_8.jpg"},
+                            {sex: "1", age: "21", height: "169",  salary: "1千元以下",  visualPhoto: "http://photo12.zastatic.com/images/photo/13516/54061261/1362834731365_8.jpg"},
+                            {sex: "1", age: "22", height: "170",  salary: "5千-8千元",  visualPhoto: "http://photo13.zastatic.com/images/photo/16975/67899386/1404409019707_8.jpg"},
+                            {sex: "1", age: "18", height: "154",  salary: "1千-2千元",  visualPhoto: "http://photo12.zastatic.com/images/photo/17062/68245189/1405254184029_8.jpg"},
+                            {sex: "1", age: "24", height: "165",  salary: "5千-8千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16970/67877376/1404356869677_8.jpg"},
+                            {sex: "1", age: "24", height: "165",  salary: "3千-5千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16983/67928340/1404535245126_8.jpg"},
+                            {sex: "1", age: "24", height: "164",  salary: "5千-8千元",  visualPhoto: "http://photo12.zastatic.com/images/photo/17051/68203843/1406275093392_8.jpg"},
+                            {sex: "1", age: "23", height: "164",  salary: "2千-3千元",  visualPhoto: "http://photo16.zastatic.com/images/photo/16823/67288157/1408686776198_8.jpg"},
+                            {sex: "1", age: "24", height: "160",  salary: "2千-3千元",  visualPhoto: "http://photo11.zastatic.com/images/photo/16988/67948338/1404543064207_8.jpg"},
+                            {sex: "1", age: "24", height: "160",  salary: "5千-8千元",  visualPhoto: "http://photo13.zastatic.com/images/photo/16736/66942326/1407173325262_8.jpg"},
+                            {sex: "1", age: "23", height: "168",  salary: "8千-1万元",  visualPhoto: "http://photo1.zastatic.com/images/photo/7465/29856286/1399189915734_8.jpg"},
+                            {sex: "1", age: "23", height: "160",  salary: "3千-5千元",  visualPhoto: "http://photo14.zastatic.com/images/photo/16970/67879527/1404359874006_8.jpg"},
+                            {sex: "1", age: "24", height: "174",  salary: "5千-8千元",  visualPhoto: "http://photo16.zastatic.com/images/photo/16104/64415969/1393766450604_8.jpg"},
+                            {sex: "1", age: "23", height: "168",  salary: "2千-3千元",  visualPhoto: "http://photo15.zastatic.com/images/photo/16929/67714852/1404062601913_8.jpg"},
+                            {sex: "1", age: "24", height: "163",  salary: "2千-3千元",  visualPhoto: "http://photo12.zastatic.com/images/photo/17014/68053975/1404802817403_8.jpg"},
+                            {sex: "1", age: "21", height: "165",  salary: "5千-8千元",  visualPhoto: "http://photo12.zastatic.com/images/photo/16731/66920593/1401779670777_8.jpg"}];
+                        var male_length=data_male.length;
+                        var female_length=data_female.length;
+                        var list=GetRandomPic();
+                        var userLen = list.length;
+                        var html="";
+                        for(var i=0;i<userLen;i++){
+                            html+="<li><img src='"+list[i].visualPhoto+"'></li>";
+                        }
+                        document.getElementById("vip_header").innerHTML=html;
+                        //随机
+                        function GetRandomNum(Max)
+                        {
+                            var Range = Max;
+                            var Rand = Math.random();
+                            return( Math.round(Rand * Range));
+                        }
+                        //乱序
+                        function shuffle (inputArr) {
+                            var valArr = [],k = '';
+
+                            for (k in inputArr) { // Get key and value arrays
+                                if (inputArr.hasOwnProperty(k)) {
+                                    valArr.push(inputArr[k]);
+                                }
+                            }
+                            valArr.sort(function () {
+                                return 0.5 - Math.random();
+                            });
+
+                            return valArr;
+                        }
+
+                        function GetRandomPic()
+                        {
+                            var list=new Array();
+                            //两男
+                            var male1=GetRandomNum(male_length-1);
+                            var male2=male1+1;
+                            if(male1 >= male_length-1){
+                                male2=male1-1;
+                            }
+                            list[0]=data_male[male1];
+                            list[1]=data_male[male2];
+                            //3女
+                            var female1=GetRandomNum(female_length-1);
+                            var female2=female1+1;
+                            var female3=female1-1;
+                            if(female1 >= female_length-1){
+                                female2=female1-1;
+                            }
+                            if(female1 == 0){
+                                female3=female1+2;
+                            }
+                            list[2]=data_female[female1];
+                            list[3]=data_female[female2];
+                            list[4]=data_female[female3];
+                            return  shuffle(list);
+                        }
+                    </script>
+
+                </ul>
+            </div>
+        </div>
+    </div>-->
+
+
+    <div class="reg_copyright">
+        Copyright © 2005-2016
+    </div>
+
+</footer>
+<!-- 若提交表单后台验证不通过 -->
+
+
+
+<!--  输出后台返回的错误提示信息 -->
+
+
+<script type="text/javascript" src="http://i3.zastatic.com/imwap/wap2015/js/registerFirstStep_b4e6d74.js"></script>
+
+
+<script type="text/javascript">
+    var cidList={channelIds:['903475','903466','903859']};
+    new RegisterStepOne({isStat:'',channelIdList:cidList});
+</script>
+
+
+<script type="text/javascript">
+    function clickLog(){
+        var url='/v2/abtest/clicklog.do?channelId=902759&btnSelect=2';
+        $.ajax({
+            url:url,
+            dataType:"get"
+        });
+    }
+
+    $("#testBtn").click(function(){
+        $.ajax({
+            url: "/v2/register/logrs.do",
+            type:"post",
+            data: {"t":1, "e":2, "v":0, "s":1}
+        });
+    });
+</script>
+
+</body>
+</html>

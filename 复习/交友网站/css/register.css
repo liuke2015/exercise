@@ -1,0 +1,127 @@
+/*fixed by Yuzhifei 2016*/
+.register_head{position: relative; width: 100%;height: 2.25rem;background-color: #703987;}
+img.reg_logo{position: relative;display: block;max-height:1.2rem;float:left;left: .75rem;top:.5rem;}
+a.reg_login{position:relative;right: .75rem;top:.4rem;text-align:center;display: inline-block;width:3.3rem;height: 1.4rem;line-height:1.4rem;background-color:#703987;color: #fff;border: 1px solid #b89cc3;font-size:.6rem;border-radius:2px;}
+a.reg_login:active,a.reg_login:hover{color: #fff;}
+.register_head div{text-align: right;}
+.reg_footer_title,.reg_footer_title2{font-size: .6rem;color: #8c8c8c; text-align: center;}
+.reg_img_wrapper{position: absolute;width: 100%;height: 4.3rem;z-index: 1;left: 0;overflow: hidden;}
+.reg_img_scroller{  position: absolute;z-index: 1;-webkit-tap-highlight-color: rgba(0,0,0,0);height: 100%;-webkit-transform: translateZ(0);-moz-transform: translateZ(0);-ms-transform: translateZ(0);-o-transform: translateZ(0);transform: translateZ(0);-webkit-text-size-adjust: none;-moz-text-size-adjust: none;-ms-text-size-adjust: none;-o-text-size-adjust: none;text-size-adjust: none;}
+.reg_img_scroller ul li{position: relative;display: block;float: left;width: 3.45rem;height: 4.3rem; background-repeat: no-repeat; background-size:cover;}
+.reg_img_scroller ul li img{display: block;max-width:100%;max-height: 100%;}
+.reg_img_box,.reg_img_box2{position:relative;margin-top: .8rem;height: 4.3rem;}
+.reg_copyright{position: relative;display: block;font-size: .45rem;line-height: 3.65rem;text-align: center;color:#c9c9c9;}
+.register_title{text-align:center;background-color:#eeeeee;color:#999999;}
+.head_title{position:relative;width: 100%;height: 2.25rem;line-height: 2.25rem;background-color: #f1f1f1;}
+input.checkbox{display: inline-block;font-size:0;width: .9rem;height: .7rem;vertical-align: middle;background: url('http://i2.zastatic.com/imwap/wap2015/images/icon/check_box_bg_9d4a25d.png') no-repeat;background-size: 1.2rem 2.4rem;background-position:.1rem 0;}
+input.checkbox.no_active{background-position: .1rem -1.2rem;}
+.reg_clause{font-size: .6rem; vertical-align: middle;color:#a9a9a9;}
+.reg_clause a{vertical-align: middle;color: #0097d3;}
+.reg_rule{margin-top: 1rem;padding-left: 1rem;}
+.warn{position: relative;display: block;height:2.25rem;line-height: 2.25rem;padding-left: 1.85rem;margin-left:.5rem;font-size:.7rem;background: #f1f1f1 url(http://i2.zastatic.com/imwap/wap2015/images/icon/icon01_9cc7e12.png) no-repeat .7rem 50%;  background-size: .8rem .8rem;color: #0097d3;}
+input.input_nickname{position: absolute;right: 1.5rem;top: 0;font-size: .7rem;  margin-top: .7rem;color: #999999;text-align: right;}
+.search_btn.eee.green{background-color: #70d460;color:#fff;border:none;}
+.search_btn.eee.green:active{background-color:#4ea940}
+.search_btn.eee{background-color: #eeeeee;color:#666666;border:1px solid #cccccc;}
+.verify_result{position:relative;margin:auto;width:90%;line-height:1rem;margin-top:1rem;text-align:left;font-size: .7rem;color: #b8b8b8}
+.verify_result span{color:#ff5b5b;}
+.reg_item_title{text-align:center;background-color:#eeeeee;color:#999999;}
+.reg_change_phone{position:relative;padding-right:5%;text-align:right;font-size:.7rem;color:#0097d3;}
+.reg_change_phone a{line-height: 1.8rem;color:#0097d3;}
+.form_box{width:100%;height:2.2rem;border-top:1px solid #ccc;display: -webkit-box;display:box;-webkit-box-orient:horizontal;border-bottom:1px solid #ccc;}
+.form_box span{display: block;  font-size: .7rem;color:#666666; line-height: 2.2rem;padding-left: 1.25rem;padding-right: .5rem;}
+.form_box input{display: block;box-flex:1;-webkit-box-flex:1;height:2.2rem;color:#cccccc;font-size: .7rem;}
+.search_item.login_item span{width:3.55rem;}
+.search_item.login_item input:active{background-color: #eaeaea;}
+.login_item_title span{float: left;}
+.login_item_title a{float: right;color: #0097d3}
+.login_bottom a{display:inline;line-height:1.2rem;float: right;padding-right: 1rem;font-size: .6rem;color: #0097d3;vertical-align:bottom}
+.login_item_title p{text-align: left;}
+.login_item_title p:nth-child(2){font-size: .6rem;margin-top: .5rem;}
+.check_code_input{display:inline-block;width:5.6rem;height:2rem;background-color:#f0f0f0;text-align:center;border-radius:0;}
+img.check_code{display:inline-block;width:4.3rem;height:2rem;vertical-align:bottom;}
+.register_box-box .search_box-flex{width: 100%;}
+
+/**意见反馈**/
+.comment_title{position:relative;display: block;width: 100%;height: 2.25rem;background-color: #f5f5f5}
+.comment_title p{padding-left:.7rem;line-height: 2.25rem;font-size: .6rem;color: #949494;}
+.comment_title:before,.comment_compile:before{position: absolute; content: ""; bottom: 0; right: 0; width:100%; height: 0px; border-bottom:1px solid #d8d8d8;box-sizing:border-box;transform:scaleY(.5);-webkit-transform:scaleY(.5);}
+@media only screen and (device-pixel-ratio : 3){.comment_title:before,.comment_compile:before{transform:scaleY(.3);-webkit-transform:scaleY(.3);}}
+.comment_compile{position:relative;width: 100%;height: 7.5rem;overflow: hidden;}
+.comment_compile textarea{display: block;height: 100%;width: 100%;padding-top: .6rem;padding-left:.8rem;font-size: .7rem;}
+.submit_comment{background-color: #703987}
+.search_item.no_ea:active{background-color: #fff;}
+
+/*注册页面优化*/
+.flexBox{  display: -webkit-box;display: -moz-box;display: -ms-flexbox; display: -webkit-flex;display: flex;}
+.flex1{-webkit-box-flex: 1; -moz-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1;}
+.register_box2{ padding:.5rem .75rem 0 .75rem}
+.register_box2 .search_item{position: relative;padding: .8rem .8rem;overflow: hidden;background-color: #f4f2f7;}
+.reg_img_box2 .reg_img_scroller ul li{width: 2.75rem;height:3.75rem;}
+.register_box2 .butArea .btn{ vertical-align: top; margin: 0;}
+.register_box2 .butArea .holder{display: inline-block;width: 2.75rem;height: 2.05rem;;}
+.register_box2 .items .search_item:before{ border-bottom: none;}
+.register_box2 .headImg,.register_box2 .detail_box{ display: inline-block; border-radius: 0.25rem; vertical-align:top;}
+.register_box2 .headImg{width: 2.05rem; height: 2.05rem; background: url('http://images.zhenai.com/imwap/wap2015/images/user/register2_head_img.jpg'); background-size: contain; }
+.register_box2 .detail_box{ position: relative; margin-left: .7rem; border:1px solid #e3dcec;padding: .55rem .25rem .55rem .37rem;background-color:#f4f2f7; font-size: .75rem; color: #515151;}
+.register_box2 .items:last-child .detail_box{ background-color: #fff; padding: 0;}
+.register_box2 .items:last-child .detail_box .search_item:last-child{ background-color: #fff; border-bottom-left-radius: 0.25rem;border-bottom-right-radius: 0.25rem;}
+.register_box2 .detail_box:before{position:absolute;left:-.36rem;top:.78rem;display:block;content:'';width:.6rem;height:.6rem;border-left:1px solid #e3dcec;border-bottom:1px solid #e3dcec;background-color:#f4f2f7;transform:rotate(45deg);-webkit-transform:rotate(45deg)}
+.register_box2 .guessInfo{ margin:.5rem 0 .75rem 0;}
+.register_box2 .butArea{margin-bottom: .75rem;}
+.register_box2 .guessInfo .search_item{ padding:.8rem .35rem; color:#969696;}
+.register_box2 .guessInfo .descSelf,.register_box2 .guessInfo .birthday{ color: #515151;}
+.register_box2 .guessInfo .reg_item_gender:before{border-bottom: 1px solid #d0c5e2;width: 92%;left:.35rem;}
+.register_box2 .guessInfo .reg_item_gender input[type='radio'].un_select_radio{top:0; border-radius:.8rem; background-position: 2px 2px; background-color: #F4F2F7;}
+.register_box2 .guessInfo .reg_item_gender input[type='radio'].un_select_radio.selected { background-position:2px -20px;}
+
+.register_box2 .guessInfo span:first-child{ color: #969696;}
+.register_box2 .guessInfo .radio_box{padding-right:.58rem;}
+.reg_footer_title2{position:relative;z-index:0;height:.85rem;color:#959595;display:-ms-flexbox;-ms-flex-pack:center;-ms-flex-align:center;display:-moz-box;-moz-box-pack:center;-moz-box-align:center;display:-webkit-box;-webkit-box-pack:center;-webkit-box-align:center;display:box;box-pack:center;box-align:center}
+.reg_footer_title2:after{ display: block; position: absolute; top:10px; content:''; width: 100%; left: 0; right: 0; height: 2px; border-top: 1px dotted #d9d9d9;}
+.reg_footer_title2 span{background: #fff;padding: 0 5px;display: inline-block;position: relative;z-index: 1;}
+.reg_footer_title2 span b{ font-size:.7rem; color:#ff6600;}
+.reg_img_box2{margin-top: .2rem;}
+.info_box_shake{-webkit-animation-name: "infoboxshake"; -webkit-animation-duration:1.3s;-webkit-animation-timing-function:linear;-webkit-animation-iteration-count:1;}
+@-webkit-keyframes 'infoboxshake' {0%, 100% {-webkit-transform: translateX(0);}10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-3px); -webkit-transform: translateY(-3px);}20%, 40%, 60%, 80% {-webkit-transform: translateX(4px);}}
+
+/*
+create by Yuzhifei 2016-03-16
+注册优化 第三次
+*/
+.cc{display:-ms-flexbox;-ms-flex-pack:center;-ms-flex-align:center;display:-moz-box;-moz-box-pack:center;-moz-box-align:center;display:-webkit-box;-webkit-box-pack:center;-webkit-box-align:center;display:box;box-pack:center;box-align:center}
+.search_btn{background-color: #ff5b5b;}
+.reg_item_title{ text-align: center; padding:.8rem; font-size: .75rem; background-color: #f2efff; color: #000}
+.reg_item_title .pelopes{ color: #e54747}
+.reg_cp_box{ font-size: .7rem}
+.reg_cp_box .inputBox{ position: relative;  padding:.4rem .8rem; line-height: 1.5rem; }
+.reg_cp_box .inputBox:last-child input.password{ min-width: 10.2rem;}
+.reg_cp_box .inputBox input[type=text]{ width:90%}
+.reg_cp_box .inputBox input[type=text].password{ width: 130%;}
+.reg_cp_box .inputBox input[type=text].vCode{ width:66%;}
+.reg_cp_box .inputBox:after{position:absolute;content:"";bottom:0;right:0;width:100%;height:0;border-bottom:1px solid #d8d8d8;-webkit-transform:scaleY(.3);box-sizing:border-box;}
+.reg_cp_box .inputBox .label{ width:3rem;}
+.reg_cp_box .inputBox input[type="button"].getVC{display: block; width:4.4rem; border:1px solid #703987; border-radius:5px; text-align: center; background-color: #fff; color: #703987;}
+.reg_cp_box .vCode{ text-align: center; }
+.reg_cp_box .inputBox .password{ width: 100%; }
+/*获取手机验证码确认框*/
+.m-mask{position: fixed; width: 100%; height: 100%; left: 0; top: 0; background-color: rgba(0,0,0,.8); z-index: 9;}
+.m-mask .vccBox{ position: fixed; width: 83%; left:5%;top:50%;-webkit-transform:translate3d(0,-50%,0);background-color: #fff; border-radius: 10px; padding:.65rem .65rem 1rem .65rem;}
+.m-mask .vccBox .close{position: absolute;right: -0.65rem;top: -0.65rem;width: 1.5rem;height: 1.5rem;border-radius: 50%;background: url(http://i2.zastatic.com/imwap/wap2015/images/icon/icon_match_f26ee99.png) no-repeat;background-size: 3.5rem 1.5rem;}
+.m-mask .vccBox .title{ padding-top: 1rem; font-size: .8rem;}
+.m-mask .vccBox .inputBox{ padding: 1.3rem 0; 	display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; }
+.inputBox-vcode{ border-bottom: 1px solid #e6e6e6; -webkit-box-flex: 1; -moz-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; }
+.inputBox-vcode input{ width: 100%; height: 2rem;}
+.vcode-img{ width:4.8rem;}
+.vcode-img img{ display: block; width: 100%;}
+.m-mask .vccBox .btnBox{ text-align: center;}
+.m-mask .vccBox a{display: inline-block;width:100%;height: 2rem;line-height: 2rem;border-radius: .25rem;background-color: #ff5959;font-size: .8rem;color: #fff;text-align: center;}
+
+/*手机验证样式调整 add at 2016-05-06*/
+.reg_cp_head .head_title{ text-align: center; }
+.reg_cp_head .warn{ display: inline-block; height: 2.2rem }
+.reg_cp_box .vCodeBox{transition:display .3s linear; -webkit-transition:display .3s linear; height: 2rem; line-height: 2rem}
+.reg_cp_box .vCodeBox div.flex1{ margin-right:.5rem; background-color: #F0F0F0; text-align: center;}
+.reg_cp_box .vCodeBox div.flex1 input{ background-color: transparent;}
+/*注册成功 弹窗*/
+.registerSucc{position:fixed;width:100%;height:100%;z-index:99999;left:0;top:0;background:rgba(0,0,0,.8);display:-ms-flexbox;-ms-flex-pack:center;-ms-flex-align:center;display:-moz-box;-moz-box-pack:center;-moz-box-align:center;display:-webkit-box;-webkit-box-pack:center;-webkit-box-align:center;display:box;box-pack:center;box-align:center}.registerSucc .content{position:relative;width:8.5rem;height:7.9rem;background:url('http://images.zhenai.com/imwap/wap2015/images/register201603/result-icons.png') no-repeat;background-size:cover}.registerSucc .content p{position:absolute;width:100%;text-align:center;bottom:-.8rem;font-size:1.1rem;color:#2ace96}.registerSucc .content span.s{display:inline-block;opacity:0;position:absolute;z-index:999999;background:url('http://images.zhenai.com/imwap/wap2015/images/register201603/start-icons.png') no-repeat;background-size:.775rem auto}.registerSucc .content span.s1{right:0;top:3.4rem;width:.9rem;height:.8rem;background-position:0 0;-webkit-animation:flash 1.5s infinite ease-in .5s;animation:flash 1.5s infinite ease-in .5s}.registerSucc .content span.s2{left:1.5rem;top:2rem;width:.65rem;height:.65rem;background-position:0 -1.2rem;-webkit-animation:flash .8s infinite ease-in .6s;animation:flash .8s infinite ease-in .6s}.registerSucc .content span.s3{left:2rem;top:5.8rem;width:.5rem;height:.5rem;background-position:0 -1.95rem;-webkit-animation:flash 1.3s infinite ease-in .7s;animation:flash 1.3s infinite ease-in .7s}.registerSucc .content span.s4{right:1rem;top:4.5rem;width:.4rem;height:.4rem;background-position:0 -2.6rem;-webkit-animation:flash .65s infinite ease-in .7s;animation:flash .65s infinite ease-in .7s}.register_head{position:relative;width:100%;height:2.25rem;background-color:#703987}img.reg_logo{position:relative;display:block;max-height:1.2rem;float:left;left:.75rem;top:.5rem}a.reg_login{position:relative;right:.75rem;top:.4rem;text-align:center;display:inline-block;width:3.3rem;height:1.4rem;line-height:1.4rem;background-color:#703987;color:#fff;border:1px solid #b89cc3;font-size:.6rem;border-radius:2px}a.reg_login:active,a.reg_login:hover{color:#fff}.register_head div{text-align:right}@-webkit-keyframes flash{0%,100%,50%{opacity:1}25%,75%{opacity:0}}@keyframes flash{0%,100%,50%{opacity:1}25%,75%{opacity:0}}@-webkit-keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
